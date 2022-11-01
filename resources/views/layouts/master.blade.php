@@ -119,7 +119,7 @@
     <div class="floating-container">
         <a class="floating-button" href="https://wa.me/681393055550" target="_blank">
             <span class="float-element">
-                <ion-icon name="logo-whatsapp" style=""></ion-icon>
+                <ion-icon name="logo-whatsapp"></ion-icon>
             </span>
         </a>
     </div>
@@ -230,7 +230,7 @@
                     <li class="mt-3">
                         <p class="heading-left">Telepon :</p>
                         <p class="content-left">
-                            <a href="https://wa.me/681393055550" target="_blank">
+                            <a href="https://wa.me/6281393055550" target="_blank">
                                 <ion-icon name="logo-whatsapp"></ion-icon>&nbsp 081393055550
                             </a>
                         </p>
