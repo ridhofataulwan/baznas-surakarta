@@ -44,8 +44,6 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
     <!--Chart-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
-    <!-- Aos CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -117,10 +115,6 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
     @yield('content')
     <!--Content-->
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
     <a href="https://api.whatsapp.com/send?phone=6281393055550&text=Assalamu'alaikum." class="floating-container" target="_blank">
         <i class="fa fa-whatsapp my-float floating-button"></i>
     </a>

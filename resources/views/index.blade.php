@@ -72,7 +72,7 @@
     <div class="container px-4 px-lg-5">
         <h2 class="text-center text-white">PENYALURAN</h2>
         <div class="row gx-4 gx-lg-5 mt-5">
-            <div class="col-lg-6 col-md-6 col-6 text-center my-2" data-aos="fade-left" data-aos-delay="100" data-aos-duration="500">
+            <div class="col-lg-6 col-md-6 col-6 text-center my-2">
                 <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
                     <div>&nbsp;</div>
                     <div class="mb-2"><img src="assets/img/portfolio/logo/himpunan.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
@@ -83,7 +83,7 @@
                     <div>&nbsp;</div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-6 text-center my-2" data-aos="fade-right" data-aos-duration="500">
+            <div class="col-lg-6 col-md-6 col-6 text-center my-2">
                 <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
                     <div>&nbsp;</div>
                     <div class="mb-2"><img src="assets/img/portfolio/logo/dana.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
@@ -98,7 +98,7 @@
 </section>
 <section class="" id="about">
     <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center" data-aos="fade-up" data-aos-duration="1000">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-12 text-center">
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
@@ -174,7 +174,7 @@
 <section class="page-section2">
     <div class="container">
         <div class="row">
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-up" data-aos-duration="500">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0 zoom">
                     <div class="card-body p-3" style="border-radius:30px; border:none;">
                         <div class="container" style="height: auto; border-top-left-radius: 30px; border-top-right-radius: 30px; padding-bottom:4%; padding-top:4%; background-color:#01502D;">
@@ -186,7 +186,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-up" data-aos-duration="1000">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0 zoom">
                     <div class="card-body p-3" style="border-radius:30px; border:none;">
                         <div class="container" style="height: auto; border-top-left-radius: 30px; border-top-right-radius: 30px; padding-bottom:4%; padding-top:4%; background-color:#01502D">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-up" data-aos-duration="1500">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0 zoom">
                     <div class="card-body p-3" style="border-radius:30px; border:none;">
                         <div class="container" style="height: auto; border-top-left-radius: 30px; border-top-right-radius: 30px; padding-bottom:4%; padding-top:4%; background-color:#01502D">
@@ -210,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-up" data-aos-duration="2000">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0 zoom">
                     <div class="card-body p-3" style="border-radius:30px; border:none;">
                         <div class="container" style="height: auto; border-top-left-radius: 30px; border-top-right-radius: 30px; padding-bottom:4%; padding-top:4%; background-color:#01502D">
@@ -228,7 +228,7 @@
 <section class="page-section2" id="services" style="background-color: #01502D;">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5">
-            <div class="col-md-6" data-aos="fade-right">
+            <div class="col-md-6">
                 <center>
                     <h3 class="text-white mb-3">Galeri Kegiatan</h3>
                 </center>
@@ -249,7 +249,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6" data-aos="fade-left">
+            <div class="col-md-6">
                 <center>
                     <h3 class="text-white mb-3">Video</h3>
                 </center>
@@ -267,7 +267,7 @@
     </center>
     <div class="d-flex justify-content-center">
         <div class="container">
-            <div class="d-flex justify-content-center" data-aos="fade-in">
+            <div class="d-flex justify-content-center">
                 <div class="col-md-auto mx-lg-5">
                     <div class="input-group mt-2">
                         <span class="input-group-text" style="background-color: #01502D; color:#fff; width: 120px;">Fakir</span>
@@ -308,7 +308,7 @@
                 </div>
                 <img src="./assets/img/1.png" class="image-infaq" style="width: 15em;" alt="">
             </div>
-            <div class="chart-container" data-aos="fade-in">
+            <div class="chart-container">
                 <canvas id="myChart" class="mt-2"></canvas>
             </div>
         </div>
@@ -319,7 +319,7 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-12 text-center">
                 <h2 class="text" style="color: #2E3192; margin-top: 70px;">BERITA</h2>
-                <div id="carouselExampleControls" class="carousel slide p-0" data-bs-ride="carousel" data-aos="fade-up">
+                <div id="carouselExampleControls" class="carousel slide p-0" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <?php for ($i = 0; $i < count($category); $i++) { ?>
                             <div class="carousel-item <?php if ($i == 0) {
@@ -362,7 +362,7 @@
         </div>
 </section>
 <br><br>
-<section id="bayar-zakat" data-aos="fade-up">
+<section id="bayar-zakat">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5">
             <div class="col-md-12">
@@ -417,30 +417,30 @@
 </section>
 <section id="kerja-sama" class="mt-5">
     <div class="container">
-        <h2 class="text-center" style="color: #01502D" data-aos="fade-up">KERJA SAMA</h2>
+        <h2 class="text-center" style="color: #01502D">KERJA SAMA</h2>
         <div class="row text-center">
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-left" data-aos-delay="300">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0">
                     <div class="card-body">
                         <img src="{{asset('assets/img/section/logo-baznas-baru.png')}}" style="width: 100%; object-fit: contain" alt="...">
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-left" data-aos-delay="100">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0">
                     <div class="card-body">
                         <img src="{{asset('assets/img/section/logo-uns.png')}}" style="width: 100%; object-fit: contain" alt="...">
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-right" data-aos-delay="100">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0">
                     <div class="card-body">
                         <img src="{{asset('assets/img/section/logo-sv.png')}}" style="width: 100%; object-fit: contain" alt="...">
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0" data-aos="fade-right" data-aos-delay="300">
+            <div class="col-6 col-md-3 col-lg-3 col-sm-6 p-0 m-0">
                 <div class="card border-0">
                     <div class="card-body">
                         <img src="{{asset('assets/img/section/logo-solo.png')}}" style="width: 100%; object-fit: contain" alt="...">
