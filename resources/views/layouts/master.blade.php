@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
+?>
 
 <head>
     <meta charset="utf-8" />

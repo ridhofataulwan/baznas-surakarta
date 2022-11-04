@@ -156,7 +156,7 @@
                             <hr style="height:2px; background-color:#333;width:50%;">
                         </div>
                         <div class="px-3 col-md-auto">
-                            <p>M. Anggam Ambakarim, S.M</p>
+                            <p>M. Anggam Sambakarim, S.M</p>
                         </div>
                     </div>
                 </div>

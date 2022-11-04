@@ -10,7 +10,7 @@
     </div>
 </header>
 <!--Form-->
-<section class="page-section p-0" id="about">
+<section class="page-section p-0" id="about" data-aos="fade-right" data-aos-delay="100" data-aos-duration="500">
     <div class="container-fluid" style="padding-top: 6%;;">
         @if ($errors->any())
         @foreach ($errors->all() as $error)
