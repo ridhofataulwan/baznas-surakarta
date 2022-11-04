@@ -46,6 +46,9 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
     </script>
     <!-- Aos CSS -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 
 <body id="page-top">
@@ -118,14 +121,14 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
     <script>
         AOS.init();
     </script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <div class="floating-container">
-        <a class="floating-button" href="https://wa.me/681393055550" target="_blank">
-            <span class="float-element">
-                <ion-icon name="logo-whatsapp"></ion-icon>
-            </span>
-        </a>
-    </div>
+    <a href="https://api.whatsapp.com/send?phone=6281393055550&text=Assalamu'alaikum." class="floating-container" target="_blank">
+        <i class="fa fa-whatsapp my-float floating-button"></i>
+    </a>
+    <style>
+        .my-float {
+            margin-top: 16px;
+        }
+    </style>
     <style>
         @-webkit-keyframes come-in {
             0% {
@@ -186,6 +189,7 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
 
         .floating-container:hover {
             height: 300px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0);
         }
 
         .floating-container:hover .floating-button {
