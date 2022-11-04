@@ -72,7 +72,7 @@
     <div class="container px-4 px-lg-5">
         <h2 class="text-center text-white">PENYALURAN</h2>
         <div class="row gx-4 gx-lg-5 mt-5">
-            <div class="col-lg-3 col-md-6 col-6 text-center my-2" data-aos="fade-left" data-aos-delay="100" data-aos-duration="500">
+            <div class="col-lg-6 col-md-6 col-6 text-center my-2" data-aos="fade-left" data-aos-delay="100" data-aos-duration="500">
                 <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
                     <div>&nbsp;</div>
                     <div class="mb-2"><img src="assets/img/portfolio/logo/himpunan.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
@@ -83,7 +83,7 @@
                     <div>&nbsp;</div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-6 text-center my-2" data-aos="fade-right" data-aos-duration="500">
+            <div class="col-lg-6 col-md-6 col-6 text-center my-2" data-aos="fade-right" data-aos-duration="500">
                 <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
                     <div>&nbsp;</div>
                     <div class="mb-2"><img src="assets/img/portfolio/logo/dana.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
@@ -93,7 +93,6 @@
                     <div>&nbsp;</div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
