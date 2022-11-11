@@ -215,6 +215,12 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
             transition: all 0.3s;
         }
     </style>
+    <style>
+        a {
+            color: white;
+            text-decoration: none
+        }
+    </style>
 </body>
 <!-- Footer-->
 <footer class="footer-clean main-footer">

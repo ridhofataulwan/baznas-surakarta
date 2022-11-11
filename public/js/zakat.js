@@ -362,3 +362,10 @@ window.onload = () => {
         element.onpaste = e => e.preventDefault();
     }
 }
+
+function copyLink(url) {
+    navigator.clipboard.writeText(url);
+
+    document.getElementById('alert').setAttribute("style", "display: true");
+    document.getElementById('alert').innerHTML = "Url telah tersalin!";
+}
