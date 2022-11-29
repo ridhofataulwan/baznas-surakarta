@@ -44,6 +44,7 @@ Route::controller(BerandaController::class)->group(function () {
     Route::get('/404', 'notFound');
     Route::get('/rekening', 'rekening');
     Route::get('/layanan-pembayaran', 'layananPembayaran');
+    Route::get('/permohonan-bantuan', 'permohonanBantuan');
     /*
     ! Tidak dipakai
     Route::get('/index-fitrah', 'indexFitrah');
@@ -137,7 +138,7 @@ Route::middleware('auth')->group(function () {
             Route::post('galeri/update/{galeriID}', [AdmKabarController::class, 'updateGaleri']);
             Route::get('galeri/delete/{galeriID}', [AdmKabarController::class, 'destroyGaleri']);
 
-            Route::get('dana-tersalurkan/', [BerandaController::class, 'editDanaTersalurkan']);
+            Route::get('dana-tersalurkan/', [BerandaController::class, 'editDanaTersalurkan'])->name('penyaluran');
             Route::post('dana-tersalurkan/', [BerandaController::class, 'storeDanaTersalurkan']);
 
             Route::get('laporan-zis/', [BerandaController::class, 'indexLaporanZis']);
