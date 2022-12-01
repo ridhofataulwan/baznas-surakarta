@@ -45,6 +45,7 @@ Route::controller(BerandaController::class)->group(function () {
     Route::get('/rekening', 'rekening');
     Route::get('/layanan-pembayaran', 'layananPembayaran');
     Route::get('/permohonan-bantuan', 'permohonanBantuan');
+    Route::get('/cek-permohonan-bantuan', 'cekPermohonanBantuan');
     /*
     ! Tidak dipakai
     Route::get('/index-fitrah', 'indexFitrah');
@@ -157,6 +158,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/layanan/pembayaran/{transID}/status', [LayananController::class, 'updateStatusBayar']);
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
+
+            Route::get('/permohonan', [AdminPostController::class, 'permohonan']);
+            Route::get('/permohonan/{slug}', [AdminPostController::class, 'detailPermohonan']);
         });
     });
 });

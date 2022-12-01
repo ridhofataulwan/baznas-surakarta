@@ -28,162 +28,37 @@
                     style="padding-left: 10%; padding-right: 10%; width: 100%; height: auto; position: relative; transform: translateY(8%);">
                     <h3 class="latin text-white"
                         style="text-align: left; font-size: clamp(20px, 3vw, 36px); font-weight: 700; margin-top:5em;">
-                        Bantuan Zakat <br>
-                        Online
+                        Masukkan Kode atau NIK untuk Cek Status
                     </h3>
                     <div style="text-align: left; font-size: clamp(10px, 3vw, 15px);" class="latin text-white">
                         Badan Amil Zakat kota Surakarta
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-7 mt-5">
                 <div class="form-zakat shadow border border-white bg-white">
                     <div class="heading-form">
                         <p class="text-form">
-                            Permohonan Bantuan
+                            Cek Permohonan Bantuan
                         </p>
                         <hr id="hr-form">
-                    </div>
-                    <div>
-                        <i>Cek status permohonan anda <a href="cek-permohonan-bantuan" class="hov-success">Di
-                                sini</a></i>
-                        <style>
-                        a.hov-success {
-                            color: black;
-                        }
-
-                        a.hov-success:hover {
-                            color: blue;
-                        }
-                        </style>
                     </div>
                     <form action="{{ url('bayar-zakat') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mt-4">
-                            <label for="select-zakat" class="form-label">Jenis Bantuan</label>
-                            <select class="form-control form-select bg-white" name="jenis" id="select-zakat">
-                                <option value="Pendidikan">Pendidikan</option>
-                                <option value="Ekonomi Produktif">Ekonomi Produktif</option>
-                                <option value="Dakwah Advokasi">Dakwah & Advokasi</option>
-                                <option value="Kemanusiaan">Kemanusiaan</option>
-                                <option value="Kesehatan">Kesehatan</option>
-                            </select>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="" class="form-label">NIK</label>
-                            <input type="number" placeholder="Masukkan nik" class="form-control bg-white" id=""
+                            <label for="" class="form-label">Kode Permohonan</label>
+                            <input type="number" placeholder="Masukkan Kode" class="form-control bg-white" id=""
                                 name="nik" autocomplete="no">
                         </div>
                         <div class="form-group mt-4">
-                            <label for="nominal-zakat" class="form-label">Nama Lengkap</label>
-                            <input type="text" placeholder="Masukkan nama" class="form-control bg-white"
-                                id="nominalzakat" name="nama" autocomplete="no">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label class="form-label">Tempat, Tanggal Lahir</label>
-                            <div class="row">
-                                <div class="col">
-                                    <input type="text" class="form-control bg-white"
-                                        placeholder="Masukkan Kota Kelahiran">
-                                </div>
-                                <div class="col">
-                                    <input type="date" class="form-control bg-white">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="alamat">Alamat</label>
-                            <div class="row">
-                                <div class="col">
-                                    <select class="form-control form-select bg-white" name="alamat" id="kecamatan"
-                                        onchange="pilihKec(this.value)">
-                                        <option class="form-option" value="" disabled selected>Pilih Kecamatan</option>
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <select class="form-control form-select bg-white" name="alamat" id="kelurahan">
-                                        <option class="form-option" value="" disabled selected>Pilih Kelurahan</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="select-zakat" class="form-label">Agama</label>
-                            <select class="form-control form-select bg-white" name="jenis" id="select-zakat">
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Katholik">Katholik</option>
-                                <option value="Budha">Budha</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Konghucu">Konghucu</option>
-                            </select>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="" class="form-label">Pekerjaan</label>
-                            <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white" id=""
-                                name="pekerjaan" autocomplete="no">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="" class="form-label">No Telp</label>
-                            <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white"
-                                id="" name="pekerjaan" autocomplete="no">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="" class="form-label">Keterangan</label>
-                            <textarea
-                                placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"'
-                                name="keterangan" id="" cols="30" rows="5" class="form-control bg-white"
-                                autocomplete="no" style="height: auto;"></textarea>
-                        </div>
-                        <div class="heading-form mt-5">
-                            <p class="text-form">
-                                Lengkapi Persyaratan Pengajuan
-                            </p>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="surat-permohonan" class="form-label">Surat Permohonan</label>
-                            <input type="file" class="form-control bg-white" name="permohonan" id="surat-permohonan"
-                                autocomplete="no" style="height: auto;">
-                        </div>
-                        <div class="mt-2">Template surat permohonan bisa download <a
-                                href="/assets/file/Format%20Surat%20Permohonan%20Bantuan%20Perorangan.docx"
-                                class="font-weight-bold text-success">Di
-                                sini</a>
-                        </div>
-                        <div class="form-group mt-4">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="" class="form-label">Scan KTP</label>
-                                    <input type="file" class="form-control bg-white" name="ktp" autocomplete="no"
-                                        style="height: auto;">
-                                </div>
-                                <div class="col">
-                                    <label for="" class="form-label">Scan KK</label>
-                                    <input type="file" class="form-control bg-white" name="kk" autocomplete="no"
-                                        style="height: auto;">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="sktm" class="form-label">SKTM atau Gakin</label>
-                            <input type="file" class="form-control bg-white" name="tagihan" id="sktm" autocomplete="no"
-                                style="height: auto;">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="suket" class="form-label">Surat Keterangan Permohonan Bantuan ke Baznas dari
-                                Kelurahan</label>
-                            <input type="file" class="form-control bg-white" name="suket" id="suket" autocomplete="no"
-                                style="height: auto;">
-                        </div>
-                        <div class="form-group mt-4">
-                            <label for="tagihan" class="form-label">Tagihan dari Sekolah</label>
-                            <input type="file" class="form-control bg-white" name="tagihan" id="tagihan"
-                                autocomplete="no" style="height: auto;">
+                            <label for="" class="form-label">NIK</label>
+                            <input type="number" placeholder="Masukkan NIK" class="form-control bg-white" id=""
+                                name="nik" autocomplete="no">
                         </div>
                         <div class="footer-form" style="margin-top: 10%;">
                             <div class="text-center">
                                 <button type="submit" id="testzakat" class="btn btn-success mt-4"
-                                    style="font-size: 20px;">Kirim Permohonan</button>
+                                    style="font-size: 20px;">Cek Permohonan</button>
                             </div>
                         </div>
                     </form>

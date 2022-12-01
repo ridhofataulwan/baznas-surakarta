@@ -119,4 +119,13 @@ class AdminPostController extends Controller
             $post->update(['status' => 'ACTIVE']);
         return redirect()->back()->with('success', 'Status Data Post berhasil diubah');
     }
+
+    public function permohonan()
+    {
+        return view('admin.permohonan-bantuan.index');
+    }
+    public function detailPermohonan($id)
+    {
+        return view('admin.permohonan-bantuan.detail');
+    }
 }

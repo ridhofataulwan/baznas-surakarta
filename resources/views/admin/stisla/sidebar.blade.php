@@ -51,7 +51,8 @@
                         <a class="nav-link" href="{{ url('admin/layanan/rekening') }}"> <span>Rekening</span></a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ url('admin/layanan/pembayaran') }}"> <span>Daftar Pembayar</span></a>
+                        <a class="nav-link" href="{{ url('admin/layanan/pembayaran') }}"> <span>Daftar
+                                Pembayar</span></a>
                     </li>
                 </ul>
             </li>
@@ -63,13 +64,13 @@
 <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand p-1 mb-5">
-            <a href="/" style="font-family: Arial; font-weight:bold; font-size: 1.7em"><img style="width: 3em;" src="{{url('/assets/img/portfolio/logo/logo3.png')}}"> BAZNAS</a>
+            <a href="/" style="font-family: Arial; font-weight:bold; font-size: 1.7em"><img style="width: 3em;"
+                    src="{{url('/assets/img/portfolio/logo/logo3.png')}}"> BAZNAS</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <img style="width: 50%;" src="{{url('/assets/img/portfolio/logo/logo3.png')}}">
         </div>
         <ul class="sidebar-menu">
-
             <li>
                 <a class="nav-link" href="{{url('/admin')}}"><i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -86,13 +87,12 @@
                     </li>
                 </ul>
             </li>
-
-
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-newspaper"></i> <span>Kabar</span></a>
                 <ul class="dropdown-menu">
                     <x-admin.sidebar.post />
-                    <li><a href="{{url('/admin/category')}}" class="nav-item"><i class="fas fa-cog"></i><span>Kategori</span></a></li>
+                    <li><a href="{{url('/admin/category')}}" class="nav-item"><i
+                                class="fas fa-cog"></i><span>Kategori</span></a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -105,6 +105,18 @@
                     <li>
                         <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Daftar
                                 Pembayar</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-holding-usd"></i>
+                    <span>Permohonan</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/permohonan')}}"><span>Semua Permohonan</span></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
                     </li>
                 </ul>
             </li>
