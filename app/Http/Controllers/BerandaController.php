@@ -213,6 +213,10 @@ class BerandaController extends Controller
     {
         return view('layanan.permohonan-bantuan');
     }
+    public function cekPermohonanBantuan()
+    {
+        return view('layanan.cek-permohonan-bantuan');
+    }
 
     // public function indexFitrah()
     // {
