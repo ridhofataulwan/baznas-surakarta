@@ -128,4 +128,8 @@ class AdminPostController extends Controller
     {
         return view('admin.permohonan-bantuan.detail');
     }
+    public function createPermohonan()
+    {
+        return view('admin.permohonan-bantuan.add');
+    }
 }
