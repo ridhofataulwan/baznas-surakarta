@@ -11,15 +11,15 @@
             <div class="navbar-bg"></div>
             @include('admin.stisla.navbar')
             @include('admin.stisla.sidebar')
-
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
                         <h1>Tabel Permohonan Bantuan</h1>
                     </div>
-                    <a href="{{ route('add.post') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
-                            aria-hidden="true"></i> Tambah Permohonan </a>
+                    <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
+                            aria-hidden="true"></i>
+                        Tambah Permohonan </a>
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12 ">

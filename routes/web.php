@@ -160,6 +160,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
             Route::get('/permohonan', [AdminPostController::class, 'permohonan']);
+            Route::get('/permohonan/add', [AdminPostController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
             Route::get('/permohonan/{slug}', [AdminPostController::class, 'detailPermohonan']);
         });
     });
