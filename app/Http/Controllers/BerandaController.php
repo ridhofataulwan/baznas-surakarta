@@ -32,7 +32,7 @@ class BerandaController extends Controller
                 'category_post.name'
             )->get();
         }
-        // dd($post);
+
         $galeri = Galeri::latest()->take(4)->get();
         $penyalur = DB::table('penyaluran')->latest('id')->first();
         $fitrah = DataZis::where('kategori', 1)->sum('price');
@@ -97,26 +97,6 @@ class BerandaController extends Controller
         return view('bayar.zakat');
     }
 
-    public function inspirasi()
-    {
-        return view('kabar.inspirasi');
-    }
-
-    public function article()
-    {
-        return view('kabar.article');
-    }
-
-    public function pendistribusian()
-    {
-        return view('kabar.pendistribusian');
-    }
-
-    public function videoKegiatan()
-    {
-        return view('kabar.video-kegiatan');
-    }
-
     public function hubungiKami()
     {
         return view('hubungi-kami');
@@ -132,78 +112,9 @@ class BerandaController extends Controller
         $rek = Rekening::where('jenis', 'zakat')->get();
         return view('layanan.rekening', compact('rek'));
     }
-
-    public function rekeningInfak()
-    {
-        $rek = Rekening::all();
-        return view('layanan.rekening-infak', compact('rek'));
-    }
-
-    public function rekeningSedekah()
-    {
-        $rek = Rekening::all();
-        return view('layanan.rekening-sedekah', compact('rek'));
-    }
-
-    public function rekeningFidyah()
-    {
-        $rek = Rekening::all();
-        return view('layanan.rekening-fidyah', compact('rek'));
-    }
-
     public function rekeningPembayaran()
     {
         return view('layanan.layanan-pembayaran');
-    }
-
-    public function programKemanusiaan()
-    {
-        return view('program.program-kemanusiaan');
-    }
-    public function programPendidikan()
-    {
-        return view('program.program-pendidikan');
-    }
-    public function programKesehatan()
-    {
-        return view('program.program-kesehatan');
-    }
-    public function programAdvokasiDakwah()
-    {
-        return view('program.program-advokasi-dakwah');
-    }
-    public function programEkonomiProduktif()
-    {
-        return view('program.program-ekonomi-produktif');
-    }
-    public function programKKN()
-    {
-        return view('program.program-kkn');
-    }
-
-    public function programBeasiswa()
-    {
-        return view('program.program-beasiswa');
-    }
-
-    public function programDistribusi()
-    {
-        return view('program.program-distribusi');
-    }
-
-    public function programPemberdayaan()
-    {
-        return view('program.program-permberdayaan');
-    }
-
-    public function programSantunan()
-    {
-        return view('program.program-santunan');
-    }
-
-    public function programSubsidi()
-    {
-        return view('program.program-subsidi');
     }
 
     public function layananPembayaran()
@@ -218,66 +129,6 @@ class BerandaController extends Controller
     {
         return view('layanan.cek-permohonan-bantuan');
     }
-
-    // public function indexFitrah()
-    // {
-    //     $kabar = KabarZakat::latest()->take(3)->get();
-    //     $artikel = Artikel::latest()->take(3)->get();
-    //     $inspirasi = Inspirasi::latest()->take(3)->get();
-    //     $distKabar = KabarZakat::latest()->first();
-    //     $distArtikel = Artikel::latest()->first();
-    //     $distInspirasi = Inspirasi::latest()->first();
-    //     $galeri = Galeri::latest()->take(4)->get();
-    //     return view('index-fitrah',compact('kabar','artikel','inspirasi','distArtikel','distKabar','distInspirasi','galeri'));
-    // }
-
-    // public function indexMaal()
-    // {
-    //     $kabar = KabarZakat::latest()->take(3)->get();
-    //     $artikel = Artikel::latest()->take(3)->get();
-    //     $inspirasi = Inspirasi::latest()->take(3)->get();
-    //     $distKabar = KabarZakat::latest()->first();
-    //     $distArtikel = Artikel::latest()->first();
-    //     $distInspirasi = Inspirasi::latest()->first();
-    //     $galeri = Galeri::latest()->take(4)->get();
-    //     return view('index-maal',compact('kabar','artikel','inspirasi','distArtikel','distKabar','distInspirasi','galeri'));
-    // }
-
-    // public function indexFidyah()
-    // {
-    //     $kabar = KabarZakat::latest()->take(3)->get();
-    //     $artikel = Artikel::latest()->take(3)->get();
-    //     $inspirasi = Inspirasi::latest()->take(3)->get();
-    //     $distKabar = KabarZakat::latest()->first();
-    //     $distArtikel = Artikel::latest()->first();
-    //     $distInspirasi = Inspirasi::latest()->first();
-    //     $galeri = Galeri::latest()->take(4)->get();
-    //     return view('index-fidyah',compact('kabar','artikel','inspirasi','distArtikel','distKabar','distInspirasi','galeri'));
-    // }
-
-    // public function indexQurban()
-    // {
-    //     $kabar = KabarZakat::latest()->take(3)->get();
-    //     $artikel = Artikel::latest()->take(3)->get();
-    //     $inspirasi = Inspirasi::latest()->take(3)->get();
-    //     $distKabar = KabarZakat::latest()->first();
-    //     $distArtikel = Artikel::latest()->first();
-    //     $distInspirasi = Inspirasi::latest()->first();
-    //     $galeri = Galeri::latest()->take(4)->get();
-    //     return view('index-qurban',compact('kabar','artikel','inspirasi','distArtikel','distKabar','distInspirasi','galeri'));
-    // }
-
-    // public function indexInfaq()
-    // {
-    //     $kabar = KabarZakat::latest()->take(3)->get();
-    //     $artikel = Artikel::latest()->take(3)->get();
-    //     $inspirasi = Inspirasi::latest()->take(3)->get();
-    //     $distKabar = KabarZakat::latest()->first();
-    //     $distArtikel = Artikel::latest()->first();
-    //     $distInspirasi = Inspirasi::latest()->first();
-    //     $galeri = Galeri::latest()->take(4)->get();
-    //     return view('index-infaq',compact('kabar','artikel','inspirasi','distArtikel','distKabar','distInspirasi','galeri'));
-    // }
 
     public function editDanaTersalurkan()
     {
