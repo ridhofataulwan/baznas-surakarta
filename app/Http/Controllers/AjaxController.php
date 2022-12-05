@@ -5,9 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\DataZis;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
+    public function getDistrict(Request $request)
+    {
+        $provinces_id = $request->get('province_id');
+        $data = DB::table('districts')->where('provinces_id', $provinces_id)->get();
+        return $data;
+    }
+
+    public function getRegency(Request $request)
+    {
+        $provinces_id = $request->get('province_id');
+        $districts_id = $request->get('district_id');
+        $data = DB::table('regencies')->where(['provinces_id' => $provinces_id, 'districts_id' => $districts_id])->get();
+        return $data;
+    }
+
+    public function getVillage(Request $request)
+    {
+        $provinces_id = $request->get('province_id');
+        $districts_id = $request->get('district_id');
+        $regencies_id = $request->get('regency_id');
+        $data = DB::table('villages')->where(['provinces_id' => $provinces_id, 'districts_id' => $districts_id, 'regencies_id' => $regencies_id,])->get();
+        return $data;
+    }
+
     public function getDataZisCategory(Request $request)
     {
         $id = $request->get('id');
