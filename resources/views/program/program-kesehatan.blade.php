@@ -37,7 +37,7 @@
         <p class="">
         <ol>
             <li>Siapkan berkas persyaratan</li>
-            <li>Bawa persyaratan ke Kantor Baznas Surakarta di <a href="https://goo.gl/maps/pqVLWMpfSft1VQFD9" target="_blank">Jl.
+            <li>Bawa persyaratan ke Kantor Baznas Surakarta di <a href="https://goo.gl/maps/pqVLWMpfSft1VQFD9" target="_blank" style="color: #2E3192; font-weight: 500;">Jl.
                     Dr. Moewardi, Kel. Penumping, Kec. Laweyan, Kota Surakarta</a></li>
             <li>Verifikasi berkas ke petugas</li>
             <li>Setelah verifikasi selesai pengajuan dapat diterima atau ditolak</li>
