@@ -61,7 +61,7 @@
                     <div>&nbsp;</div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a href="kabar-zakat" class="btn btn-success rounded-pill px-3">Selengkapnya</a>
+                    <a href="category/kabar-zakat" class="btn btn-success rounded-pill px-3">Selengkapnya</a>
                 </div>
             </div>
         </div>
@@ -318,7 +318,7 @@
     <div class="container">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-12 text-center">
-                <h2 class="text" style="color: #2E3192; margin-top: 70px;">BERITA</h2>
+                <h2 class="text" style="color: #2E3192; margin-top: 70px;">Kabar</h2>
                 <div id="carouselExampleControls" class="carousel slide p-0" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <?php for ($i = 0; $i < count($category); $i++) { ?>

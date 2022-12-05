@@ -28,7 +28,7 @@ class NavbarCategoryPost extends Component
     public function render()
     {
         $arr = [];
-        $category = CategoryPost::all();
+        $category = CategoryPost::where('id', '!=', '1')->get();
         foreach ($category as $c) {
             $slug = Str::slug($c->name, '-');
             array_push($arr, $slug);

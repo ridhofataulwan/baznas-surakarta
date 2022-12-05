@@ -24,14 +24,15 @@ class BerandaController extends Controller
 {
     public function index()
     {
-        $category = CategoryPost::all();
+        $category = CategoryPost::where('id', '!=', '1')->get();
         foreach ($category as $c) {
-            $post[$c['name']] = Post::join('category_post', 'category_post.id', '=', 'post.category_id')->where('name', $c['name'])->latest()->take(3)->select(
+            $post[$c['name']] = Post::join('category_post', 'category_post.id', '=', 'post.category_id')->where('name', $c['name'])->where('status', "ACTIVE")->latest()->take(3)->select(
                 'post.*',
                 'category_post.id as category_post_id',
                 'category_post.name'
             )->get();
         }
+        // dd($post);
         $galeri = Galeri::latest()->take(4)->get();
         $penyalur = DB::table('penyaluran')->latest('id')->first();
         $fitrah = DataZis::where('kategori', 1)->sum('price');
