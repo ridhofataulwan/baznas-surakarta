@@ -99,14 +99,10 @@
             <div class="col-lg-4 text-center mb-5 mb-lg-0">
                 <div>
                     <i class="bi-phone fs-2 mb-5 text-muted"></i>
-                    <!-- <img src="assets/img/whatsapp.png" width="50" alt="">
-                    <button a href="http://wa.me/6281393055550">
-                        081393055550
-                    </button> -->
                     <p class="content-left text-dark">
-                        <a href="http://wa.me/081393055550" style="font-size: 25px;">
+                        <a href="http://wa.me/6281393055550" style="font-size: 25px; color: #2E3192">
                             Atau Hubungi kami melalui<br>
-                            Whatapps&nbsp <ion-icon name="logo-whatsapp">
+                            Whatsapp&nbsp <ion-icon name="logo-whatsapp">
                             </ion-icon> 081393055550
                         </a>
                     </p>

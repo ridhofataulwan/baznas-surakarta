@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td style="font-size: 14px;">
-                                Simpan bukti transfer,kemudian konfirmasi melalui kontak kami di <a href="https://wa.me/081393055550"><button class="btn btn-primary">Sini</button></a>
+                                Simpan bukti transfer,kemudian konfirmasi melalui kontak kami di <a href="https://wa.me/6281393055550"><button class="btn btn-primary">Sini</button></a>
                             </td>
                         </tr>
                     </tbody>
