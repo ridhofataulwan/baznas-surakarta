@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
 
-class AdminPostController extends Controller
+class AdmPostController extends Controller
 {
     public function listPost($category)
     {
