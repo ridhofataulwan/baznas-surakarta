@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdmCategoryController;
 use App\Http\Controllers\AjaxController;
-use App\Http\Controllers\KabarController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LayananController;
@@ -12,8 +11,10 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\KalkulatorController;
 use App\Http\Controllers\Admin\AdmKabarController;
-use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdmPostController;
 use App\Http\Controllers\Admin\AdmMessageController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,48 +27,67 @@ use App\Http\Controllers\Admin\AdmMessageController;
 |
 */
 
-//Front End
+/*
+! ===============
+! | Client Side |
+! ===============
+*/
 
 Route::controller(BerandaController::class)->group(function () {
     Route::get('/', 'index');
+
+    /*==============
+    | Tentang Kami |
+    ==============*/
     Route::get('/legalitas', 'legalitas');
     Route::get('/visi-misi', 'visiMisi');
     Route::get('/struktur-organisasi', 'strukturOrganisasi');
     Route::get('/organisasi', 'organisasi');
     Route::get('/sejarah-organisasi', 'sejarahOrganisasi');
-    Route::get('/bayarzakat', 'zakat');
-    Route::get('/inspirasi', 'inspirasi');
-    Route::get('/article', 'article');
-    Route::get('/pendistribusian', 'pendistribusian');
-    Route::get('/video-kegiatan', 'videoKegiatan');
-    Route::get('/hubungi-kami', 'hubungiKami');
-    Route::get('/404', 'notFound');
+
+    /*=========
+    | Layanan |
+    =========*/
     Route::get('/rekening', 'rekening');
     Route::get('/layanan-pembayaran', 'layananPembayaran');
     Route::get('/permohonan-bantuan', 'permohonanBantuan');
     Route::get('/cek-permohonan-bantuan', 'cekPermohonanBantuan');
-    /*
-    ! Tidak dipakai
-    Route::get('/index-fitrah', 'indexFitrah');
-    Route::get('/index-maal', 'indexMaal');
-    Route::get('/index-fidyah', 'indexFidyah');
-    Route::get('/index-qurban', 'indexQurban');
-    Route::get('/index-infaq', 'indexInfaq');
-    */
+
+    /*==============
+    | Hubungi Kami |
+    ==============*/
+    Route::get('/hubungi-kami', 'hubungiKami');
+
+    /*=============
+    | Bayar Zakat |
+    =============*/
+    Route::get('/bayarzakat', 'zakat');
+
+    Route::get('/404', 'notFound');
+});
+
+/*
+================
+| Program Page |
+================
+Digunakan untuk mendapatkan rute menuju halaman program
+*/
+Route::controller(ProgramController::class)->group(function () {
     Route::get('/program-kemanusiaan', 'programKemanusiaan');
     Route::get('/program-pendidikan', 'programPendidikan');
     Route::get('/program-kesehatan', 'programKesehatan');
     Route::get('/program-advokasi-dakwah', 'programAdvokasiDakwah');
     Route::get('/program-ekonomi-produktif', 'programEkonomiProduktif');
-    Route::get('/program-kkn', 'programKKN');
-    Route::get('/program-beasiswa', 'programBeasiswa');
-    Route::get('/program-distribusi', 'programDistribusi');
-    Route::get('/program-pemberdayaan', 'programPemberdayaan');
-    Route::get('/program-santunan', 'programSantunan');
-    Route::get('/program-subsidi', 'programSubsidi');
 });
 
-Route::post('datajax/', [AjaxController::class, 'getDataRekening']);
+/*
+=============
+| Postingan |
+=============
+Digunakan di untuk mendapatkan data post berdsarkan kategori dan id (detail postingan)
+*/
+Route::get('/category/{slug}', [PostController::class, 'Post']);
+Route::get('/post/{id}', [PostController::class, 'detailPost']);
 
 /*
 ====================
@@ -75,41 +95,42 @@ Route::post('datajax/', [AjaxController::class, 'getDataRekening']);
 ====================
 Digunakan di index.blade.php untuk mendapatkan respon hasil perhitungan kalkulasi zakat
 */
-Route::post('/index-fitrah', [KalkulatorController::class, 'calcFitrah']);
-Route::post('/index-maal', [KalkulatorController::class, 'calcMaal']);
-Route::post('/index-fidyah', [KalkulatorController::class, 'calcFidyah']);
-Route::post('/index-qurban', [KalkulatorController::class, 'calcQurban']);
-Route::post('/index-infaq', [KalkulatorController::class, 'calcInfaq']);
-Route::post('/index-penghasilan', [KalkulatorController::class, 'calcPenghasilan']);
+Route::controller(KalkulatorController::class)->group(function () {
+    Route::post('/index-fitrah', 'calcFitrah');
+    Route::post('/index-maal', 'calcMaal');
+    Route::post('/index-fidyah', 'calcFidyah');
+    Route::post('/index-qurban', 'calcQurban');
+    Route::post('/index-infaq', 'calcInfaq');
+    Route::post('/index-penghasilan', 'calcPenghasilan');
+});
 
 /*
-====================
-| Postingan |
-====================
-Digunakan di untuk mendapatkan data post berdsarkan kategori dan id (detail postingan)
-*/
-Route::get('category/{slug}', [PostController::class, 'Post']);
-Route::get('post/{id}', [PostController::class, 'detailPost']);
-
-Route::get('kabar-zakat-detail/{id}', [KabarController::class, 'DetailKabarZakat']);
-Route::get('kabar-zakat', [KabarController::class, 'KabarZakat']);
-Route::get('kabar-zakat-detail/{id}', [KabarController::class, 'DetailKabarZakat']);
-Route::get('artikel', [KabarController::class, 'Artikel']);
-Route::get('article-detail/{id}', [KabarController::class, 'detailArtikel']);
-Route::get('inspirasi', [KabarController::class, 'Inspirasi']);
-Route::get('inspirasi-detail/{id}', [KabarController::class, 'detailInspirasi']);
-
-
-/*
-====================
+=====================
 | Client Post Route |
-====================
+=====================
 Digunakan untuk mengirimkan data bayar zakat dan pesan pada fitur di Navigasi Bar
 */
 Route::post('/bayar-zakat', [BerandaController::class, 'terimaBayarZakat']);
 Route::post('/hubungi-kami', [MessageController::class, 'sendMessage']);
+Route::post('/datajax', [AjaxController::class, 'getDataRekening']);
 
-// Backend
+/*
+============
+| Testing |
+===========
+Digunakan untuk testing function region
+*/
+Route::get('/province', [TestController::class, 'indexRegion']);
+Route::post('/get-district', [TestController::class, 'getDistrict']);
+Route::post('/get-regency', [TestController::class, 'getRegency']);
+Route::post('/get-village', [TestController::class, 'getVillage']);
+
+
+/*
+! ==============
+! | Admin Side |
+! ==============
+*/
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'storeLogin']);
 Route::middleware('auth')->group(function () {
@@ -119,33 +140,41 @@ Route::middleware('auth')->group(function () {
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/', [HomeController::class, 'index']);
 
-            Route::get('category/', [AdmCategoryController::class, 'listCategoryPost']);
-            Route::post('category/store', [AdmCategoryController::class, 'storeCategoryPost'])->name('store.category');
-            Route::post('category/update', [AdmCategoryController::class, 'updateCategoryPost'])->name('update.category');
-            Route::get('category/delete/{id}', [AdmCategoryController::class, 'destroyCategoryPost'])->name('destroy.category');
+            Route::get('/category', [AdmCategoryController::class, 'listCategoryPost']);
+            Route::post('/category/store', [AdmCategoryController::class, 'storeCategoryPost'])->name('store.category');
+            Route::post('/category/update', [AdmCategoryController::class, 'updateCategoryPost'])->name('update.category');
+            Route::get('/category/delete/{id}', [AdmCategoryController::class, 'destroyCategoryPost'])->name('destroy.category');
 
-            Route::get('post/add', [AdminPostController::class, 'createPost'])->name('add.post');
-            Route::post('post/store', [AdminPostController::class, 'storePost'])->name('store.post');
-            Route::get('post/{slug}', [AdminPostController::class, 'listPost']);
-            Route::get('post/edit/{id}', [AdminPostController::class, 'editPost']);
-            Route::post('post/update/{id}', [AdminPostController::class, 'updatedPost']);
-            Route::get('post/delete/{id}', [AdminPostController::class, 'destroyPost']);
-            Route::get('post/status/{id}', [AdminPostController::class, 'statusPost']);
+            Route::get('/post/add', [AdmPostController::class, 'createPost'])->name('add.post');
+            Route::post('/post/store', [AdmPostController::class, 'storePost'])->name('store.post');
+            Route::get('/post/{slug}', [AdmPostController::class, 'listPost']);
+            Route::get('/post/edit/{id}', [AdmPostController::class, 'editPost']);
+            Route::post('/post/update/{id}', [AdmPostController::class, 'updatedPost']);
+            Route::get('/post/delete/{id}', [AdmPostController::class, 'destroyPost']);
+            Route::get('/post/status/{id}', [AdmPostController::class, 'statusPost']);
 
-            Route::get('galeri', [AdmKabarController::class, 'indexGaleri'])->name('index.galeri');
-            Route::get('galeri/add', [AdmKabarController::class, 'createGaleri'])->name('add.galeri');
-            Route::post('galeri/store', [AdmKabarController::class, 'storeGaleri'])->name('store.galeri');
-            Route::get('galeri/edit/{galeriID}', [AdmKabarController::class, 'editGaleri']);
-            Route::post('galeri/update/{galeriID}', [AdmKabarController::class, 'updateGaleri']);
-            Route::get('galeri/delete/{galeriID}', [AdmKabarController::class, 'destroyGaleri']);
+            Route::get('/galeri', [AdmKabarController::class, 'indexGaleri'])->name('index.galeri');
+            Route::get('/galeri/add', [AdmKabarController::class, 'createGaleri'])->name('add.galeri');
+            Route::post('/galeri/store', [AdmKabarController::class, 'storeGaleri'])->name('store.galeri');
+            Route::get('/galeri/edit/{galeriID}', [AdmKabarController::class, 'editGaleri']);
+            Route::post('/galeri/update/{galeriID}', [AdmKabarController::class, 'updateGaleri']);
+            Route::get('/galeri/delete/{galeriID}', [AdmKabarController::class, 'destroyGaleri']);
 
-            Route::get('dana-tersalurkan/', [BerandaController::class, 'editDanaTersalurkan'])->name('penyaluran');
-            Route::post('dana-tersalurkan/', [BerandaController::class, 'storeDanaTersalurkan']);
+            /*
+            ========================
+            | Route that will be remove |
+            ========================
+            ! Akan di hapus
+            */
+            // ! ============================================================================================
+            Route::get('/dana-tersalurkan', [BerandaController::class, 'editDanaTersalurkan'])->name('penyaluran');
+            Route::post('/dana-tersalurkan', [BerandaController::class, 'storeDanaTersalurkan']);
 
-            Route::get('laporan-zis/', [BerandaController::class, 'indexLaporanZis']);
-            Route::get('data-zis/edit/{id}', [BerandaController::class, 'editLaporanZis']);
-            Route::post('data-zis/edit/{id}', [BerandaController::class, 'updateLaporanZis']);
-            Route::get('data-zis/delete/{id}', [BerandaController::class, 'deleteLaporanZis']);
+            Route::get('/laporan-zis', [BerandaController::class, 'indexLaporanZis']);
+            Route::get('/data-zis/edit/{id}', [BerandaController::class, 'editLaporanZis']);
+            Route::post('/data-zis/edit/{id}', [BerandaController::class, 'updateLaporanZis']);
+            Route::get('/data-zis/delete/{id}', [BerandaController::class, 'deleteLaporanZis']);
+            // ! ============================================================================================
 
             Route::get('/layanan/rekening', [LayananController::class, 'indexLayananRekening']);
             Route::get('/layanan/rekening/add', [LayananController::class, 'addRekening']);
@@ -159,9 +188,9 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
-            Route::get('/permohonan', [AdminPostController::class, 'permohonan']);
-            Route::get('/permohonan/add', [AdminPostController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
-            Route::get('/permohonan/{slug}', [AdminPostController::class, 'detailPermohonan']);
+            Route::get('/permohonan', [AdmPostController::class, 'permohonan']);
+            Route::get('/permohonan/add', [AdmPostController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
+            Route::get('/permohonan/{slug}', [AdmPostController::class, 'detailPermohonan']);
         });
     });
 });
