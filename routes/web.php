@@ -120,10 +120,10 @@ Route::post('/datajax', [AjaxController::class, 'getDataRekening']);
 ===========
 Digunakan untuk testing function region
 */
-Route::get('/province', [TestController::class, 'indexRegion']);
-Route::post('/get-district', [TestController::class, 'getDistrict']);
-Route::post('/get-regency', [TestController::class, 'getRegency']);
-Route::post('/get-village', [TestController::class, 'getVillage']);
+Route::get('/province', [AjaxController::class, 'indexRegion']);
+Route::post('/get-district', [AjaxController::class, 'getDistrict']);
+Route::post('/get-regency', [AjaxController::class, 'getRegency']);
+Route::post('/get-village', [AjaxController::class, 'getVillage']);
 
 
 /*
