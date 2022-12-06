@@ -191,6 +191,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/permohonan', [AdmPostController::class, 'permohonan']);
             Route::get('/permohonan/add', [AdmPostController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
             Route::get('/permohonan/{slug}', [AdmPostController::class, 'detailPermohonan']);
+
+            Route::get('/penyaluran', [AdmPostController::class, 'penyaluran']);
+            Route::get('/penyaluran/add', [AdmPostController::class, 'createPenyaluran'])->name('add.penyaluran-sedekah');
         });
     });
 });
