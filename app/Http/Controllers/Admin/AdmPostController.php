@@ -132,4 +132,12 @@ class AdmPostController extends Controller
     {
         return view('admin.permohonan-bantuan.add');
     }
+    public function penyaluran()
+    {
+        return view('admin.penyaluran-sedekah.index');
+    }
+    public function createPenyaluran()
+    {
+        return view('admin.penyaluran-sedekah.add');
+    }
 }

@@ -120,6 +120,18 @@
                     </li>
                 </ul>
             </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-holding-usd"></i>
+                    <span>Penyaluran</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/penyaluran')}}"><span>Semua Penyaluran</span></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
+                    </li>
+                </ul>
+            </li>
             <li>
                 <a class="nav-link" href="{{url('/admin/galeri')}}"><i class="fas fa-image"></i> <span>Galeri</span></a>
             </li>
