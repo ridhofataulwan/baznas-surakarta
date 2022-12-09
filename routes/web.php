@@ -10,7 +10,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\KalkulatorController;
-use App\Http\Controllers\Admin\AdmKabarController;
+use App\Http\Controllers\Admin\AdmGalleryController;
+use App\Http\Controllers\Admin\AdmProgramController;
 use App\Http\Controllers\Admin\AdmPostController;
 use App\Http\Controllers\Admin\AdmMessageController;
 use App\Http\Controllers\ProgramController;
@@ -125,6 +126,7 @@ Route::post('/get-district', [AjaxController::class, 'getDistrict']);
 Route::post('/get-regency', [AjaxController::class, 'getRegency']);
 Route::post('/get-village', [AjaxController::class, 'getVillage']);
 
+Route::post('/program/update-state', [AdmProgramController::class, 'updateProgramState']);
 
 /*
 ! ==============
@@ -145,6 +147,17 @@ Route::middleware('auth')->group(function () {
             Route::post('/category/update', [AdmCategoryController::class, 'updateCategoryPost'])->name('update.category');
             Route::get('/category/delete/{id}', [AdmCategoryController::class, 'destroyCategoryPost'])->name('destroy.category');
 
+            /*
+            ===========
+            | Program |
+            ===========
+            ? Akan di tambah
+            */
+            Route::get('/program', [AdmProgramController::class, 'listProgram']);
+            Route::post('/program/store', [AdmProgramController::class, 'storeProgram'])->name('store.program');
+            Route::post('/program/update', [AdmProgramController::class, 'updateProgram'])->name('update.program');
+            Route::get('/program/delete/{id}', [AdmProgramController::class, 'destroyProgram'])->name('destroy.program');
+
             Route::get('/post/add', [AdmPostController::class, 'createPost'])->name('add.post');
             Route::post('/post/store', [AdmPostController::class, 'storePost'])->name('store.post');
             Route::get('/post/{slug}', [AdmPostController::class, 'listPost']);
@@ -153,12 +166,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/post/delete/{id}', [AdmPostController::class, 'destroyPost']);
             Route::get('/post/status/{id}', [AdmPostController::class, 'statusPost']);
 
-            Route::get('/galeri', [AdmKabarController::class, 'indexGaleri'])->name('index.galeri');
-            Route::get('/galeri/add', [AdmKabarController::class, 'createGaleri'])->name('add.galeri');
-            Route::post('/galeri/store', [AdmKabarController::class, 'storeGaleri'])->name('store.galeri');
-            Route::get('/galeri/edit/{galeriID}', [AdmKabarController::class, 'editGaleri']);
-            Route::post('/galeri/update/{galeriID}', [AdmKabarController::class, 'updateGaleri']);
-            Route::get('/galeri/delete/{galeriID}', [AdmKabarController::class, 'destroyGaleri']);
+            Route::get('/galeri', [AdmGalleryController::class, 'indexGaleri'])->name('index.galeri');
+            Route::get('/galeri/add', [AdmGalleryController::class, 'createGaleri'])->name('add.galeri');
+            Route::post('/galeri/store', [AdmGalleryController::class, 'storeGaleri'])->name('store.galeri');
+            Route::get('/galeri/edit/{galeriID}', [AdmGalleryController::class, 'editGaleri']);
+            Route::post('/galeri/update/{galeriID}', [AdmGalleryController::class, 'updateGaleri']);
+            Route::get('/galeri/delete/{galeriID}', [AdmGalleryController::class, 'destroyGaleri']);
 
             /*
             ========================

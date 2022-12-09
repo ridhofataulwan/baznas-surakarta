@@ -67,35 +67,6 @@
         </div>
     </div>
 </section>
-<!-- Services-->
-<section class="page-section2" id="services" style="background-color: #01502D;">
-    <div class="container px-4 px-lg-5">
-        <h2 class="text-center text-white">PENYALURAN</h2>
-        <div class="row gx-4 gx-lg-5 mt-5">
-            <div class="col-lg-6 col-md-6 col-6 text-center my-2">
-                <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
-                    <div>&nbsp;</div>
-                    <div class="mb-2"><img src="assets/img/portfolio/logo/himpunan.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
-                    <h6 class="mb-2" style="color: #FF9900;">ZIS YANG TERHIMPUN</h6>
-                    <h2 class="mb-2" style="color: #FF9900;font-size: 1.25rem;">
-                        <b>Rp {{ number_format($penyalur->penghimpun, 0, '.', '.') }}</b>
-                    </h2>
-                    <div>&nbsp;</div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-6 text-center my-2">
-                <div class="zoom" style="background-color: white; border-radius: 15px; height: 200px">
-                    <div>&nbsp;</div>
-                    <div class="mb-2"><img src="assets/img/portfolio/logo/dana.png" class="penyaluran-image"><i class="fs-1 text-primary"></i></div>
-                    <h6 class="mb-2" style="color: #FF9900;">ZIS YANG TERDISTRIBUSI</h6>
-                    <h2 class="mb-2" style="color: #FF9900;font-size: 1.25rem;"><b>Rp
-                            {{ number_format($penyalur->dana_tersalurkan, 0, '.', '.') }}</b></h2>
-                    <div>&nbsp;</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="" id="about">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
