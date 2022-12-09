@@ -34,11 +34,6 @@ class BerandaController extends Controller
         }
 
         $galeri = Galeri::latest()->take(4)->get();
-        $penyalur = DB::table('penyaluran')->latest('id')->first();
-        $fitrah = DataZis::where('kategori', 1)->sum('price');
-        $infaq = DataZis::where('kategori', 2)->sum('price');
-        $sedekah = DataZis::where('kategori', 3)->sum('price');
-        $fidyah = DataZis::where('kategori', 4)->sum('price');
         $bayar = Transaction::where('status', 'SHOW')->latest()->take(10)->get();
 
         // Menyamarkan nama pembayar zakat
@@ -57,11 +52,6 @@ class BerandaController extends Controller
         return view('index', compact(
             'bayar',
             'galeri',
-            'penyalur',
-            'fitrah',
-            'infaq',
-            'sedekah',
-            'fidyah',
             'post',
             'category'
         ));
