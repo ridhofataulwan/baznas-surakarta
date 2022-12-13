@@ -75,7 +75,7 @@ $(document).on('change', '#countzakat', function() {
             '<input type="number" style="font-size: 15px" min="1" class="form-control" id="soul" name="jiwa">' +
             '</div>' +
             '</div>' +
-            ' <p class="card-text mb-1 pt-3" style="color: white; text-align: left;">Harga Zakat Fidyah(Per hari dan Per jiwa)</p>' +
+            ' <p class="card-text mb-1 pt-3" style="color: white; text-align: left;">Harga Fidyah(Per hari dan Per jiwa)</p>' +
             '<div class="col-auto">' +
             '<div class="input-group">' +
             '<div class="input-group-text">Rp</div>' +
@@ -200,10 +200,10 @@ $(document).on('change', '#countzakat', function() {
             '</div>';
     } else if (select == 'fidyah') {
         desc =
-            '<h6 style="color: black; text-align: left;"><b>ZAKAT FIDYAH</b></h6>' +
+            '<h6 style="color: black; text-align: left;"><b>FIDYAH</b></h6>' +
             '<p style="color: black; text-align: justify; font-size: clamp(13px, 1vw, 17px);">' +
             'Fidyah diambil dari kata “fadaa” artinya mengganti atau menebus. Bagi beberapa orang yang tidak mampu menjalankan ibadah puasa dengan kriteria tertentu, diperbolehkan tidak berpuasa serta tidak harus menggantinya di lain waktu. Namun, sebagai gantinya diwajibkan untuk membayar fidyah.</p>' +
-            '<h6 style="color: black; text-align: left;"><b>Nilai Zakat</b></h6>' +
+            '<h6 style="color: black; text-align: left;"><b>Nilai Fidyah</b></h6>' +
             '<div class="col-auto">' +
             '<div class="input-group">' +
             '<div class="input-group-text">Rp</div>' +
