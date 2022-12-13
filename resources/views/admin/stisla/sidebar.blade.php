@@ -109,7 +109,7 @@
                                 Pembayar</span></a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{url('/admin/permohonan')}}"><span>Semua Pembayaran</span></a>
+                        <a class="nav-link" href="{{url('/admin/pembayaran')}}"><span>Semua Pembayaran</span></a>
                     </li>
                     <li>
                         <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
