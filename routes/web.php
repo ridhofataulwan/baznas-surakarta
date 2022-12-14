@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdmCategoryController;
+use App\Http\Controllers\Admin\AdmDistributionController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\BerandaController;
@@ -14,6 +15,8 @@ use App\Http\Controllers\Admin\AdmGalleryController;
 use App\Http\Controllers\Admin\AdmProgramController;
 use App\Http\Controllers\Admin\AdmPostController;
 use App\Http\Controllers\Admin\AdmMessageController;
+use App\Http\Controllers\Admin\AdmPaymentController;
+use App\Http\Controllers\Admin\AdmRequestController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TestController;
 
@@ -201,12 +204,16 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
-            Route::get('/permohonan', [AdmPostController::class, 'permohonan']);
-            Route::get('/permohonan/add', [AdmPostController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
-            Route::get('/permohonan/{slug}', [AdmPostController::class, 'detailPermohonan']);
+            Route::get('/pembayaran', [AdmPaymentController::class, 'pembayaran']);
+            Route::get('/pembayaran/add', [AdmPaymentController::class, 'createPembayaran'])->name('add.pembayaran');
+            Route::get('/pembayaran/{id}', [AdmPaymentController::class, 'detailPembayaran']);
 
-            Route::get('/penyaluran', [AdmPostController::class, 'penyaluran']);
-            Route::get('/penyaluran/add', [AdmPostController::class, 'createPenyaluran'])->name('add.penyaluran-sedekah');
+            Route::get('/permohonan', [AdmRequestController::class, 'permohonan']);
+            Route::get('/permohonan/add', [AdmRequestController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
+            Route::get('/permohonan/{slug}', [AdmRequestController::class, 'detailPermohonan']);
+
+            Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
+            Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran-sedekah');
         });
     });
 });
