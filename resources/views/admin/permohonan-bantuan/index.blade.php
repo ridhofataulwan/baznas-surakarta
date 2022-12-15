@@ -39,95 +39,29 @@
                                                     <tr>
                                                         <th scope="col" style="width: 5%">No</th>
                                                         <th scope="col">Nama</th>
-                                                        <th scope="col" width="">Jenis Bantuan</th>
+                                                        <th scope="col" width="">Jenis Program</th>
                                                         <th scope="col" width="">Tanggal</th>
                                                         <th scope="col" style="width: 5%">Status</th>
-                                                        <th scope="col" style="width: 15%">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @php
                                                     $no=1;
                                                     @endphp
-
+                                                    @foreach($data as $req)
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002001">Rizky
-                                                                Joanditya</a></td>
-                                                        <td>Pendidikan</td>
-                                                        <td>Senin, 12 Oktober 2022</td>
+                                                        <th scope="row">{{$no++}}</th>
+                                                        <td><a href="/admin/permohonan/{{$req->id}}">{{$req->name}}</a>
+                                                        </td>
+                                                        <td>{{$programs}}</td>
+                                                        <td>{{$req->date}}</td>
                                                         <td>
                                                             <span class="badge badge-warning">Diajukan</span>
                                                             <!-- <span class="badge badge-success">Aktif</span> -->
                                                             <!-- <span class="badge badge-danger">Nonaktif</span> -->
                                                         </td>
-                                                        <td>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-trash-alt fa-2x"></i>
-                                                            </a>
-                                                        </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002002">Ridho Fata
-                                                                Ulwan</a></td>
-                                                        <td>Ekonomi Produktif</td>
-                                                        <td>Rabu, 9 September 2022</td>
-                                                        <td>
-                                                            <!-- <span class="badge badge-warning">Diajukan</span> -->
-                                                            <span class="badge badge-success">Diterima</span>
-                                                            <!-- <span class="badge badge-danger">Nonaktif</span> -->
-                                                        </td>
-                                                        <td>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-trash-alt fa-2x"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002003">Nizam</a></td>
-                                                        <td>Adovkasi Dakwah</td>
-                                                        <td>Kamis, 29 Agustus 2022</td>
-                                                        <td>
-                                                            <!-- <span class="badge badge-warning">Diajukan</span> -->
-                                                            <!-- <span class="badge badge-success">Diterima</span> -->
-                                                            <span class="badge badge-danger">Ditolak</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-trash-alt fa-2x"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
+                                                    @endforeach
                                             </table>
 
                                         </div>
