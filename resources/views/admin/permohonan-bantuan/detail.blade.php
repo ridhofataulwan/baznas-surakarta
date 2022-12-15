@@ -30,26 +30,28 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="3320490002340230001">
+                                                <input readonly type="text" class="form-control" name="title"
+                                                    value="{{$req->nik}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="Rizky Joanditya">
+                                                <input disabled type="text" class="form-control" name="title"
+                                                    value="{{$req->name}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Purwokerto">
+                                                <input type="text" class="form-control" name="title"
+                                                    value="{{$req->birthplace}}">
                                             </div>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="date" class="form-control" name="date" value="2002-01-21">
+                                                <input type="date" class="form-control" name="date"
+                                                    value="{{$req->birthdate}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -65,14 +67,16 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Islam">
+                                                <input type="text" class="form-control" name="title"
+                                                    value="{{$req->religion}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Mahasiswa">
+                                                <input type="text" class="form-control" name="title"
+                                                    value="{{$req->job}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -80,18 +84,56 @@
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input type="text" class="form-control" name="title"
-                                                    value="08712378981729">
+                                                    value="{{$req->phone_number}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Banjarsari">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                for="alamat">Alamat</label>
+                                            <div class="col-md-9">
+                                                <div class="row mb-2">
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white"
+                                                            name="provinsi" id="select-province">
+                                                            <option value="">{{$json->address->province->name }}
+                                                            </option>
+                                                            @foreach ($data as $provinsi)
+                                                            <option value="{{$provinsi->id}}">
+                                                                {{ $provinsi->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white"
+                                                            name="kabupaten" id="select-district">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->district->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white" name="alamat"
+                                                            id="select-regency" onchange="pilihKec(this.value)">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->regency->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white" name="alamat"
+                                                            id="select-village">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->village->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="date" value="Mojosongo">
-                                            </div>
+
+
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
@@ -224,6 +266,108 @@
 $(document).ready(function() {
     $('#myTable').DataTable();
 });
+</script>
+
+<!-- Address -->
+<script>
+// Pilih Provinsi
+$(document).on('change', '#select-province', function() {
+    let province_id = $(this).val();
+    // ! Remove Html Below
+    $('#select-district').html('<option value="">Pilih Kota/Kabupaten</option>')
+    $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+    $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+
+    $(document).ready(function() {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "/get-district",
+            method: 'POST',
+            data: {
+                province_id: province_id
+            },
+            success: function(response) {
+                let districs = response;
+                let option = ['<option value="">Pilih Kota/Kabupaten</option>']
+                districs.forEach(element => {
+                    option.push('<option value=' + element['id'] + '>' +
+                        element['name'] + '</option>')
+                });
+                $('#select-district').html(option)
+            }
+        })
+    });
+})
+
+// Pilih Kabupaten/Kota
+$(document).on('change', '#select-district', function() {
+    let district_id = $(this).val();
+    let province_id = $('#select-province').val();
+
+    // ! Remove Html Below
+    $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+    $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+    $(document).ready(function() {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "/get-regency",
+            method: 'POST',
+            data: {
+                district_id: district_id,
+                province_id: province_id
+            },
+            success: function(response) {
+                let districs = response;
+                let option = ['<option value="">Pilih Kecamatan</option>']
+                districs.forEach(element => {
+                    option.push('<option value=' + element['id'] + '>' +
+                        element['name'] + '</option>')
+                });
+                $('#select-regency').html(option)
+
+
+            }
+        })
+    });
+})
+
+// Pilih Kabupaten/Kota
+$(document).on('change', '#select-regency', function() {
+    let regency_id = $(this).val();
+    let district_id = $('#select-district').val();
+    let province_id = $('#select-province').val();
+
+    // ! Remove Html Below
+    $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+    $(document).ready(function() {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "/get-village",
+            method: 'POST',
+            data: {
+                regency_id: regency_id,
+                district_id: district_id,
+                province_id: province_id
+            },
+            success: function(response) {
+                let districs = response;
+                let option = ['<option value="">Pilih Kelurahan/Desa</option>']
+                districs.forEach(element => {
+                    option.push('<option value=' + element['id'] + '>' +
+                        element['name'] + '</option>')
+                });
+                $('#select-village').html(option)
+
+            }
+        })
+    });
+})
 </script>
 
 </html>
