@@ -9,10 +9,10 @@ class AdmDistributionController extends Controller
 {
     public function penyaluran()
     {
-        return view('admin.penyaluran-sedekah.index');
+        return view('admin.penyaluran.index');
     }
     public function createPenyaluran()
     {
-        return view('admin.penyaluran-sedekah.add');
+        return view('admin.penyaluran.add');
     }
 }
