@@ -100,7 +100,7 @@
         height: auto;
     }
     .form-zakat {
-        padding: 3%;
+        /* padding: 5%; */
         width: 100%;
         height: auto;
         position: relative;
@@ -145,7 +145,7 @@
         height: 500px;
     }
     .form-zakat {
-        padding: 3%;
+        /* padding: 5%; */
         width: 100%;
         height: auto;
         margin-top: 25%;

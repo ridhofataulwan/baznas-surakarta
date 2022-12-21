@@ -2,141 +2,143 @@
 @section('content')
 <!--Form-->
 <section class="page-section pb-0 p-0">
-    @if ($errors->any())
-    @foreach ($errors->all() as $error)
-    <div class="alert alert-warning alert-dismissible show fade">
-        <div class="alert-body">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {{ $error }}
+    <div class="container-fluid" style="background-image:url('assets/img/kraton-2.png');background-size:cover; padding-top:5%;">
+        @if ($errors->any())
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-warning alert-dismissible show fade">
+            <div class="alert-body">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ $error }}
+            </div>
         </div>
-    </div>
-    @endforeach
-    @endif
-    @if (session('status'))
-    <div class="alert alert-info alert-dismissible show fade">
-        <div class="alert-body">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {{ session('status') }}
+        @endforeach
+        @endif
+        @if (session('status'))
+        <div class="alert alert-info alert-dismissible show fade">
+            <div class="alert-body">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {{ session('status') }}
+            </div>
         </div>
-    </div>
-    @endif
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-zakat shadow border border-white bg-white">
-                <div class="row justify-content-between">
-                    <div class="heading-form">
-                        <p class="text-form">
-                            Permohonan Bantuan <button data-bs-toggle="modal" data-bs-target="#help" class="btn btn-secondary btn-circle rounded-circle"><i class="bi bi-question-lg"></i></button>
-                            <hr id="hr-form">
-                        </p>
-                    </div>
-                    <div class="col-auto alert alert-secondary">
-                        <i>Cek status permohonan anda <a href="/cek-permohonan-bantuan" class="hov-success">
-                                <span class="badge active bg-success">Di
-                                    sini</span></a></i>
-                        <style>
-                            a.hov-success {
-                                color: black;
-                            }
+        @endif
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-zakat shadow border border-white bg-white p-5">
+                    <div class="row justify-content-between">
+                        <div class="heading-form">
+                            <p class="text-form">
+                                PERMOHONAN BANTUAN <button data-bs-toggle="modal" data-bs-target="#help" class="btn btn-secondary btn-circle rounded-circle"><i class="bi bi-question-lg"></i></button>
+                                <hr id="hr-form">
+                            </p>
+                        </div>
+                        <div class="col-auto alert alert-secondary">
+                            <i>Cek status permohonan anda <a href="/cek-permohonan-bantuan" class="hov-success">
+                                    <span class="badge active bg-success">Di
+                                        sini</span></a></i>
+                            <style>
+                                a.hov-success {
+                                    color: black;
+                                }
 
-                            a.hov-success:hover {
-                                color: blue;
-                            }
-                        </style>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <form action="{{ url('bayar-zakat') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                                a.hov-success:hover {
+                                    color: blue;
+                                }
+                            </style>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form action="{{ url('bayar-zakat') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group mt-4">
+                                        <label for="select-program" class="form-label">Jenis Bantuan<i style="color:red;">*</i></label>
+                                        <select class="form-control form-select bg-white" name="jenis" id="select-program" required>
+                                            <option value>Pilih Jenis Bantuan</option>
+                                            <option value="Pendidikan">Pendidikan</option>
+                                            <option value="Ekonomi Produktif">Ekonomi Produktif</option>
+                                            <option value="Dakwah & Advokasi">Dakwah & Advokasi</option>
+                                            <option value="Kemanusiaan">Kemanusiaan</option>
+                                            <option value="Kesehatan">Kesehatan</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <label for="" class="form-label">NIK<i style="color:red;">*</i></label>
+                                        <input type="number" placeholder="Masukkan NIK" class="form-control bg-white" id="" name="nik" autocomplete="no" required>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <label for="nominal-zakat" class="form-label">Nama Lengkap<i style="color:red;">*</i></label>
+                                        <input type="text" placeholder="Masukkan nama" class="form-control bg-white" id="nominalzakat" name="nama" autocomplete="no" required>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <label class="form-label">Tempat, Tanggal Lahir<i style="color:red;">*</i></label>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="text" class="form-control bg-white" placeholder="Masukkan Kota Kelahiran" required>
+                                            </div>
+                                            <div class="col">
+                                                <input type="date" class="form-control bg-white" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-4">
+                                        <label for="alamat">Alamat<i style="color:red;">*</i></label>
+                                        <div class="row">
+                                            <div class="col">
+                                                <select class="form-control form-select bg-white" name="alamat" id="kecamatan" onchange="pilihKec(this.value)" required>
+                                                    <option class="form-option" value="" disabled selected>Pilih Kecamatan</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <select class="form-control form-select bg-white" name="alamat" id="kelurahan" required>
+                                                    <option class="form-option" value="" disabled selected>Pilih Kelurahan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group mt-4">
-                                    <label for="select-program" class="form-label">Jenis Bantuan<i style="color:red;">*</i></label>
-                                    <select class="form-control form-select bg-white" name="jenis" id="select-program" required>
-                                        <option value>Pilih Jenis Bantuan</option>
-                                        <option value="Pendidikan">Pendidikan</option>
-                                        <option value="Ekonomi Produktif">Ekonomi Produktif</option>
-                                        <option value="Dakwah & Advokasi">Dakwah & Advokasi</option>
-                                        <option value="Kemanusiaan">Kemanusiaan</option>
-                                        <option value="Kesehatan">Kesehatan</option>
+                                    <label for="select-zakat" class="form-label">Agama<i style="color:red;">*</i></label>
+                                    <select class="form-control form-select bg-white" name="jenis" id="select-zakat" required>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Kristen">Kristen</option>
+                                        <option value="Katholik">Katholik</option>
+                                        <option value="Budha">Budha</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Konghucu">Konghucu</option>
                                     </select>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label for="" class="form-label">NIK<i style="color:red;">*</i></label>
-                                    <input type="number" placeholder="Masukkan NIK" class="form-control bg-white" id="" name="nik" autocomplete="no" required>
+                                    <label for="" class="form-label">Pekerjaan<i style="color:red;">*</i></label>
+                                    <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white" id="" name="pekerjaan" autocomplete="no" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label for="nominal-zakat" class="form-label">Nama Lengkap<i style="color:red;">*</i></label>
-                                    <input type="text" placeholder="Masukkan nama" class="form-control bg-white" id="nominalzakat" name="nama" autocomplete="no" required>
+                                    <label for="" class="form-label">No Telp<i style="color:red;">*</i></label>
+                                    <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white" id="" name="no_telp" autocomplete="no" required>
                                 </div>
                                 <div class="form-group mt-4">
-                                    <label class="form-label">Tempat, Tanggal Lahir<i style="color:red;">*</i></label>
-                                    <div class="row">
-                                        <div class="col">
-                                            <input type="text" class="form-control bg-white" placeholder="Masukkan Kota Kelahiran" required>
-                                        </div>
-                                        <div class="col">
-                                            <input type="date" class="form-control bg-white" required>
-                                        </div>
-                                    </div>
+                                    <label for="" class="form-label">Keterangan<i style="color:red;">*</i></label>
+                                    <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="keterangan" id="" cols="30" rows="5" class="form-control bg-white" autocomplete="no" style="height: auto;" required></textarea>
                                 </div>
-                                <div class="form-group mt-4">
-                                    <label for="alamat">Alamat<i style="color:red;">*</i></label>
-                                    <div class="row">
-                                        <div class="col">
-                                            <select class="form-control form-select bg-white" name="alamat" id="kecamatan" onchange="pilihKec(this.value)" required>
-                                                <option class="form-option" value="" disabled selected>Pilih Kecamatan</option>
-                                            </select>
-                                        </div>
-                                        <div class="col">
-                                            <select class="form-control form-select bg-white" name="alamat" id="kelurahan" required>
-                                                <option class="form-option" value="" disabled selected>Pilih Kelurahan</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="heading-form">
+                                    <p class="text-form">
+                                        Lengkapi Persyaratan Pengajuan
+                                    </p>
                                 </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mt-4">
-                                <label for="select-zakat" class="form-label">Agama<i style="color:red;">*</i></label>
-                                <select class="form-control form-select bg-white" name="jenis" id="select-zakat" required>
-                                    <option value="Islam">Islam</option>
-                                    <option value="Kristen">Kristen</option>
-                                    <option value="Katholik">Katholik</option>
-                                    <option value="Budha">Budha</option>
-                                    <option value="Hindu">Hindu</option>
-                                    <option value="Konghucu">Konghucu</option>
-                                </select>
-                            </div>
-                            <div class="form-group mt-4">
-                                <label for="" class="form-label">Pekerjaan<i style="color:red;">*</i></label>
-                                <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white" id="" name="pekerjaan" autocomplete="no" required>
-                            </div>
-                            <div class="form-group mt-4">
-                                <label for="" class="form-label">No Telp<i style="color:red;">*</i></label>
-                                <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white" id="" name="no_telp" autocomplete="no" required>
-                            </div>
-                            <div class="form-group mt-4">
-                                <label for="" class="form-label">Keterangan<i style="color:red;">*</i></label>
-                                <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="keterangan" id="" cols="30" rows="5" class="form-control bg-white" autocomplete="no" style="height: auto;" required></textarea>
+                                <div id="persyaratan">
+                                    Pilih Jenis Bantuan terlebih dahulu!
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="heading-form">
-                                <p class="text-form">
-                                    Lengkapi Persyaratan Pengajuan
-                                </p>
+                        <h5 class="mt-2">Keterangan:</h5>
+                        <p class="py-0 my-0">( <i style="color:red;">*</i> ) : Wajib diisi</p>
+                        <div class="footer-form">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success" style="font-size: 20px;">Kirim Permohonan</button>
                             </div>
-                            <div id="persyaratan">
-                                Pilih Jenis Bantuan terlebih dahulu!
-                            </div>
+                            </form>
                         </div>
-                    </div>
-                    <h5 class="mt-2">Keterangan:</h5>
-                    <p class="py-0 my-0">( <i style="color:red;">*</i> ) : Wajib diisi</p>
-                    <div class="footer-form">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-success" style="font-size: 20px;">Kirim Permohonan</button>
-                        </div>
-                        </form>
                     </div>
                 </div>
             </div>
