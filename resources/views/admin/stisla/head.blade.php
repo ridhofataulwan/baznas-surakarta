@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-social/bootstrap-social.css') }}">
 <link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 {{-- CK Editor --}}
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <!-- Template CSS -->
