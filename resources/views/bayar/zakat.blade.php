@@ -94,7 +94,7 @@
                             </p>
                         </div>
                         <div class="form-group mt-4">
-                            <label for="select-zakat" class="form-label">Jenis Zakat <i style="color:red;">*</i></label>
+                            <label for="select-zakat" class="form-label">Jenis Bayar<i style="color:red;">*</i></label>
                             <select class="form-control form-select bg-white" name="jenis" id="select-zakat">
                                 <option value="Maal">Maal</option>
                                 <option value="Infaq">Infaq</option>
@@ -104,7 +104,7 @@
                             </select>
                         </div>
                         <div class="form-group mt-4">
-                            <label for="nominal-zakat" class="form-label">Nominal Zakat <i style="color:red;">*</i></label>
+                            <label for="nominal-zakat" class="form-label">Nominal<i style="color:red;">*</i></label>
                             <input type="text" min="1" placeholder="Masukan nominal" class="form-control bg-white" id="nominalzakat" name="nominal" autocomplete="no">
                         </div>
                         <div class="form-check mt-2">
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" id="testzakat" class="btn btn-success mt-4" style="font-size: 20px;">Bayar Zakat</button>
+                                <button type="submit" id="bayar" class="btn btn-success mt-4" style="font-size: 20px;">Bayar Zakat</button>
                             </div>
                         </div>
                     </div>
@@ -148,8 +148,8 @@
     </div>
 </section>
 <!-- Modal -->
-<div class="modal fade" id="help" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade " id="help" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Alur Proses Pembayaran Zakat</h5>
@@ -157,15 +157,34 @@
             </div>
             <div class="modal-body">
                 <ol>
-                    <li>Melakukan pembayaran zakat/infaq melalui rekening Baznas</li>
+                    <li>Melakukan pembayaran zakat/infaq melalui rekening Baznas
+                    </li>
+                    <table class="table table-hover">
+                        <thead>
+                            <th>Rekening</th>
+                            <th>Zakat</th>
+                            <th>Infaq</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bank Jateng</td>
+                                <td>5023036655 <button class="btn" type="button" onclick="handleClick('5023036655')"><i class="fas fa-copy"></i></button></td>
+                                <td>5023038899 <button class="btn" type="button" onclick="handleClick('5023038899')"><i class="fas fa-copy"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td>BSI</td>
+                                <td>1581581587 <button class="btn" type="button" onclick="handleClick('1581581587')"><i class="fas fa-copy"></i></button></td>
+                                <td>1601601601 <button class="btn" type="button" onclick="handleClick('1601601601')"><i class="fas fa-copy"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <li>Mengisi Form Pembayaran</li>
                     <li>Petugas memvalidasi Form</li>
                     <li>Pembayar mendapat notifikasi Status Pembayaran di Nomor WhatsApp yang telah dimasukkan dalam Form Pembayaran</li>
                     <li>Apabila pembayaran berhasil divalidasi pembayar akan mendapatkan bukti Nota Pembayaran yang dapat di unduh di laman Web</li>
                 </ol>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="alert alert-info my-2" role="alert" id="alert" style="display: none;">
+                </div>
             </div>
         </div>
     </div>
@@ -232,17 +251,26 @@
         "fitrah": {
             'arab': 'ﻧَﻮَﻳْﺖُ أَﻥْ أُﺧْﺮِﺝَ ﺯَﻛَﺎﺓَ ﺍﻟْﻔِﻄْﺮِ ﻋَﻦْ ﻧَﻔْسيْ ﻓَﺮْﺿًﺎ ِﻟﻠﻪِ ﺗَﻌَﺎﻟَﻰ',
             'latin': 'Nawaytu an ukhrija zakaata al-fitri ‘an nafsi fardhan lillahi ta’ala',
-            'arti': 'Aku niat mengeluarkan zakat fitrah untuk diriku sendiri fardhu karena Allah ta’ala'
+            'arti': 'Aku niat mengeluarkan zakat fitrah untuk diriku sendiri fardhu karena Allah ta’ala',
+            'label': 'Zakat Fitrah'
         },
         "maal": {
             'arab': 'نَوَيْتُ أَنْ أُخْرِجَ زَكاَةَ اْللَالِ عَنْ نَفْسِيْ فَرْضًالِلهِ تَعَالَى',
             'latin': 'Nawaitu an ukhrija zakatadz dzahabi/zakatal fidhdhati/zakatal mali’an nafsi fardhan lillahi ta’ala',
-            'arti': 'Aku niat mengeluarkan zakat berupa harta dari diri sendiri karena Allah ta’ala'
+            'arti': 'Aku niat mengeluarkan zakat berupa harta dari diri sendiri karena Allah ta’ala',
+            'label': 'Zakat Maal'
         },
         "fidyah": {
             'arab': 'نَوَيْتُ أَنْ أُخْرِجَ هَذِهِ الْفِدْيَةَ لإِفْطَارِ صَوْمِ رَمَضَانَ فَرْضًا لِلهِ تَعَالَى',
             'latin': 'Nawaitu an ukhrija hadzihil fidyata liifthari shaumi ramadhana fardhan lillahi ta’ala',
-            'arti': 'Aku niat mengeluarkan fidyah ini karena berbuka puasa di bulan Ramadhan, fardu karena Allah ta’ala'
+            'arti': 'Aku niat mengeluarkan fidyah ini karena berbuka puasa di bulan Ramadhan, fardu karena Allah ta’ala',
+            'label': 'Fidyah'
+        },
+        "infaq": {
+            'arab': 'بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم',
+            'latin': 'Bismillahirrahmanirrahim',
+            'arti': 'Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang',
+            'label': 'Infaq'
         },
     }
 
@@ -256,19 +284,32 @@
                 arab = niat.fitrah.arab
                 latin = niat.fitrah.latin
                 arti = niat.fitrah.arti
+                $("p:contains('Mulai Bayar')").html('Mulai Bayar ' + niat.fitrah.label)
+                $("p:contains('Niat Melakukan')").html('Niat Melakukan ' + niat.fitrah.label)
+                $("#bayar").html('Bayar ' + niat.fitrah.label)
+                break;
+            case "Infaq":
+                $("p:contains('Mulai Bayar')").html('Mulai Bayar ' + niat.infaq.label)
+                $("p:contains('Niat Melakukan')").html('Niat Melakukan ' + niat.infaq.label)
+                $("#bayar").html('Bayar ' + niat.infaq.label)
                 break;
             case "Maal":
                 arab = niat.maal.arab
                 latin = niat.maal.latin
                 arti = niat.maal.arti
+                $("p:contains('Mulai Bayar')").html('Mulai Bayar ' + niat.maal.label)
+                $("p:contains('Niat Melakukan')").html('Niat Melakukan ' + niat.maal.label)
+                $("#bayar").html('Bayar ' + niat.maal.label)
                 break;
             case "Fidyah":
                 arab = niat.fidyah.arab
                 latin = niat.fidyah.latin
                 arti = niat.fidyah.arti
+                $("p:contains('Mulai Bayar Infaq')").html('Mulai Bayar ' + niat.fidyah.label)
+                $("p:contains('Niat Melakukan Infaq')").html('Niat Melakukan ' + niat.fidyah.label)
+                $("#bayar").html('Bayar ' + niat.fidyah.label)
                 break;
             case "Qurban":
-                // arab = niat.qurban
                 break;
             default:
                 break;
