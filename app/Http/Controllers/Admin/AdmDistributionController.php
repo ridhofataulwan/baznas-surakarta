@@ -16,6 +16,6 @@ class AdmDistributionController extends Controller
     {
         $db = DB::table('provinces');
         $data = $db->get();
-        return view('admin.penyaluran-sedekah.add', compact('data'));
+        return view('admin.penyaluran.add', compact('data'));
     }
 }
