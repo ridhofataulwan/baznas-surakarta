@@ -17,8 +17,7 @@
                     <div class="section-header">
                         <h1>Tabel Permohonan Bantuan</h1>
                     </div>
-                    <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
-                            aria-hidden="true"></i>
+                    <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
                         Tambah Permohonan </a>
                     <div class="section-body">
                         <div class="row">
@@ -54,7 +53,7 @@
                                                         <td><a href="/admin/permohonan/{{$req->id}}">{{$req->name}}</a>
                                                         </td>
                                                         <td>{{$programs}}</td>
-                                                        <td>{{$req->date}}</td>
+                                                        <td>{{$req->created_at}}</td>
                                                         <td>
                                                             <span class="badge badge-warning">Diajukan</span>
                                                             <!-- <span class="badge badge-success">Aktif</span> -->
@@ -82,9 +81,9 @@
     @include('admin.stisla.script')
 </body>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>
