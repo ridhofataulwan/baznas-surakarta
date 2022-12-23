@@ -99,26 +99,28 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="provinsi" id="provinsi"
-                                                                onchange="pilihKec(this.value)">
-                                                                <option class="form-option" value="" disabled selected>
-                                                                    Pilih
-                                                                    Provinsi</option>
+                                                                name="provinsi" id="select-province">
+                                                                <option value="">Pilih Provinsi</option>
+                                                                @foreach ($data as $provinsi)
+                                                                <option value="{{ $provinsi->id }}">
+                                                                    {{ $provinsi->name }}
+                                                                </option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kabupaten" id="kabupaten">
+                                                                name="kabupaten" id="select-district">
                                                                 <option class="form-option" value="" disabled selected>
                                                                     Pilih
-                                                                    Kabupaten</option>
+                                                                    Kota/Kabupaten</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="alamat" id="kecamatan"
+                                                                name="alamat" id="select-regency"
                                                                 onchange="pilihKec(this.value)">
                                                                 <option class="form-option" value="" disabled selected>
                                                                     Pilih
@@ -127,10 +129,10 @@
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="alamat" id="kelurahan">
+                                                                name="alamat" id="select-village">
                                                                 <option class="form-option" value="" disabled selected>
                                                                     Pilih
-                                                                    Kelurahan</option>
+                                                                    Kelurahan/Desa</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -541,7 +543,7 @@
     <script>
     CKEDITOR.replace('content');
     </script>
-
+    <!-- 
     <script>
     let kec = [
         "Pasar Kliwon",
@@ -580,6 +582,108 @@
             console.log(kelurahan[index][i])
         }
     }
+    </script> -->
+
+    <!-- Address -->
+    <script>
+    // Pilih Provinsi
+    $(document).on('change', '#select-province', function() {
+        let province_id = $(this).val();
+        // ! Remove Html Below
+        $('#select-district').html('<option value="">Pilih Kota/Kabupaten</option>')
+        $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-district",
+                method: 'POST',
+                data: {
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kota/Kabupaten</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-district').html(option)
+                }
+            })
+        });
+    })
+
+    // Pilih Kabupaten/Kota
+    $(document).on('change', '#select-district', function() {
+        let district_id = $(this).val();
+        let province_id = $('#select-province').val();
+
+        // ! Remove Html Below
+        $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-regency",
+                method: 'POST',
+                data: {
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kecamatan</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-regency').html(option)
+
+
+                }
+            })
+        });
+    })
+
+    // Pilih Kabupaten/Kota
+    $(document).on('change', '#select-regency', function() {
+        let regency_id = $(this).val();
+        let district_id = $('#select-district').val();
+        let province_id = $('#select-province').val();
+
+        // ! Remove Html Below
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-village",
+                method: 'POST',
+                data: {
+                    regency_id: regency_id,
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kelurahan/Desa</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-village').html(option)
+
+                }
+            })
+        });
+    })
     </script>
 
 </body>
