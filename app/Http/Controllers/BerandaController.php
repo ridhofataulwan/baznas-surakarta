@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Galeri;
-use App\Models\Artikel;
-use App\Models\DataZis;
 use App\Models\Post;
 use App\Models\CategoryPost;
 use App\Mail\Notifikasi;
 use App\Models\Rekening;
-use App\Models\Inspirasi;
-use App\Models\KabarZakat;
-use App\Models\Transaction;
-use App\Models\CategoryData;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +28,7 @@ class BerandaController extends Controller
         }
 
         $galeri = Galeri::latest()->take(4)->get();
-        $bayar = Transaction::where('status', 'SHOW')->latest()->take(10)->get();
+        $bayar = Payment::where('status', 'SHOW')->latest()->take(10)->get();
 
         // Menyamarkan nama pembayar zakat
         foreach ($bayar as $key => $g) {
@@ -49,12 +43,7 @@ class BerandaController extends Controller
             $g->name = implode(" ", $new_name);
         }
 
-        return view('index', compact(
-            'bayar',
-            'galeri',
-            'post',
-            'category'
-        ));
+        return view('index', compact('bayar', 'galeri', 'post', 'category'));
     }
 
     public function legalitas()
@@ -84,7 +73,17 @@ class BerandaController extends Controller
 
     public function zakat()
     {
-        return view('bayar.zakat');
+        $regencies = DB::table('regencies')->where([
+            'provinces_id' => '33',
+            'districts_id' => '72'
+        ])->get();
+
+        $default_region = [
+            'province' => 33,
+            'district' => 72,
+        ];
+
+        return view('bayar.zakat', compact('regencies', 'default_region'));
     }
 
     public function hubungiKami()
@@ -118,145 +117,5 @@ class BerandaController extends Controller
     public function cekPermohonanBantuan()
     {
         return view('layanan.cek-permohonan-bantuan');
-    }
-
-    public function editDanaTersalurkan()
-    {
-        $data = DB::table('penyaluran')->latest('updated_at')->first();
-        return view('index.data-penyaluran', compact('data'));
-    }
-
-    public function storeDanaTersalurkan(Request $request)
-    {
-        $validated = $request->validate(
-            [
-                'penerima' => 'required|min:0|numeric',
-                'penghimpun' => 'required|min:0|numeric',
-                'dana_tersalurkan' => 'required|min:0|numeric',
-                'donatur' => 'required|min:0|numeric',
-            ]
-        );
-
-        if (!$validated) {
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
-
-        DB::table('penyaluran')->updateOrInsert(
-            [
-                'penerima' => $request->penerima,
-                'penghimpun' => $request->penghimpun,
-                'dana_tersalurkan' => $request->dana_tersalurkan,
-                'donatur' => $request->donatur,
-                'updated_at' => Carbon::now(),
-            ]
-        );
-
-        return redirect()->back()->with('success', 'Penyaluran Sukses Di Update');
-    }
-
-    public function indexLaporanZis()
-    {
-        $data = DataZis::all();
-        $category = CategoryData::all();
-        return view('index.laporan-zis', compact('data', 'category'));
-    }
-
-    public function editLaporanZis($id)
-    {
-        $data = DataZis::find($id);
-        $category = CategoryData::all();
-        return view('index.edit-laporan-zis', compact('data', 'category'));
-    }
-
-    public function updateLaporanZis($id, Request $request)
-    {
-        $validated = $request->validate(
-            [
-                'kategori' => 'required|numeric',
-                'price' => 'required|min:0|numeric',
-            ]
-        );
-
-        if (!$validated) {
-            return redirect()->back()->withErrors($validated)->withInput();
-        }
-
-        DataZis::find($id)->update([
-            'kategori' => $request->kategori,
-            'price' => $request->price,
-        ]);
-
-        return redirect()->back()->with('success', 'Laporan Zis Sukses Di Update');
-    }
-
-    public function deleteLaporanZis($id)
-    {
-        DataZis::find($id)->delete();
-        return redirect()->back()->with('success', 'Laporan Zis Sukses Di Hapus');
-    }
-
-    public function terimaBayarZakat()
-    {
-        if (!empty(request('status'))) {
-            $validator = Validator::make(request()->all(), [
-                'jenis' => 'required',
-                'nominal' => 'required',
-                'image' => 'required|max:1024|mimes:png,jpg,jpeg',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
-            }
-            $image = request()->file('image');
-            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/bayar'), $name_gen);
-            $last_img = 'uploads/bayar/' . $name_gen;
-            $tf = Transaction::create([
-                'jenis' => request('jenis'),
-                'nominal' => request('nominal'),
-                'image' => $last_img,
-                'name' => 'Hamba Allah',
-                'phone' => '12345678910',
-                'email' => 'hamba@gmail.com',
-                'status' => 'HIDDEN',
-            ]);
-            // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
-            $users = User::role('admin')->get();
-            foreach ($users as $user) {
-                Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . $tf->name));
-            }
-            return redirect()->back();
-        }
-        $validator = Validator::make(request()->all(), [
-            'jenis' => 'required',
-            'nominal' => 'required',
-            'image' => 'required|max:10240|mimes:png,jpg,jpeg,svg,webp',
-            'name' => 'required|string|max:255',
-            'nik' => 'string|min:16|max:16',
-            'phone' => 'required',
-            'email' => 'email',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
-        $image = request()->file('image');
-        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('uploads/bayar'), $name_gen);
-        $last_img = 'uploads/bayar/' . $name_gen;
-        Transaction::create([
-            'jenis' => request('jenis'),
-            'nominal' => request('nominal'),
-            'image' => $last_img,
-            'name' => request('name'),
-            'nik' => request('nik'),
-            'phone' => request('phone'),
-            'email' => request('email'),
-            'status' => 'HIDDEN',
-        ]);
-        Mail::to(request()->email)->send(new Notifikasi(request()->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
-        $users = User::role('admin')->get();
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . request('name')));
-        }
-        return redirect()->back();
     }
 }
