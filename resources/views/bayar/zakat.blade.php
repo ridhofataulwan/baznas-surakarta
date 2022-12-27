@@ -34,7 +34,6 @@
                 </div>
             </div>
 
-
             <form action="{{ url('bayar-zakat') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
@@ -50,16 +49,16 @@
                         </div>
                         <div class="form-group mt-4">
                             <label for="nik" class="form-label" id="nik">NIK <i style="color:red;">*</i></label>
-                            <input type="text" placeholder="Masukkan NIK lengkap" class="form-control bg-white" id="nama" name="nik" autocomplete="no" onkeyup="countChars(this)" maxlength="16" minlength="16">
+                            <input type="text" placeholder="Masukkan NIK lengkap" class="form-control bg-white" id="nik" name="nik" autocomplete="no" onkeyup="countChars(this)" maxlength="16" minlength="16">
                         </div>
                         <div class="form-group mt-4 row">
                             <label for="jenis-kelamin" class="form-label">Jenis Kelamin <i style="color:red;">*</i></label>
                             <div class="form-check col ms-3 col-auto">
-                                <input type="radio" class="form-check-input bg-white" id="male" value="laki-laki" name="gender" autocomplete="no">
+                                <input type="radio" class="form-check-input bg-white" id="male" value="LAKI_LAKI" name="gender" autocomplete="no">
                                 <label for="male" class="text-black">Laki-laki</label>
                             </div>
                             <div class="form-check col ms-3 col-auto">
-                                <input type="radio" class="form-check-input bg-white" id="female" value="perempuan" name="gender" autocomplete="no">
+                                <input type="radio" class="form-check-input bg-white" id="female" value="PEREMPUAN" name="gender" autocomplete="no">
                                 <label for="female" class="text-black">Perempuan</label>
                             </div>
                         </div>
@@ -75,12 +74,18 @@
                             <label for="alamat">Alamat <i style="color:red;">*</i></label>
                             <div class="row">
                                 <div class="col">
-                                    <select class="form-control form-select bg-white" name="alamat" id="kecamatan" onchange="pilihKec(this.value)">
+                                    <input type="hidden" name="province" id="province_id" value="{{ $default_region['province'] }}">
+                                    <input type="hidden" name="district" id="district_id" value="{{ $default_region['district'] }}">
+                                    <select class="form-control form-select bg-white" name="regency" id="select-regency">
                                         <option class="form-option" value="" disabled selected>Pilih Kecamatan</option>
+                                        @foreach ($regencies as $regency)
+
+                                        <option class="form-option" value="{{ $regency->id }}">{{ $regency->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <select class="form-control form-select bg-white" name="alamat" id="kelurahan">
+                                    <select class="form-control form-select bg-white" name="village" id="select-village">
                                         <option class="form-option" value="" disabled selected>Pilih Kelurahan</option>
                                     </select>
                                 </div>
@@ -95,17 +100,17 @@
                         </div>
                         <div class="form-group mt-4">
                             <label for="select-zakat" class="form-label">Jenis Bayar<i style="color:red;">*</i></label>
-                            <select class="form-control form-select bg-white" name="jenis" id="select-zakat">
-                                <option value="Maal">Maal</option>
-                                <option value="Infaq">Infaq</option>
-                                <option disabled value="Fidyah" class="text-muted">Fidyah</option>
-                                <option disabled value="Fitrah" class="text-muted">Fitrah</option>
-                                <option disabled value="Qurban" class="text-muted">Qurban</option>
+                            <select class="form-control form-select bg-white" name="type" id="select-zakat">
+                                <option value="MAAL">Maal</option>
+                                <option value="INFAQ">Infaq</option>
+                                <option disabled value="FIDYAH" class="text-muted">Fidyah</option>
+                                <option disabled value="FITRAH" class="text-muted">Fitrah</option>
+                                <option disabled value="QURBAN" class="text-muted">Qurban</option>
                             </select>
                         </div>
                         <div class="form-group mt-4">
                             <label for="nominal-zakat" class="form-label">Nominal<i style="color:red;">*</i></label>
-                            <input type="text" min="1" placeholder="Masukan nominal" class="form-control bg-white" id="nominalzakat" name="nominal" autocomplete="no">
+                            <input type="text" min="1" placeholder="Masukan nominal" class="form-control bg-white" id="nominalzakat" name="amount" autocomplete="no">
                         </div>
                         <div class="form-check mt-2">
                             <label class="form-check-label text-dark" for="flexCheckChecked">
@@ -114,7 +119,7 @@
                         </div>
                         <div class="form-group mt-4">
                             <label for="bukti-pembayaran" class="form-label">Bukti Pembayaran <i style="color:red;">*</i></label>
-                            <input type="file" class="form-control bg-white" name="image" id="bukti-pembayaran" autocomplete="no" style="height: auto;">
+                            <input type="file" class="form-control bg-white" name="proof_of_payment" id="bukti-pembayaran" autocomplete="no" style="height: auto;">
                         </div>
                         <h5 class="mt-2">Keterangan:</h5>
                         <p class="py-0 my-0">( <i style="color:red;">*</i> ) : Wajib diisi</p>
@@ -214,35 +219,38 @@
 </script>
 
 <script>
-    let kec = [
-        "Pasar Kliwon",
-        "Jebres",
-        "Banjarsari",
-        "Laweyan",
-        "Serengan",
-    ]
-    let kelurahan = [
-        ['Banyuanyar', 'Banjarsari', 'Gilingan', 'Joglo', 'Kadipiro', 'Keprabon', 'Kestalan', 'Ketelan', 'Manahan', 'Mangkubumen', 'Nusukan', 'Punggawan', 'Setabelan', 'Sumber', 'Timuran'],
-        ['Gandekan', 'Jagalan', 'Jebres', 'Kepatihan Kulon', 'Kepatihan Wetan', 'Mojosongo', 'Pucang Sawit', 'Purwodiningratan', 'Sewu', 'Sudiroprajan', 'Tegalharjo'],
-        ['Bumi', 'Jajar', 'Karangasem', 'Kerten', 'Laweyan', 'Pajang', 'Panularan', 'Penumping', 'Purwosari', 'Sondakan', 'Sriwedari'],
-        ['Baluwarti', 'Gajahan', 'Joyosuran', 'Kampung Baru', 'Kauman', 'Kedung Lumbu', 'Mojo', 'Pasar Kliwon', 'Sangkrah', 'Semanggi'],
-        ['Danukusuman', 'Jayengan', 'Joyotakan', 'Kemlayan', 'Kratonan', 'Serengan', 'Tipes']
-    ]
-</script>
+    // Pilih Kecamatan
+    $(document).on('change', '#select-regency', function() {
+        let regency_id = $(this).val();
+        let district_id = $('#district_id').val();
+        let province_id = $('#province_id').val();
 
-<script>
-    for (i = 0; i < kec.length; i++) {
-        $('#kecamatan').append('<option value="' + kec[i] + '">' + kec[i] + '</option>');
-    }
+        // ! Remove Html Below
+        $('#select-village').html('<option value="" disabled selected>Pilih Kelurahan</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-village",
+                method: 'POST',
+                data: {
+                    regency_id: regency_id,
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="" disabled selected>Pilih Kelurahan</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' + element['name'] + '</option>')
+                    });
+                    $('#select-village').html(option)
 
-    function pilihKec(value) {
-        index = kec.indexOf(value)
-        $("#kelurahan option").remove();
-        for (i = 0; i < kelurahan[index].length; i++) {
-            $('#kelurahan').append('<option value="' + kelurahan[index][i] + '">' + kelurahan[index][i] + '</option>');
-            console.log(kelurahan[index][i])
-        }
-    }
+                }
+            })
+        });
+    })
 </script>
 
 <!-- Niat Zakat -->

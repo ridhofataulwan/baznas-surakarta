@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\AdmPostController;
 use App\Http\Controllers\Admin\AdmMessageController;
 use App\Http\Controllers\Admin\AdmPaymentController;
 use App\Http\Controllers\Admin\AdmRequestController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TestController;
 
@@ -114,7 +115,7 @@ Route::controller(KalkulatorController::class)->group(function () {
 =====================
 Digunakan untuk mengirimkan data bayar zakat dan pesan pada fitur di Navigasi Bar
 */
-Route::post('/bayar-zakat', [BerandaController::class, 'terimaBayarZakat']);
+Route::post('/bayar-zakat', [PaymentController::class, 'paymentStore']);
 Route::post('/hubungi-kami', [MessageController::class, 'sendMessage']);
 Route::post('/datajax', [AjaxController::class, 'getDataRekening']);
 
@@ -177,22 +178,6 @@ Route::middleware('auth')->group(function () {
             Route::post('/galeri/update/{galeriID}', [AdmGalleryController::class, 'updateGaleri']);
             Route::get('/galeri/delete/{galeriID}', [AdmGalleryController::class, 'destroyGaleri']);
 
-            /*
-            ========================
-            | Route that will be remove |
-            ========================
-            ! Akan di hapus
-            */
-            // ! ============================================================================================
-            Route::get('/dana-tersalurkan', [BerandaController::class, 'editDanaTersalurkan'])->name('penyaluran');
-            Route::post('/dana-tersalurkan', [BerandaController::class, 'storeDanaTersalurkan']);
-
-            Route::get('/laporan-zis', [BerandaController::class, 'indexLaporanZis']);
-            Route::get('/data-zis/edit/{id}', [BerandaController::class, 'editLaporanZis']);
-            Route::post('/data-zis/edit/{id}', [BerandaController::class, 'updateLaporanZis']);
-            Route::get('/data-zis/delete/{id}', [BerandaController::class, 'deleteLaporanZis']);
-            // ! ============================================================================================
-
             Route::get('/layanan/rekening', [LayananController::class, 'indexLayananRekening']);
             Route::get('/layanan/rekening/add', [LayananController::class, 'addRekening']);
             Route::post('/layanan/rekening', [LayananController::class, 'storeRekening']);
@@ -205,6 +190,17 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
+            /*
+            ! Transactional Feature
+            Need to fix
+            Main Route is 
+            ==============
+            get All -> Table
+            get {id} -> Detail Can Edit
+            get add -> Add
+            post store -> Store new data
+            post update {id} -> Update row data
+            */
             Route::get('/pembayaran', [AdmPaymentController::class, 'pembayaran']);
             Route::get('/pembayaran/add', [AdmPaymentController::class, 'createPembayaran'])->name('add.pembayaran');
             Route::get('/pembayaran/{id}', [AdmPaymentController::class, 'detailPembayaran']);

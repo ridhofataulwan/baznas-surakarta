@@ -342,9 +342,9 @@ function countChars(obj) {
     var strLength = obj.value.length;
 
     if (obj.value == '') {} else if (!(/\D/.test(obj.value)) && strLength < maxLength) {
-        document.getElementById("nik").innerHTML = 'NIK <span class="text-danger"> [' + strLength + '/' + maxLength + '] </span>';
+        document.getElementById("nik").innerHTML = 'NIK <span class="text-danger">*</span> <span class="text-danger"> [' + strLength + '/' + maxLength + '] </span>';
     } else if (!(/\D/.test(obj.value)) && strLength == maxLength) {
-        document.getElementById("nik").innerHTML = 'NIK';
+        document.getElementById("nik").innerHTML = 'NIK <span class="text-danger">*</span>';
     }
 }
 
