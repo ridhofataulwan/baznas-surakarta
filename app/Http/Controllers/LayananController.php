@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rekening;
-use App\Models\Transaction;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -110,13 +110,13 @@ class LayananController extends Controller
 
     public function indexBayarZakat()
     {
-        $bayar = Transaction::all();
+        $bayar = Payment::all();
         return view('admin.bayar-zakat.index', compact('bayar'));
     }
 
     public function updateStatusBayar($transID)
     {
-        $trans = Transaction::find($transID);
+        $trans = Payment::find($transID);
         if (!$trans) {
             return redirect()->back()->with('success', 'Data tidak ditemukan');
         }
