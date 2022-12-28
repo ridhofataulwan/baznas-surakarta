@@ -46,11 +46,11 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title"
+                                                <input readonly type="text" class="form-control" name="title"
                                                     value="{{$req->birthplace}}">
                                             </div>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="date" class="form-control" name="date"
+                                                <input readonly type="date" class="form-control" name="date"
                                                     value="{{$req->birthdate}}">
                                             </div>
                                         </div>
@@ -58,7 +58,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
                                                 Bantuan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <select type="select" class="form-control" name="category">
+                                                <select readonly type="select" class="form-control" name="category">
                                                     <option selected value="Pendidikan">Pendidikan</option>
                                                 </select>
                                             </div>
@@ -67,7 +67,7 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
+                                                <input readonly type="text" class="form-control" name="title"
                                                     value="{{$req->religion}}">
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
+                                                <input readonly type="text" class="form-control" name="title"
                                                     value="{{$req->job}}">
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
+                                                <input readonly type="text" class="form-control" name="title"
                                                     value="{{$req->phone_number}}">
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                             <div class="col-md-9">
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white"
+                                                        <select readonly class="form-control form-select bg-white"
                                                             name="provinsi" id="select-province">
                                                             <option value="">{{$json->address->province->name }}
                                                             </option>
@@ -105,8 +105,9 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white"
-                                                            name="kabupaten" id="select-district">
+                                                        <select readonly disabled
+                                                            class="form-control form-select bg-white" name="kabupaten"
+                                                            id="select-district">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->district->name }}
                                                             </option>
@@ -115,16 +116,17 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white" name="alamat"
-                                                            id="select-regency" onchange="pilihKec(this.value)">
+                                                        <select readonly class="form-control form-select bg-white"
+                                                            name="alamat" id="select-regency"
+                                                            onchange="pilihKec(this.value)">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->regency->name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white" name="alamat"
-                                                            id="select-village">
+                                                        <select readonly class="form-control form-select bg-white"
+                                                            name="alamat" id="select-village">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->village->name }}
                                                             </option>
@@ -139,7 +141,7 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea style="height: 150px;" name="content"
+                                                <textarea readonly style="height: 150px;" name="content"
                                                     class="form-control summernote-simple">Buat Beasiswa</textarea>
                                             </div>
                                         </div>
@@ -152,7 +154,7 @@
                                         <div class="form-group row mb-4">
                                             <div class="col-sm-12 col-md-4 mb-4">
                                                 <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/1.jpg');background-size:cover;"
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/surat.jpg');background-size:cover;"
                                                         class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
                                                             width="100%" class="col text-light p-3 ">
@@ -176,7 +178,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-4 mb-4">
                                                 <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/3.jpg');background-size:cover;"
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/ktp.jpg');background-size:cover;"
                                                         class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
                                                             width="100%" class="col text-light p-3 ">
@@ -189,7 +191,7 @@
                                                 <a href="/uploads/persyaratan-permohonan/surat-permohonan.pdf"
                                                     target="_blank">
 
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/4.jpg');background-size:cover;"
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/kk.png');background-size:cover;"
                                                         class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
                                                             width="100%" class="col text-light p-3 ">
@@ -200,7 +202,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-4 mb-4">
                                                 <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/5.jpg');background-size:cover;"
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/suket.jpg');background-size:cover;"
                                                         class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
                                                             width="100%" class="col text-light p-3 ">
@@ -211,7 +213,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-4 mb-4">
                                                 <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/6.jpg');background-size:cover;"
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/tagihan.jpg');background-size:cover;"
                                                         class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
                                                             width="100%" class="col text-light p-3 ">

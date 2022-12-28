@@ -64,7 +64,8 @@
 <div class="main-sidebar" tabindex="1" style="overflow: hidden; outline: none;">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand p-1 mb-4">
-            <a href="/" style="font-family: Nunito; font-weight:bold; font-size: 1.7em"><img style="width: 3em;" src="{{url('/assets/img/portfolio/logo/logo3.png')}}"> BAZNAS</a>
+            <a href="/" style="font-family: Nunito; font-weight:bold; font-size: 1.7em"><img style="width: 3em;"
+                    src="{{url('/assets/img/portfolio/logo/logo3.png')}}"> BAZNAS</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <img style="width: 50%;" src="{{url('/assets/img/portfolio/logo/logo3.png')}}">
@@ -79,7 +80,8 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-newspaper"></i> <span>Kabar</span></a>
                 <ul class="dropdown-menu">
                     <x-admin.sidebar.post />
-                    <li><a href="{{url('/admin/category')}}" class="nav-item"><i class="fas fa-cog"></i><span>Kategori</span></a></li>
+                    <li><a href="{{url('/admin/category')}}" class="nav-item"><i
+                                class="fas fa-cog"></i><span>Kategori</span></a></li>
                 </ul>
             </li>
             <li>
@@ -104,10 +106,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave"></i>
                     <span>Pembayaran</span></a>
                 <ul class="dropdown-menu">
-                    <li>
+                    <!-- <li>
                         <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Daftar
                                 Pembayar</span></a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="nav-link" href="{{url('/admin/pembayaran')}}"><span>Semua Pembayaran</span></a>
                     </li>

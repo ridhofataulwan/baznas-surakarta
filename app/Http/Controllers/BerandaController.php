@@ -28,7 +28,7 @@ class BerandaController extends Controller
         }
 
         $galeri = Galeri::latest()->take(4)->get();
-        $bayar = Payment::where('status', 'SHOW')->latest()->take(10)->get();
+        $bayar = Payment::where('visible', 'SHOW')->latest()->take(10)->get();
 
         // Menyamarkan nama pembayar zakat
         foreach ($bayar as $key => $g) {
