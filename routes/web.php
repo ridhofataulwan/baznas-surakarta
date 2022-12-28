@@ -209,7 +209,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/permohonan', [AdmRequestController::class, 'permohonan']);
             Route::get('/permohonan/add', [AdmRequestController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
             Route::get('/permohonan/{slug}', [AdmRequestController::class, 'detailPermohonan']);
-            Route::post('/permohonan/store', [AdmRequestController::class, 'storeRequest'])->name('store.request');
+            Route::post('/permohonan/store', [AdmRequestController::class, 'requestStore'])->name('store.request');
 
             Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');

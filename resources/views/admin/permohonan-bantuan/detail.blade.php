@@ -93,7 +93,7 @@
                                             <div class="col-md-9">
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select readonly class="form-control form-select bg-white"
+                                                        <select disabled class="form-control form-select bg-white"
                                                             name="provinsi" id="select-province">
                                                             <option value="">{{$json->address->province->name }}
                                                             </option>
@@ -105,9 +105,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select readonly disabled
-                                                            class="form-control form-select bg-white" name="kabupaten"
-                                                            id="select-district">
+                                                        <select disabled class="form-control form-select bg-white"
+                                                            name="kabupaten" id="select-district">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->district->name }}
                                                             </option>
@@ -116,7 +115,7 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select readonly class="form-control form-select bg-white"
+                                                        <select disabled class="form-control form-select bg-white"
                                                             name="alamat" id="select-regency"
                                                             onchange="pilihKec(this.value)">
                                                             <option class="form-option" value="" disabled selected>
@@ -125,7 +124,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select readonly class="form-control form-select bg-white"
+                                                        <select disabled class="form-control form-select bg-white"
                                                             name="alamat" id="select-village">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->village->name }}

@@ -76,7 +76,7 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="provinsi" id="select-province">
+                                                                name="province" id="select-province">
                                                                 <option value="">Pilih Provinsi</option>
                                                                 @foreach ($data as $provinsi)
                                                                 <option value="{{ $provinsi->id }}">
@@ -87,7 +87,7 @@
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kabupaten" id="select-district">
+                                                                name="district" id="select-district">
                                                                 <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kota/Kabupaten</option>
@@ -97,7 +97,7 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kecamatan" id="select-regency">
+                                                                name="regency" id="select-regency">
                                                                 <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kecamatan</option>
@@ -105,7 +105,7 @@
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kelurahan" id="select-village">
+                                                                name="village" id="select-village">
                                                                 <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kelurahan/Desa</option>

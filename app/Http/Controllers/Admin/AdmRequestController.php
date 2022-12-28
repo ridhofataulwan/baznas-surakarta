@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class AdmRequestController extends Controller
 {
@@ -49,22 +50,78 @@ class AdmRequestController extends Controller
         return view('admin.permohonan-bantuan.add', compact('data'));
     }
 
-    public function storeRequest(Request $request)
+    public function requestStore(Request $request)
     {
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        // Get Region Name ✅
+        $province = DB::table('provinces')->where('id', request('province'))->first();
+        $district = DB::table('districts')->where([
+            'id'            => request('district'),
+            'provinces_id'  => request('province'),
+        ])->first();
+        $regency = DB::table('regencies')->where([
+            'id'            => request('regency'),
+            'districts_id'  => request('district'),
+            'provinces_id'  => request('province'),
+        ])->first();
+        $village = DB::table('villages')->where([
+            'id'            => request('village'),
+            'regencies_id'  => request('regency'),
+            'districts_id'  => request('district'),
+            'provinces_id'  => request('province'),
+        ])->first();
+
+        //  address ✅
+        $address = [
+            'address' => [
+                'province' => [
+                    'id' => request('province'),
+                    'name' => $province->name,
+                ],
+                'district' => [
+                    'id' => request('district'),
+                    'name' => $district->name,
+                ],
+                'regency' => [
+                    'id' => request('regency'),
+                    'name' => $regency->name,
+                ],
+                'village' => [
+                    'id' => request('village'),
+                    'name' => $village->name,
+                ],
+            ]
+        ];
+
+        $requirements = [
+            'surat_permohonan'  => ['name' => request('surat_permohonan')],
+            'ktp'               => ['name' => request('ktp')],
+            'kk'                => ['name' => request('kk')],
+            'sktm'              => ['name' => request('sktm')],
+            'suket'             => ['name' => request('suket')],
+            'tagihan'           => ['name' => request('tagihan')],
+            'proposal'           => ['name' => request('proposal')],
+        ];
+
         $data = [
             'request_category_id'   => $request->category,
             'nik'                   => $request->nik,
             'name'                  => $request->name,
             'birthplace'            => $request->birthplace,
             'birthdate'             => $request->birthdate,
-            'alamat'                => $request->provinsi,
+            'address'               => json_encode($address),
             'religion'              => $request->religion,
             'job'                   => $request->job,
             'phone_number'          => $request->phone_number,
             'description'           => $request->description,
-            // 'requirements'          => $request->surat_permohonan,
+            'requirements'          => json_encode($requirements),
         ];
-        // dd($data['requirements']);
+        // dd($data);
         DB::table('request')->insert([
             'id'                    => rand(),
             'request_category_id'   => $data['request_category_id'],
@@ -72,14 +129,14 @@ class AdmRequestController extends Controller
             'name'                  => $data['name'],
             'birthplace'            => $data['birthplace'],
             'birthdate'             => $data['birthdate'],
-            'address'                => $data['alamat'],
+            'address'               => $data['address'],
             'religion'              => $data['religion'],
             'job'                   => $data['job'],
             'phone_number'          => $data['phone_number'],
             'description'           => $data['description'],
-            'requirements'          => 'json requirements',
+            'requirements'          => $data['requirements'],
             // erorr
         ]);
-        return redirect('permohonan')->with('success', 'Data Permohonan Berhasil ditambahkan!');
+        return redirect('admin/permohonan')->with('success', 'Data Permohonan Berhasil ditambahkan!');
     }
 }
