@@ -88,7 +88,7 @@
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
                                                                 name="kabupaten" id="select-district">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kota/Kabupaten</option>
                                                             </select>
@@ -97,9 +97,8 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kecamatan" id="select-regency"
-                                                                onchange="pilihKec(this.value)">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                name="kecamatan" id="select-regency">
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kecamatan</option>
                                                             </select>
@@ -107,7 +106,7 @@
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
                                                                 name="kelurahan" id="select-village">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kelurahan/Desa</option>
                                                             </select>
