@@ -11,219 +11,393 @@
             <div class="navbar-bg"></div>
             @include('admin.stisla.navbar')
             @include('admin.stisla.sidebar')
+
             <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
-                    <div class="section-header d-flex flex-column">
-                        <div class="align-self-start">
-                            <h1>Detail Permohonan Bantuan</h1>
-                        </div>
-                        <div class="align-self-start">Senin, 12 Oktober 2022</div>
+                    <div class="section-header">
+                        <h1>Detail Pembayaran Sedekah</h1>
                     </div>
-                    <div class="row">
-                        <div class="col-12 ">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form action="" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="3320490002340230001">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="Rizky Joanditya">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
-                                                Tanggal Lahir</label>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Purwokerto">
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="date" class="form-control" name="date" value="2002-01-21">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
-                                                Bantuan</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <select type="select" class="form-control" name="category">
-                                                    <option selected value="Pendidikan">Pendidikan</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Islam">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Mahasiswa">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
-                                                Telp</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="08712378981729">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Banjarsari">
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="date" value="Mojosongo">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
-                                            <div class="col-sm-12 col-md-7">
-                                                <textarea style="height: 150px;" name="content"
-                                                    class="form-control summernote-simple">Buat Beasiswa</textarea>
-                                            </div>
-                                        </div>
-                                        <hr>
-                                        <div class="form-group row col-12 ml-5 pr-5">
-                                            <div class="col-12 col-sm-12 text-center">
-                                                <h3>Kelengkapan Persyaratan</h3>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row mb-4">
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/1.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Permohonan</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/2.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>SKTM Gakin</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/3.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KTP</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/uploads/persyaratan-permohonan/surat-permohonan.pdf"
-                                                    target="_blank">
-
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/4.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KK</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/5.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Keterangan Kelurahan</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/6.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Tagihan Sekolah</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status
-                                                Permohonan</label>
-                                            <div class="selectgroup col-md-4 col-sm-12">
-                                                <label class="selectgroup-item">
-                                                    <input type="radio" name="transportation" value="1"
-                                                        class="selectgroup-input" checked="">
-                                                    <span
-                                                        class="selectgroup-button selectgroup-button-icon">Diterima</i></span>
-                                                </label>
-                                                <style>
-                                                .selectgroup-input.denied:checked+.selectgroup-button {
-                                                    background-color: red;
-                                                    color: #ffffff;
-                                                }
-                                                </style>
-                                                <label class="selectgroup-item">
-                                                    <input selected type="radio" name="transportation" value="2"
-                                                        class="selectgroup-input denied">
-                                                    <span
-                                                        class="selectgroup-button selectgroup-button-icon">Ditolak</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </form>
+                    <div class="section-body">
+                        <div class="row">
+                            <div class="col-12">
+                                @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                <div class="alert alert-warning alert-dismissible show fade">
+                                    <div class="alert-body">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                        {{ $error }}
+                                    </div>
                                 </div>
-                                <!-- This is where your code ends -->
+                                @endforeach
+                                @endif
+                                @if (session('status'))
+                                <div class="alert alert-info alert-dismissible show fade">
+                                    <div class="alert-body">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                        {{ session('status') }}
+                                    </div>
+                                </div>
+                                @endif
+                                <div class="card">
+                                    <!-- <div class="card-header">
+                                        <h4>Add Post</h4>
+                                    </div> -->
+                                    <div class="card-body">
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" name="nik"
+                                                        value="{{$payment->nik}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama /
+                                                    Lembaga
+                                                </label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" name="name"
+                                                        value="{{$payment->name}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 c   ol-lg-3">Jenis
+                                                    Kelamin</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    @if($payment->gender == 'LAKI_LAKI')
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="genderlaki" checked value="LAKI_LAKI">
+                                                        <label class="form-check-label" for="genderlaki">
+                                                            Laki-laki
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="genderperempuan" value="PEREMPUAN">
+                                                        <label class="form-check-label" for="genderperempuan">
+                                                            Perempuan
+                                                        </label>
+                                                    </div> @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="genderlaki" value="LAKI_LAKI">
+                                                        <label class="form-check-label" for="genderlaki">
+                                                            Laki-laki
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="gender"
+                                                            id="genderperempuan" checked value="PEREMPUAN">
+                                                        <label class="form-check-label" for="genderperempuan">
+                                                            Perempuan
+                                                        </label>
+                                                    </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                                    Email</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="email" class="form-control" name="email" id=""
+                                                        value="{{$payment->email}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
+                                                    Pembayaran
+                                                </label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <select type="select" class="form-control" name="type">
+                                                        <option value="{{$payment->type}}" readonly>
+                                                            {{$payment->type}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                    for="alamat">Alamat</label>
+                                                <div class="col-md-9">
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-6 col-md-4">
+                                                            <select class="form-control form-select bg-white"
+                                                                name="province" id="select-province">
+                                                                <option value="">{{$json->address->province->name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-4">
+                                                            <select class="form-control form-select bg-white"
+                                                                name="district" id="select-district">
+                                                                <option class="form-option" value="" disabled selected>
+                                                                    {{$json->address->district->name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-sm-6 col-md-4">
+                                                            <select class="form-control form-select bg-white"
+                                                                name="regency" id="select-regency"
+                                                                onchange="pilihKec(this.value)">
+                                                                <option class="form-option" value="" disabled selected>
+                                                                    {{$json->address->regency->name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-4">
+                                                            <select class="form-control form-select bg-white"
+                                                                name="village" id="select-village">
+                                                                <option class="form-option" value="" disabled selected>
+                                                                    {{$json->address->village->name }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nominal
+                                                    (Rp)</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" min="1" id="rupiah" class="form-control"
+                                                        name="amount" autocomplete="no" value="{{$payment->amount}}"
+                                                        readonly>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-4">
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
+                                                    Telp</label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <input type="text" class="form-control" name="phone"
+                                                        value="{{$payment->phone}}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label col-12 col-md-3 col-lg-3 text-md-right">Bukti
+                                                    Pembayaran</label>
+                                                <div class="col-sm-12 col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-body d-flex justify-content-center">
+                                                            <img src="/{{$payment->proof_of_payment}}" alt=""
+                                                                height="100px">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row mb-4">
+                                                <label
+                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <div class="col-sm-12 col-md-7">
+                                                    <button type="submit" name="submit" class="btn btn-primary">Tambah
+                                                        Pembayaran</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- This is where your code ends -->
+                                </div>
                             </div>
                         </div>
                     </div>
+                </section>
             </div>
-            </section>
+            <footer class="main-footer">
+                @include('admin.stisla.footer')
+            </footer>
         </div>
-        <footer class="main-footer">
-            @include('admin.stisla.footer')
-        </footer>
-    </div>
     </div>
 
     @include('admin.stisla.script')
+
+    <script>
+    $(document).on('keyup', '#rupiah', function() {
+        rupiah = $('#rupiah').val();
+        $('#rupiah').val(formatRupiah(rupiah, 'Rp. '));
+    });
+
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
+    </script>
+    <script>
+    CKEDITOR.replace('content');
+    </script>
+    <!-- 
+    <script>
+    let kec = [
+        "Pasar Kliwon",
+        "Jebres",
+        "Banjarsari",
+        "Laweyan",
+        "Serengan",
+    ]
+    let kelurahan = [
+        ['Banyuanyar', 'Banjarsari', 'Gilingan', 'Joglo', 'Kadipiro', 'Keprabon', 'Kestalan', 'Ketelan', 'Manahan',
+            'Mangkubumen', 'Nusukan', 'Punggawan', 'Setabelan', 'Sumber', 'Timuran'
+        ],
+        ['Gandekan', 'Jagalan', 'Jebres', 'Kepatihan Kulon', 'Kepatihan Wetan', 'Mojosongo', 'Pucang Sawit',
+            'Purwodiningratan', 'Sewu', 'Sudiroprajan', 'Tegalharjo'
+        ],
+        ['Bumi', 'Jajar', 'Karangasem', 'Kerten', 'Laweyan', 'Pajang', 'Panularan', 'Penumping', 'Purwosari',
+            'Sondakan', 'Sriwedari'
+        ],
+        ['Baluwarti', 'Gajahan', 'Joyosuran', 'Kampung Baru', 'Kauman', 'Kedung Lumbu', 'Mojo', 'Pasar Kliwon',
+            'Sangkrah', 'Semanggi'
+        ],
+        ['Danukusuman', 'Jayengan', 'Joyotakan', 'Kemlayan', 'Kratonan', 'Serengan', 'Tipes']
+    ]
+    </script>
+
+    <script>
+    for (i = 0; i < kec.length; i++) {
+        $('#kecamatan').append('<option value="' + kec[i] + '">' + kec[i] + '</option>');
+    }
+
+    function pilihKec(value) {
+        index = kec.indexOf(value)
+        $("#kelurahan option").remove();
+        for (i = 0; i < kelurahan[index].length; i++) {
+            $('#kelurahan').append('<option value="' + kelurahan[index][i] + '">' + kelurahan[index][i] + '</option>');
+            console.log(kelurahan[index][i])
+        }
+    }
+    </script> -->
+
+    <!-- Address -->
+    <script>
+    // Pilih Provinsi
+    $(document).on('change', '#select-province', function() {
+        let province_id = $(this).val();
+        // ! Remove Html Below
+        $('#select-district').html('<option value="">Pilih Kota/Kabupaten</option>')
+        $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-district",
+                method: 'POST',
+                data: {
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kota/Kabupaten</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-district').html(option)
+                }
+            })
+        });
+    })
+
+    // Pilih Kabupaten/Kota
+    $(document).on('change', '#select-district', function() {
+        let district_id = $(this).val();
+        let province_id = $('#select-province').val();
+
+        // ! Remove Html Below
+        $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-regency",
+                method: 'POST',
+                data: {
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kecamatan</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-regency').html(option)
+
+
+                }
+            })
+        });
+    })
+
+    // Pilih Kabupaten/Kota
+    $(document).on('change', '#select-regency', function() {
+        let regency_id = $(this).val();
+        let district_id = $('#select-district').val();
+        let province_id = $('#select-province').val();
+
+        // ! Remove Html Below
+        $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-village",
+                method: 'POST',
+                data: {
+                    regency_id: regency_id,
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="">Pilih Kelurahan/Desa</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' +
+                            element['name'] + '</option>')
+                    });
+                    $('#select-village').html(option)
+
+                }
+            })
+        });
+    })
+    </script>
+
 </body>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
-</script>
 
 </html>

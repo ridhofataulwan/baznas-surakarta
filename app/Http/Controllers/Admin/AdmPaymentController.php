@@ -17,7 +17,14 @@ class AdmPaymentController extends Controller
     }
     public function detailPembayaran($id)
     {
-        return view('admin.pembayaran.detail');
+        $db = DB::table('provinces');
+        $data = $db->get();
+
+        $req = DB::table('payment')->where('id', $id)->get()->first();
+        $json =  json_decode($req->address);
+
+        $payment = Payment::where('id', $id)->get()->first();
+        return view('admin.pembayaran.detail', compact('data', 'payment', 'json'));
     }
     public function createPembayaran()
     {

@@ -63,10 +63,10 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>News</h4>
+                                        <h4>Artikel</h4>
                                     </div>
                                     <div class="card-body">
-                                        42
+                                        {{$allpost}}
                                     </div>
                                 </div>
                             </div>
@@ -106,9 +106,9 @@
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Invoices</h4>
+                                    <h4>Latest Post</h4>
                                     <div class="card-header-action">
-                                        <a href="#" class="btn btn-primary">View More <i
+                                        <a href="/admin/post/artikel" class="btn btn-primary">View All <i
                                                 class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
@@ -117,67 +117,50 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <th>Invoice ID</th>
-                                                    <th>Customer</th>
-                                                    <th>Status</th>
-                                                    <th>Due Date</th>
+                                                    <th>Title</th>
+                                                    <th>Author</th>
+                                                    <th>Category</th>
+                                                    <th>Date</th>
                                                     <th>Action</th>
                                                 </tr>
+                                                @foreach($posts as $post)
                                                 <tr>
-                                                    <td><a href="#">INV-87239</a></td>
-                                                    <td class="font-weight-600">Kusnadi</td>
                                                     <td>
-                                                        <div class="badge badge-warning">Unpaid</div>
+                                                        {{ $post->title}}
+                                                        <div class="table-links">
+                                                            <a href="/admin/post/edit/{{$post->id}}">Edit</a>
+                                                            <div class="bullet"></div>
+                                                            <a target="_blank" href="/post/{{$post->id}}">View</a>
+                                                        </div>
                                                     </td>
-                                                    <td>July 19, 2018</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-primary">Detail</a>
+                                                        <a href="#" class="font-weight-600"><img
+                                                                src="assets/img/avatar/avatar-1.png" alt="avatar"
+                                                                width="30" class="rounded-circle mr-1">
+                                                            {{$post->author}}</a>
+                                                    </td>
+                                                    <td><a href="#">
+                                                            <?php if ($post->category_id == 1) {
+                                                                $post->category_id = 'Uncategorized';
+                                                            } elseif ($post->category_id == 2) {
+                                                                $post->category_id = 'Artikel';
+                                                            } elseif ($post->category_id == 3) {
+                                                                $post->category_id = 'Inspirasi';
+                                                            } elseif ($post->category_id == 4) {
+                                                                $post->category_id = 'Kabar Zakat';
+                                                            } ?>
+                                                            {{$post->category_id}}
+                                                        </a></td>
+                                                    <!-- Date -->
+                                                    <td>{{date_format($post->created_at,"d F Y")}}</td>
+                                                    <td>
+                                                        <a href="/admin/post/edit/{{$post->id}}"
+                                                            class="btn btn-primary btn-action mr-1"
+                                                            data-toggle="tooltip" title="" data-original-title="Edit"><i
+                                                                class="fas fa-pencil-alt"></i></a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><a href="#">INV-48574</a></td>
-                                                    <td class="font-weight-600">Hasan Basri</td>
-                                                    <td>
-                                                        <div class="badge badge-success">Paid</div>
-                                                    </td>
-                                                    <td>July 21, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary">Detail</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#">INV-76824</a></td>
-                                                    <td class="font-weight-600">Muhamad Nuruzzaki</td>
-                                                    <td>
-                                                        <div class="badge badge-warning">Unpaid</div>
-                                                    </td>
-                                                    <td>July 22, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary">Detail</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#">INV-84990</a></td>
-                                                    <td class="font-weight-600">Agung Ardiansyah</td>
-                                                    <td>
-                                                        <div class="badge badge-warning">Unpaid</div>
-                                                    </td>
-                                                    <td>July 22, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary">Detail</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><a href="#">INV-87320</a></td>
-                                                    <td class="font-weight-600">Ardian Rahardiansyah</td>
-                                                    <td>
-                                                        <div class="badge badge-success">Paid</div>
-                                                    </td>
-                                                    <td>July 28, 2018</td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary">Detail</a>
-                                                    </td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -216,7 +199,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 col-sm-5 col-lg-5">
+                        <div class="col-12 col-sm-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
                                     <h4>Laporan Tahunan Baznas Surakarta</h4>
@@ -226,98 +209,47 @@
                                         <div class="col-12 col-sm-12 col-md-4">
                                             <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active show" id="home-tab3" data-toggle="tab"
-                                                        href="#home" role="tab" aria-controls="home"
-                                                        aria-selected="false">2021</a>
+                                                    <a class="nav-link active show" id="{{$now}}" data-toggle="tab"
+                                                        href="#laporan-{{$now}}" role="tab" aria-controls="{{$now}}"
+                                                        aria-selected="false">{{$now}}</a>
                                                 </li>
+                                                @for($i=$now-1; $i >= $last;$i--)
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="profile-tab4" data-toggle="tab"
-                                                        href="#profile" role="tab" aria-controls="profile"
-                                                        aria-selected="true">2020</a>
+                                                    <a class="nav-link" id="{{$i}}" data-toggle="tab"
+                                                        href="#laporan-{{$i}}" role="tab" aria-controls="{{$i}}"
+                                                        aria-selected="true">{{$i}}</a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="contact-tab4" data-toggle="tab"
-                                                        href="#contact" role="tab" aria-controls="contact"
-                                                        aria-selected="false">2019</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="contact-tab4" data-toggle="tab"
-                                                        href="#about" role="tab" aria-controls="contact"
-                                                        aria-selected="false">2018</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="contact-tab4" data-toggle="tab"
-                                                        href="#section" role="tab" aria-controls="contact"
-                                                        aria-selected="false">2017</a>
-                                                </li>
+                                                @endfor
                                             </ul>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-8">
                                             <div class="tab-content no-padding" id="myTab2Content">
-                                                <div class="tab-pane fade active show" id="home" role="tabpanel"
-                                                    aria-labelledby="home-tab4">
-                                                    <h6>Pendistribusian</h6>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
-                                                        repudiandae minima quod, asperiores porro ad dolores
-                                                        perferendis, aliquam deserunt omnis numquam, inventore ducimus
-                                                        tempora commodi deleniti ex reiciendis nam vel!</p>
+                                                <div class="tab-pane fade active show" id="laporan-{{$now}}"
+                                                    role="tabpanel" aria-labelledby="{{$now}}">
+                                                    <h6>Laporan</h6>
+                                                    <p>Unduh laporan tahun {{$now}} <a href="#">Di sini </a>
+                                                    </p>
                                                     <hr>
-                                                    <h6>Penerimaan</h6>
-                                                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla
-                                                        quidem, culpa adipisci reiciendis quam atque quisquam
-                                                        reprehenderit ex tempore quas sit sed facere quia consectetur
-                                                        dolores, earum facilis recusandae rerum.</p>
                                                 </div>
-                                                <div class="tab-pane fade" id="profile" role="tabpanel"
-                                                    aria-labelledby="profile-tab4">
-                                                    Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit
-                                                    tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat,
-                                                    sed fermentum justo rutrum ultrices. Proin quis iaculis tellus.
-                                                    Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis
-                                                    neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a
-                                                    mattis velit. Donec hendrerit venenatis justo, eget scelerisque
-                                                    tellus pharetra a.
+                                                @for($i=$now-1; $i >= $last;$i--)
+                                                <div class="tab-pane fade" id="laporan-{{$i}}" role="tabpanel"
+                                                    aria-labelledby="{{$i}}">
+                                                    <h6>Laporan</h6>
+                                                    <p>Unduh laporan tahun {{$i}} <a href="#">Di sini </a>
+                                                    </p>
+                                                    <hr>
                                                 </div>
-                                                <div class="tab-pane fade" id="contact" role="tabpanel"
-                                                    aria-labelledby="contact-tab4">
-                                                    Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi
-                                                    maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit
-                                                    eget mauris. Pellentesque fermentum, sem interdum molestie finibus,
-                                                    nulla diam varius leo, nec varius lectus elit id dolor. Nam
-                                                    malesuada orci non ornare vulputate. Ut ut sollicitudin magna.
-                                                    Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum
-                                                    bibendum augue ut luctus.
-                                                </div>
-                                                <div class="tab-pane fade" id="about" role="tabpanel"
-                                                    aria-labelledby="contact-tab4">
-                                                    Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi
-                                                    maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit
-                                                    eget mauris. Pellentesque fermentum, sem interdum molestie finibus,
-                                                    nulla diam varius leo, nec varius lectus elit id dolor. Nam
-                                                    malesuada orci non ornare vulputate. Ut ut sollicitudin magna.
-                                                    Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum
-                                                    bibendum augue ut luctus.
-                                                </div>
-                                                <div class="tab-pane fade" id="section" role="tabpanel"
-                                                    aria-labelledby="contact-tab4">
-                                                    Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi
-                                                    maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit
-                                                    eget mauris. Pellentesque fermentum, sem interdum molestie finibus,
-                                                    nulla diam varius leo, nec varius lectus elit id dolor. Nam
-                                                    malesuada orci non ornare vulputate. Ut ut sollicitudin magna.
-                                                    Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum
-                                                    bibendum augue ut luctus.
-                                                </div>
+                                                @endfor
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-7 col-lg-7">
+                        <div class="col-12 col-sm-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Laporan Penyaluran Tahun 2022</h4>
+                                    <h4>Laporan Bulanan Tahun {{$now}}</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
@@ -326,129 +258,36 @@
                                                 <li class="nav-item">
                                                     <a class="nav-link active show" id="home-tab4" data-toggle="tab"
                                                         href="#home4" role="tab" aria-controls="home"
-                                                        aria-selected="false">Desember</a>
+                                                        aria-selected="false">{{date('F',strtotime($Month))}}</a>
                                                 </li>
+                                                @for($m = $thisMonth-1; $m>=1; $m--)
                                                 <li class="nav-item">
                                                     <a class="nav-link" id="profile-tab4" data-toggle="tab"
-                                                        href="#profile4" role="tab" aria-controls="profile"
-                                                        aria-selected="true">November</a>
+                                                        href="#bulan-{{$m}}" role=" tab" aria-controls="profile"
+                                                        aria-selected="true">
+                                                        {{date('F', strtotime("+$m month"))}}
+                                                    </a>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" id="contact-tab4" data-toggle="tab"
-                                                        href="#contact4" role="tab" aria-controls="contact"
-                                                        aria-selected="false">Oktober</a>
-                                                </li>
+                                                @endfor
+
                                             </ul>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-8">
+                                        <div class=" col-12 col-sm-12 col-md-8">
                                             <div class="tab-content no-padding" id="myTab2Content">
                                                 <div class="tab-pane fade active show" id="home4" role="tabpanel"
                                                     aria-labelledby="home-tab4">
-                                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod
-                                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                    veniam,
-                                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                                    commodo
-                                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                                                    esse
-                                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                                    cupidatat non
-                                                    proident, sunt in culpa qui officia deserunt mollit anim id est
-                                                    laborum.
+                                                    Unduh laporan bulan {{date('F', strtotime("+$m month"))}} tahun
+                                                    {{$now}} <a href="#">Disini</a>
                                                 </div>
-                                                <div class="tab-pane fade" id="profile4" role="tabpanel"
+                                                @for($m = $thisMonth-1; $m>=1; $m--)
+                                                <div class="tab-pane fade" id="bulan-{{$m}}" role=" tabpanel"
                                                     aria-labelledby="profile-tab4">
-                                                    Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit
-                                                    tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat,
-                                                    sed fermentum justo rutrum ultrices. Proin quis iaculis tellus.
-                                                    Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis
-                                                    neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a
-                                                    mattis velit. Donec hendrerit venenatis justo, eget scelerisque
-                                                    tellus pharetra a.
+                                                    Unduh laporan bulan {{date('F', strtotime("+$m month"))}} tahun
+                                                    {{$now}} <a href="#">Disini</a>
                                                 </div>
-                                                <div class="tab-pane fade" id="contact4" role="tabpanel"
-                                                    aria-labelledby="contact-tab4">
-                                                    Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi
-                                                    maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit
-                                                    eget mauris. Pellentesque fermentum, sem interdum molestie finibus,
-                                                    nulla diam varius leo, nec varius lectus elit id dolor. Nam
-                                                    malesuada orci non ornare vulputate. Ut ut sollicitudin magna.
-                                                    Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum
-                                                    bibendum augue ut luctus.
-                                                </div>
+                                                @endfor
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Latest Posts</h4>
-                                    <div class="card-header-action">
-                                        <a href="#" class="btn btn-primary">View All</a>
-                                    </div>
-                                </div>
-                                <div class="card-body p-0">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>Title</th>
-                                                    <th>Author</th>
-                                                    <th>Category</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($posts as $post)
-                                                <tr>
-                                                    <td>
-                                                        {{ $post->title}}
-                                                        <div class="table-links">
-                                                            <a href="/admin/post/edit/{{$post->id}}">Edit</a>
-                                                            <div class="bullet"></div>
-                                                            <a target="_blank" href="/post/{{$post->id}}">View</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="font-weight-600"><img
-                                                                src="assets/img/avatar/avatar-1.png" alt="avatar"
-                                                                width="30" class="rounded-circle mr-1">
-                                                            {{$post->author}}</a>
-                                                    </td>
-                                                    <td><a href="#">
-                                                            <?php if ($post->category_id == 1) {
-                                                                $post->category_id = 'Uncategorized';
-                                                            } elseif ($post->category_id == 2) {
-                                                                $post->category_id = 'Artikel';
-                                                            } elseif ($post->category_id == 3) {
-                                                                $post->category_id = 'Inspirasi';
-                                                            } elseif ($post->category_id == 4) {
-                                                                $post->category_id = 'Kabar Zakat';
-                                                            } ?>
-                                                            {{$post->category_id}}
-                                                        </a></td>
-                                                    <td>
-                                                        <a href="/admin/post/edit/{{$post->id}}"
-                                                            class="btn btn-primary btn-action mr-1"
-                                                            data-toggle="tooltip" title="" data-original-title="Edit"><i
-                                                                class="fas fa-pencil-alt"></i></a>
-                                                        <a class="btn btn-danger btn-action trigger--fire-modal-1"
-                                                            data-toggle="tooltip" title=""
-                                                            data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?"
-                                                            data-confirm-yes="alert('Deleted')"
-                                                            data-original-title="Delete"><i
-                                                                class="fas fa-trash"></i></a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
