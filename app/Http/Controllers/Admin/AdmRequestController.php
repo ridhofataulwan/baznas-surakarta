@@ -105,7 +105,7 @@ class AdmRequestController extends Controller
             'sktm'              => ['name' => request('sktm')],
             'suket'             => ['name' => request('suket')],
             'tagihan'           => ['name' => request('tagihan')],
-            'proposal'           => ['name' => request('proposal')],
+            'proposal'          => ['name' => request('proposal')],
         ];
 
         $data = [

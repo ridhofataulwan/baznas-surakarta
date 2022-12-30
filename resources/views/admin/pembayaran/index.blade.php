@@ -52,8 +52,7 @@
                                                     @foreach($data as $pay)
                                                     <tr>
                                                         <th scope="row">{{$no++}}</th>
-                                                        <td><a
-                                                                href="/admin/permohonan/BAP30122002001">{{$pay->name}}</a>
+                                                        <td><a href="/admin/pembayaran/{{$pay->id}}">{{$pay->name}}</a>
                                                         </td>
                                                         <td>{{$pay->type}}</td>
                                                         <td>{{$pay->created_at}}</td>
