@@ -33,7 +33,7 @@
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="nik">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
@@ -42,21 +42,22 @@
                                                     Lembaga
                                                 </label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="name">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 c   ol-lg-3">Tanggal</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="date" class="form-control" name="tanggal">
+                                                    <input type="date" class="form-control" name="created_at">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
                                                     Program</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <select type="select" class="form-control" name="category">
+                                                    <select type="select" class="form-control"
+                                                        name="distribution_category_id">
                                                         <option value="Pendidikan">Pendidikan</option>
                                                         <option value="Ekonomi Produktif">Ekonomi Produktif</option>
                                                         <option value="Dakwah & Advokasi">Dakwah & Advokasi</option>
@@ -69,7 +70,7 @@
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Ashnaf</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <select type="select" class="form-control" name="category">
+                                                    <select type="select" class="form-control" name="ashnaf">
                                                         <option value="Fakir">Fakir</option>
                                                         <option value="Miskin">Miskin</option>
                                                         <option value="Fisabilillah">Fisabilillah</option>
@@ -86,10 +87,10 @@
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat
                                                     Tanggal Lahir</label>
                                                 <div class="col-sm-6 col-md-3">
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="birthplace">
                                                 </div>
                                                 <div class="col-sm-6 col-md-3">
-                                                    <input type="date" class="form-control" name="title">
+                                                    <input type="date" class="form-control" name="birthdate">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
@@ -99,7 +100,7 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="provinsi" id="select-province">
+                                                                name="province" id="select-province">
                                                                 <option value="">Pilih Provinsi</option>
                                                                 @foreach ($data as $provinsi)
                                                                 <option value="{{ $provinsi->id }}">
@@ -110,8 +111,8 @@
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="kabupaten" id="select-district">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                name="district" id="select-district">
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kota/Kabupaten</option>
                                                             </select>
@@ -120,17 +121,16 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="alamat" id="select-regency"
-                                                                onchange="pilihKec(this.value)">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                name="regency" id="select-regency">
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kecamatan</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6 col-md-4">
                                                             <select class="form-control form-select bg-white"
-                                                                name="alamat" id="select-village">
-                                                                <option class="form-option" value="" disabled selected>
+                                                                name="village" id="select-village">
+                                                                <option class="form-option" value="" selected>
                                                                     Pilih
                                                                     Kelurahan/Desa</option>
                                                             </select>
@@ -144,7 +144,7 @@
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <select type="select" class="form-control" name="category">
+                                                    <select type="select" class="form-control" name="religion">
                                                         <option value="Islam">Islam</option>
                                                         <option value="Katholik">Katholik</option>
                                                         <option value="Protestan">Protestan</option>
@@ -158,21 +158,21 @@
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="job">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                     Telp</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" name="title">
+                                                    <input type="text" class="form-control" name="phone_number">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
                                                 <label
                                                     class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <textarea style="height: 150px;" name="keterangan"
+                                                    <textarea style="height: 150px;" name="description"
                                                         class="form-control summernote-simple"></textarea>
                                                 </div>
                                             </div>

@@ -16,9 +16,9 @@
                 <section class="section">
                     <div class="section-header d-flex flex-column">
                         <div class="align-self-start">
-                            <h1>Detail Permohonan Bantuan</h1>
+                            <h1>Detail Penyaluran Bantuan</h1>
                         </div>
-                        <div class="align-self-start">Senin, 12 Oktober 2022</div>
+                        <div class="align-self-start mt-3">{{date("d F Y",strtotime("$dist->created_at"))}}</div>
                     </div>
                     <div class="row">
                         <div class="col-12 ">
@@ -30,34 +30,38 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="3320490002340230001">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->nik}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="Rizky Joanditya">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->name}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Purwokerto">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->birthplace}}">
                                             </div>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="date" class="form-control" name="date" value="2002-01-21">
+                                                <input type="date" class="form-control" name="date" readonly
+                                                    value="{{$dist->birthdate}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
                                                 Bantuan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <select type="select" class="form-control" name="category">
-                                                    <option selected value="Pendidikan">Pendidikan</option>
+                                                <select type="select" readonly class="form-control" name="category">
+                                                    <option selected value="{{$dist->distribution_category_id}}">
+                                                        {{$program->name}}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -65,142 +69,144 @@
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Islam">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->religion}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" value="Mahasiswa">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->job}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title"
-                                                    value="08712378981729">
+                                                <input type="text" class="form-control" name="title" readonly
+                                                    value="{{$dist->phone_number}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Alamat</label>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" value="Banjarsari">
-                                            </div>
-                                            <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="date" value="Mojosongo">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
+                                                for="alamat">Alamat</label>
+                                            <div class="col-md-9">
+                                                <div class="row mb-2">
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white"
+                                                            name="province" id="select-province">
+                                                            <option value="">{{$json->address->province->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white"
+                                                            name="district" id="select-district">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->district->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white" name="regency"
+                                                            id="select-regency">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->regency->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-4">
+                                                        <select class="form-control form-select bg-white" name="village"
+                                                            id="select-village">
+                                                            <option class="form-option" value="" disabled selected>
+                                                                {{$json->address->village->name }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label
                                                 class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea style="height: 150px;" name="content"
-                                                    class="form-control summernote-simple">Buat Beasiswa</textarea>
+                                                <textarea style="height: 150px;" name="content" readonly
+                                                    class="form-control summernote-simple">{{$dist->description}}</textarea>
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="form-group row col-12 ml-5 pr-5">
-                                            <div class="col-12 col-sm-12 text-center">
-                                                <h3>Kelengkapan Persyaratan</h3>
+                                        <div class="form-group row mb-4">
+                                            <label
+                                                class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3"></label>
+                                            <div class="col-sm-12 col-md-6">
+                                                <h3>Kelengkapan Dokumen</h3>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/1.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Permohonan</h5>
-                                                        </div>
+                                            <label
+                                                class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Persyaratan
+                                                {{$program->name}}</label>
+                                            <div class="row-md-6">
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck1">
+                                                        <label class="custom-control-label" for="customCheck1">Surat
+                                                            Permohonan Bantuan</label>
                                                     </div>
-                                                </a>
 
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/2.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>SKTM Gakin</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
+                                                </div>
 
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/3.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KTP</h5>
-                                                        </div>
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck2">
+                                                        <label class="custom-control-label" for="customCheck2">Scan
+                                                            KTP</label>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/uploads/persyaratan-permohonan/surat-permohonan.pdf"
-                                                    target="_blank">
+                                                </div>
 
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/4.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KK</h5>
-                                                        </div>
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck3">
+                                                        <label class="custom-control-label" for="customCheck3">Scan
+                                                            KK</label>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/5.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Keterangan Kelurahan</h5>
-                                                        </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck4">
+                                                        <label class="custom-control-label" for="customCheck4">SKTM
+                                                            atau
+                                                            Gakin</label>
                                                     </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/6.jpg');background-size:cover;"
-                                                        class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;"
-                                                            width="100%" class="col text-light p-3 ">
-                                                            <h5>Tagihan Sekolah</h5>
-                                                        </div>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck5">
+                                                        <label class="custom-control-label" for="customCheck5">Suket
+                                                            Permohonan Bantuan
+                                                            ke Baznas dari kelurahan</label>
                                                     </div>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status
-                                                Permohonan</label>
-                                            <div class="selectgroup col-md-4 col-sm-12">
-                                                <label class="selectgroup-item">
-                                                    <input type="radio" name="transportation" value="1"
-                                                        class="selectgroup-input" checked="">
-                                                    <span
-                                                        class="selectgroup-button selectgroup-button-icon">Diterima</i></span>
-                                                </label>
-                                                <style>
-                                                .selectgroup-input.denied:checked+.selectgroup-button {
-                                                    background-color: red;
-                                                    color: #ffffff;
-                                                }
-                                                </style>
-                                                <label class="selectgroup-item">
-                                                    <input selected type="radio" name="transportation" value="2"
-                                                        class="selectgroup-input denied">
-                                                    <span
-                                                        class="selectgroup-button selectgroup-button-icon">Ditolak</span>
-                                                </label>
+                                                </div>
+
+                                                <div class="col-sm-12 col-md-auto">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck6">
+                                                        <label class="custom-control-label" for="customCheck6">Tagihan
+                                                            dari Sekolah</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>

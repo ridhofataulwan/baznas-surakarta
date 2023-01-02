@@ -17,7 +17,8 @@
                     <div class="section-header">
                         <h1>Tabel Penyaluran Sedekah</h1>
                     </div>
-                    <a href="{{ route('add.penyaluran') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
+                    <a href="{{ route('add.penyaluran') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
+                            aria-hidden="true"></i>
                         Buat Baru</a>
                     <div class="section-body">
                         <div class="row">
@@ -38,7 +39,7 @@
                                                     <tr>
                                                         <th scope="col" style="width: 5%">No</th>
                                                         <th scope="col">Nama</th>
-                                                        <th scope="col" width="">Jenis Bantuan</th>
+                                                        <th scope="col" width="">Ashnaf</th>
                                                         <th scope="col" width="">Tanggal</th>
                                                         <th scope="col" style="width: 5%">Status</th>
                                                         <th scope="col" style="width: 15%">Action</th>
@@ -48,78 +49,37 @@
                                                     @php
                                                     $no=1;
                                                     @endphp
-
+                                                    @foreach($data as $distribution)
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002001">Rizky
-                                                                Joanditya</a></td>
-                                                        <td>Pendidikan</td>
-                                                        <td>Senin, 12 Oktober 2022</td>
+                                                        <td><a
+                                                                href="/admin/penyaluran/{{$distribution->id}}">{{$distribution->name}}</a>
+                                                        </td>
+                                                        <td>{{$distribution->ashnaf}}</td>
+                                                        <td>{{date("d F Y",strtotime("$distribution->created_at"))}}
+                                                        </td>
                                                         <td>
                                                             <span class="badge badge-warning">Diajukan</span>
                                                             <!-- <span class="badge badge-success">Aktif</span> -->
                                                             <!-- <span class="badge badge-danger">Nonaktif</span> -->
                                                         </td>
                                                         <td>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
+                                                            <a href=""
+                                                                class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-edit fa-2x"></i>
                                                             </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
+                                                            <a href=""
+                                                                class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-power-off"></i>
                                                             </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
+                                                            <a href=""
+                                                                class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-trash-alt fa-2x"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002002">Ridho Fata
-                                                                Ulwan</a></td>
-                                                        <td>Ekonomi Produktif</td>
-                                                        <td>Rabu, 9 September 2022</td>
-                                                        <td>
-                                                            <!-- <span class="badge badge-warning">Diajukan</span> -->
-                                                            <span class="badge badge-success">Diterima</span>
-                                                            <!-- <span class="badge badge-danger">Nonaktif</span> -->
-                                                        </td>
-                                                        <td>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-trash-alt fa-2x"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td><a href="/admin/permohonan/BAP30122002003">Nizam</a></td>
-                                                        <td>Adovkasi Dakwah</td>
-                                                        <td>Kamis, 29 Agustus 2022</td>
-                                                        <td>
-                                                            <!-- <span class="badge badge-warning">Diajukan</span> -->
-                                                            <!-- <span class="badge badge-success">Diterima</span> -->
-                                                            <span class="badge badge-danger">Ditolak</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-trash-alt fa-2x"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-
+                                                    @endforeach
                                             </table>
-
                                         </div>
                                     </div>
                                     <!-- This is where your code ends -->
@@ -138,9 +98,9 @@
     @include('admin.stisla.script')
 </body>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
+$(document).ready(function() {
+    $('#myTable').DataTable();
+});
 </script>
 
 </html>
