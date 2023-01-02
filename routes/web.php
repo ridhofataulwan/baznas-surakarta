@@ -213,6 +213,7 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');
+            Route::get('/penyaluran/{id}', [AdmDistributionController::class, 'detailPenyaluran']);
         });
     });
 });

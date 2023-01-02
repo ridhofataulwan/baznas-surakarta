@@ -27,8 +27,7 @@ class HomeController extends Controller
             $last = $now - 5;
         }
         $Month = date('Y-m-d');
-        $thisMonth = date("m");
-        // $last = 2022;
+        $thisMonth = (int)date("m");
 
         return view('admin.admin', compact('messages', 'posts', 'count_messages', 'count_requests', 'now', 'last', 'allpost', 'Month', 'thisMonth'));
     }

@@ -10,12 +10,31 @@ class AdmDistributionController extends Controller
 {
     public function penyaluran()
     {
-        return view('admin.penyaluran.index');
+        $db = DB::table('distribution');
+        $data = $db->get();
+
+        return view('admin.penyaluran.index', compact('data'));
     }
     public function createPenyaluran()
     {
         $db = DB::table('provinces');
         $data = $db->get();
         return view('admin.penyaluran.add', compact('data'));
+    }
+
+    public function detailPenyaluran($id)
+    {
+        $db = DB::table('distribution');
+        $dist = $db->where('id', $id)->get()->first();
+
+        $json =  json_decode($dist->address);
+        // echo gettype($json);
+
+        $db = DB::table('provinces');
+        $data = $db->get();
+
+        $program = DB::table('distribution')->join('program', 'distribution.distribution_category_id', '=', 'program.id')->get()->first();
+        // dd($program->name);
+        return view('admin.penyaluran.detail', compact('data', 'dist', 'json', 'program'));
     }
 }

@@ -265,7 +265,7 @@
                                                     <a class="nav-link" id="profile-tab4" data-toggle="tab"
                                                         href="#bulan-{{$m}}" role=" tab" aria-controls="profile"
                                                         aria-selected="true">
-                                                        {{date('F', strtotime("+$m month"))}}
+                                                        {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}}
                                                     </a>
                                                 </li>
                                                 @endfor
@@ -276,14 +276,16 @@
                                             <div class="tab-content no-padding" id="myTab2Content">
                                                 <div class="tab-pane fade active show" id="home4" role="tabpanel"
                                                     aria-labelledby="home-tab4">
-                                                    Unduh laporan bulan {{date('F', strtotime("+$m month"))}} tahun
-                                                    {{$now}} <a href="#">Disini</a>
+                                                    Unduh laporan bulan
+                                                    {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}} tahun
+                                                    {{$now}} <a href="#">Di sini</a>
                                                 </div>
                                                 @for($m = $thisMonth-1; $m>=1; $m--)
                                                 <div class="tab-pane fade" id="bulan-{{$m}}" role=" tabpanel"
                                                     aria-labelledby="profile-tab4">
-                                                    Unduh laporan bulan {{date('F', strtotime("+$m month"))}} tahun
-                                                    {{$now}} <a href="#">Disini</a>
+                                                    Unduh laporan bulan
+                                                    {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}} tahun
+                                                    {{$now}} <a href="#">Di sini</a>
                                                 </div>
                                                 @endfor
                                             </div>
