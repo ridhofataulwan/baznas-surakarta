@@ -227,7 +227,9 @@
                                                 <div class="tab-pane fade active show" id="laporan-{{$now}}"
                                                     role="tabpanel" aria-labelledby="{{$now}}">
                                                     <h6>Laporan</h6>
-                                                    <p>Unduh laporan tahun {{$now}} <a href="#">Di sini </a>
+                                                    <p>Unduh laporan tahun {{$now}} <a
+                                                            href="{{route('export.laporan.tahun',['id' => $now])}}">Di
+                                                            sini </a>
                                                     </p>
                                                     <hr>
                                                 </div>
@@ -235,7 +237,9 @@
                                                 <div class="tab-pane fade" id="laporan-{{$i}}" role="tabpanel"
                                                     aria-labelledby="{{$i}}">
                                                     <h6>Laporan</h6>
-                                                    <p>Unduh laporan tahun {{$i}} <a href="#">Di sini </a>
+                                                    <p>Unduh laporan tahun {{$i}} <a
+                                                            href="{{route('export.laporan.tahun',['id' => $i])}}">Di
+                                                            sini </a>
                                                     </p>
                                                     <hr>
                                                 </div>
@@ -260,12 +264,11 @@
                                                         href="#home4" role="tab" aria-controls="home"
                                                         aria-selected="false">{{date('F',strtotime($Month))}}</a>
                                                 </li>
-                                                @for($m = $thisMonth-1; $m>=1; $m--)
-                                                <li class="nav-item">
+                                                @for($m = $thisMonth-1; $m>=1; $m--) <li class="nav-item">
                                                     <a class="nav-link" id="profile-tab4" data-toggle="tab"
                                                         href="#bulan-{{$m}}" role=" tab" aria-controls="profile"
                                                         aria-selected="true">
-                                                        {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}}
+                                                        {{date('F', strtotime(date('Y-F-d')."$m month"))}}
                                                     </a>
                                                 </li>
                                                 @endfor
@@ -274,18 +277,23 @@
                                         </div>
                                         <div class=" col-12 col-sm-12 col-md-8">
                                             <div class="tab-content no-padding" id="myTab2Content">
+                                                <?php $id = 1; ?>
                                                 <div class="tab-pane fade active show" id="home4" role="tabpanel"
                                                     aria-labelledby="home-tab4">
                                                     Unduh laporan bulan
-                                                    {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}} tahun
-                                                    {{$now}} <a href="#">Di sini</a>
+                                                    {{date('F', strtotime(date('Y-F-d')."+$m month"))}} tahun
+                                                    {{$now}} <a
+                                                        href="{{route('export.laporan.bulan',['id' => $id])}}">Di
+                                                        sini</a>
                                                 </div>
-                                                @for($m = $thisMonth-1; $m>=1; $m--)
-                                                <div class="tab-pane fade" id="bulan-{{$m}}" role=" tabpanel"
-                                                    aria-labelledby="profile-tab4">
+
+                                                @for($m = $thisMonth; $m>=1; $m--) <div class="tab-pane fade"
+                                                    id="bulan-{{$m}}" role=" tabpanel" aria-labelledby="profile-tab4">
                                                     Unduh laporan bulan
-                                                    {{date('F', strtotime(date('Y-F-d')."-1 year +$m month"))}} tahun
-                                                    {{$now}} <a href="#">Di sini</a>
+                                                    {{date('F', strtotime(date('Y-F-d')."$m month"))}} tahun
+                                                    {{$now}} <a
+                                                        href="{{route('export.laporan.bulan',['id' => $id++])}}">Di
+                                                        sini</a>
                                                 </div>
                                                 @endfor
                                             </div>

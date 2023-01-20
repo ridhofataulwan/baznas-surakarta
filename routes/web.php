@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdmBerandaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdmCategoryController;
 use App\Http\Controllers\Admin\AdmDistributionController;
@@ -214,6 +215,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');
             Route::get('/penyaluran/{id}', [AdmDistributionController::class, 'detailPenyaluran']);
+
+            // export laporan
+            Route::get('export/tahun/{id}', [AdmBerandaController::class, 'exportLaporanTahun'])->name('export.laporan.tahun');
+            Route::get('export/bulan/{id}', [AdmBerandaController::class, 'exportLaporanBulan'])->name('export.laporan.bulan');
         });
     });
 });
