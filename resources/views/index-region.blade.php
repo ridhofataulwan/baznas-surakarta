@@ -102,7 +102,7 @@
         });
     })
 
-    // Pilih Kabupaten/Kota
+    // Pilih Kecamatan
     $(document).on('change', '#select-regency', function() {
         let regency_id = $(this).val();
         let district_id = $('#select-district').val();
