@@ -148,10 +148,10 @@ class PaymentController extends Controller
             'proof_of_payment' => $pop,
         ];
 
-        // // Store Uploaded File
-        // $file->move(public_path('uploads/bayar'), $filename);
-        // // Insert to Database
-        // Payment::create($data);
+        // Store Uploaded File
+        $file->move(public_path('uploads/bayar'), $filename);
+        // Insert to Database
+        Payment::create($data);
 
         // SMTP MAIL ❗Disabled
         // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));

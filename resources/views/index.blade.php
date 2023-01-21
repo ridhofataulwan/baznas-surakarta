@@ -365,10 +365,10 @@
                                             <p>{{ $g->name }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $g->jenis }}</p>
+                                            <p>{{ $g->type }}</p>
                                         </td>
                                         <td>
-                                            <p>{{ $g->nominal }}</p>
+                                            <p class="rupiah" id="rupiah-{{ $key+1 }}">{{ $g->amount }}</p>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -577,6 +577,30 @@
 
     span.onclick = function() {
         modal.style.display = "none";
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        let pembayar = document.getElementsByClassName('rupiah')
+        for (let index = 0; index < pembayar.length; index++) {
+            let row = pembayar[index]
+            row.innerHTML = formatRupiah(row.innerHTML, 'Rp. ')
+        }
+    })
+
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 </script>
 @endsection
