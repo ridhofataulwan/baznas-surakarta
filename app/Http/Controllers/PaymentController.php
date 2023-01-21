@@ -35,22 +35,49 @@ class PaymentController extends Controller
          * *updated_at - timestamp       = (-) DEFAULT
          */
 
-        // DATA VALIDATION ✅🔐
-        $validator = Validator::make(request()->all(), [
-            'name' => 'required|string|max:1',
+
+        // Custom Error Message for Validation
+        $messages = [
+            'required' => 'Data :attribute harus diisi',
+            'in'      => 'Data :attribute harus bertipe :values',
+            'amount.min' => 'Jumlah besaran minimal Rp.10.000',
+            'proof_of_payment.required' => 'Bukti pembayaran harus diisi',
+            'proof_of_payment.mimes' => 'Bukti pembayaran harus bertpe gambar :values',
+            'proof_of_payment.max' => 'Bukti pembayaran maksimal berukuran :max KB',
+        ];
+
+        // Set Rules for Form Input
+        $rules = [
+            'name' => 'required|string',
             'nik' => 'required|string|min:16|max:16',
             'gender' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
-            'address' => 'required',
+            'regency' => 'required',
+            'village' => 'required',
 
             'type' => 'required',
-            'amount' => 'required',
-            'proof_of_payment' => 'required|max:1024|mimes:png,jpg,jpeg',
+            'amount' => 'required|int|min:10000',
+            'proof_of_payment' => 'required|max:5000|mimes:png,jpg,jpeg',
+        ];
+
+        //  amount ✅
+        $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
+        $amount = preg_replace($pattern, '', request('amount'));
+
+        // change amount data into integer
+        request()->merge([
+            'amount' => $amount,
         ]);
 
+        // DATA VALIDATION ✅🔐
+        $validator = Validator::make(request()->all(), $rules, $messages);
+
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Data gagal dikirim. Silakan cek kembali form yang Anda isi');
+            session()->flash('status', 'error');
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         // Get Region Name ✅
@@ -97,7 +124,6 @@ class PaymentController extends Controller
         $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
         $amount = preg_replace($pattern, '', request('amount'));
 
-
         // proof_of_payment ✅
         $file = request()->file('proof_of_payment');
         $filename = hexdec(uniqid()) . '.' . $file->getClientOriginalExtension();
@@ -122,16 +148,22 @@ class PaymentController extends Controller
             'proof_of_payment' => $pop,
         ];
 
-        dd($data);
-        $file->move(public_path('uploads/bayar'), $filename);
-        Payment::create($data);
+        // // Store Uploaded File
+        // $file->move(public_path('uploads/bayar'), $filename);
+        // // Insert to Database
+        // Payment::create($data);
 
-        // SMTP MAIL ❗
+        // SMTP MAIL ❗Disabled
         // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
         // $users = User::role('admin')->get();
         // foreach ($users as $user) {
         //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . $tf->name));
         // }
+
+        // Success ✅   
+        session()->flash('title', 'Sukses');
+        session()->flash('message', 'Data berhasil dikirim');
+        session()->flash('status', 'success');
         return redirect()->back();
     }
 }
