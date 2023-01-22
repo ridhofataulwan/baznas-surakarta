@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Notifikasi;
+use App\Models\User;
+
 
 
 class PaymentController extends Controller
@@ -154,11 +158,12 @@ class PaymentController extends Controller
         Payment::create($data);
 
         // SMTP MAIL ❗Disabled
-        // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
-        // $users = User::role('admin')->get();
-        // foreach ($users as $user) {
-        //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . $tf->name));
-        // }
+
+        Mail::to(request()->email)->send(new Notifikasi(request('email'), 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
+        $users = User::role('admin')->get();
+        foreach ($users as $user) {
+            Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . request('name')));
+        }
 
         // Success ✅   
         session()->flash('title', 'Sukses');
