@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Admin\AdmPaymentController as AdmPaymentController;
 
 class BerandaController extends Controller
 {
@@ -29,6 +30,10 @@ class BerandaController extends Controller
 
         $galeri = Galeri::latest()->take(4)->get();
         $bayar = Payment::where('visible', 'SHOW')->latest()->take(10)->get();
+        // Format Rupiah
+        foreach ($bayar as $payment => $value) {
+            $value->amount = AdmPaymentController::formatRupiah($value->amount, 'Rp. ');
+        }
 
         // Menyamarkan nama pembayar zakat
         foreach ($bayar as $key => $g) {
