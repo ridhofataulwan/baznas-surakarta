@@ -19,7 +19,7 @@ class HomeController extends Controller
         $count_messages = Message::count();
 
         date_default_timezone_set("Asia/Jakarta");
-        $now = date('Y') + 5;
+        $now = date('Y');
         $margin = $now - 2023;
         if ($margin < 5) {
             $last = 2023;
@@ -27,7 +27,7 @@ class HomeController extends Controller
             $last = $now - 5;
         }
         $Month = date('Y-m-d');
-        $thisMonth = (int)date("m") + 3;
+        $thisMonth = (int)date("m");
 
         return view('admin.admin', compact('messages', 'posts', 'count_messages', 'count_requests', 'now', 'last', 'allpost', 'Month', 'thisMonth'));
     }
