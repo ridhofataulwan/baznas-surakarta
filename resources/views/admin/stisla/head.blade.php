@@ -7,18 +7,18 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- CSS Libraries -->
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-daterangepicker/daterangepicker.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-daterangepicker/daterangepicker.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}"> -->
 <link rel="stylesheet" href="{{ asset('Stisla/node_modules/select2/dist/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/selectric/public/selectric.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/prismjs/themes/prism.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-social/bootstrap-social.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/summernote/dist/summernote-bs4.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-social/bootstrap-social.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/selectric/public/selectric.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/prismjs/themes/prism.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-social/bootstrap-social.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/summernote/dist/summernote-bs4.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/bootstrap-social/bootstrap-social.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('Stisla/node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}"> -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 {{-- CK Editor --}}
 <script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
@@ -26,3 +26,5 @@
 <link rel="stylesheet" href="{{ asset('Stisla/assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('Stisla/assets/css/components.css') }}">
 <link rel="icon" type="image/png" href="{{asset('assets/img/portfolio/logo/logo3.png')}}">
+<!-- Sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
