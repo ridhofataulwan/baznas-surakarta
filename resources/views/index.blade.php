@@ -337,7 +337,7 @@
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5">
             <div class="col-md-12">
-                <div class="card" style="background-color: #E2E2E2; border: #E2E2E2; height: 300px;">
+                <div class="card" style="background-color: #E2E2E2; border: #E2E2E2; height: auto;">
                     <div class="judul-card">
                         <center>
                             <h5 class="text-white mt-4"><b>Pembayar Zakat Terbaru</b></h5>
@@ -345,7 +345,7 @@
                     </div>
                     <div class="card-body" style="border: none; background-color: transparent;">
                         @if(sizeof($bayar) > 0)
-                        <div class="table-responsive mt-5">
+                        <div class="table-responsive px-3 mt-5">
                             <table class="table table-bordered table-md" id="myTable">
                                 <thead class="thead-dark">
                                     <tr>
