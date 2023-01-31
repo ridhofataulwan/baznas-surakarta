@@ -15,15 +15,15 @@ class AdmRequestController extends Controller
         $data = $db->get();
         $programs = "";
         foreach ($data as $d) {
-            if ($d->request_category_id == 1) {
+            if ($d->program_id == 1) {
                 $programs = "Kemanusiaan";
-            } elseif ($d->request_category_id == 2) {
+            } elseif ($d->program_id == 2) {
                 $programs = "Pendidikan";
-            } elseif ($d->request_category_id == 3) {
+            } elseif ($d->program_id == 3) {
                 $programs = "Kesehatan";
-            } elseif ($d->request_category_id == 4) {
+            } elseif ($d->program_id == 4) {
                 $programs = "Advokasi dan Dakwah";
-            } elseif ($d->request_category_id == 5) {
+            } elseif ($d->program_id == 5) {
                 $programs = "Ekonomi Produktif";
             }
         }
@@ -52,6 +52,7 @@ class AdmRequestController extends Controller
 
     public function requestStore(Request $request)
     {
+        // dd(request()->all());
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
         ]);
@@ -109,7 +110,7 @@ class AdmRequestController extends Controller
         ];
 
         $data = [
-            'request_category_id'   => $request->category,
+            'program_id'   => $request->category,
             'nik'                   => $request->nik,
             'name'                  => $request->name,
             'birthplace'            => $request->birthplace,
@@ -119,12 +120,12 @@ class AdmRequestController extends Controller
             'job'                   => $request->job,
             'phone_number'          => $request->phone_number,
             'description'           => $request->description,
-            'requirements'          => json_encode($requirements),
+            'requirements'          => ($requirements),
         ];
-        // dd($data);
+        dd($data);
         DB::table('request')->insert([
             'id'                    => rand(),
-            'request_category_id'   => $data['request_category_id'],
+            'program_id'   => $data['program_id'],
             'nik'                   => $data['nik'],
             'name'                  => $data['name'],
             'birthplace'            => $data['birthplace'],
