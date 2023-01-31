@@ -175,5 +175,26 @@ class AdmPaymentController extends Controller
         }
         DB::table('payment')->where('id', $id)->update(['visible' => $visibility]);
     }
+    public function validatePembayaran($id, $value)
+    {
+        // Check if data is already available 
+        $data = Payment::where('id', $id);
+
+        // If data > 0, that means data has already stored in database
+        if (count($data->get()) > 0) {
+            $data->update([
+                'valid' => $value,
+            ]);
+            // Success ✅   
+            session()->flash('title', 'Sukses');
+            session()->flash('message', 'Data Pembayaran berhasil diubah: ' . $value);
+            session()->flash('status', 'success');
+            return redirect('/admin/pembayaran/')->with('success', 'Data Pembayaran berhasil diubah: ' . $value);
+        } else {
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Data Pembayaran tidak ditemukan');
+            session()->flash('status', 'error');
+            return redirect('/admin/pembayaran/')->with('danger', 'Data Pembayaran tidak ditemukan');
+        }
     }
 }
