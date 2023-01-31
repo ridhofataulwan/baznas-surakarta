@@ -7,13 +7,60 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Payment;
+use IntlDateFormatter;
+use Illuminate\Support\Facades\Mail;
 
 class AdmPaymentController extends Controller
 {
+    /**
+     * -------------------------------------------------------------------
+     * pembayaran() - Index [GET]
+     * -------------------------------------------------------------------
+     * Method untuk menampilkan daftar pembayaran
+     * @return view
+     */
     public function pembayaran()
     {
         $data = Payment::where('visible', 'SHOW')->get();
         return view('admin.pembayaran.index', compact('data'));
+        /**
+         * ? Table Payment
+         * *Properti
+         * id, name, nik, gender, phone, email, address
+         * type, amount, proof_of_payment, visible, valid 
+         * created_at, updated_at
+         * ============================
+         */
+
+        //  Date Formatter
+        $fmt_date = datefmt_create(
+            'id_ID',
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::LONG,
+            'Asia/Jakarta',
+            IntlDateFormatter::GREGORIAN,
+            'dd MMMM yyyy'
+        );
+        $fmt_time = datefmt_create(
+            'id_ID',
+            IntlDateFormatter::LONG,
+            IntlDateFormatter::LONG,
+            'Asia/Jakarta',
+            IntlDateFormatter::GREGORIAN,
+            'HH:mm'
+        );
+
+        $data = Payment::all();
+        foreach ($data as $payment => $value) {
+            $value->amount = $this->formatRupiah($value->amount, 'Rp. ');
+        }
+        foreach ($data as $phone => $value) {
+            if (substr($value->phone, 0, 1) == '0') {
+                $value->phone = '62' . substr($value->phone, 1);
+            }
+        }
+
+        return view('admin.pembayaran.index', compact('data', 'fmt_date', 'fmt_time'));
     }
     public function detailPembayaran($id)
     {
