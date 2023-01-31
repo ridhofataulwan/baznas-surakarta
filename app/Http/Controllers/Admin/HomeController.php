@@ -31,4 +31,9 @@ class HomeController extends Controller
 
         return view('admin.admin', compact('messages', 'posts', 'count_messages', 'count_requests', 'now', 'last', 'allpost', 'Month', 'thisMonth'));
     }
+
+    public function statistik()
+    {
+        return view('admin.statistik.index');
+    }
 }

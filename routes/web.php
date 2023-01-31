@@ -147,6 +147,8 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/', [HomeController::class, 'index']);
+            Route::get('/statistik', [HomeController::class, 'statistik']);
+
 
             Route::get('/category', [AdmCategoryController::class, 'listCategoryPost']);
             Route::post('/category/store', [AdmCategoryController::class, 'storeCategoryPost'])->name('store.category');

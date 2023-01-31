@@ -100,6 +100,10 @@
                     <span>Pesan</span></a>
             </li>
             <li class="menu-header">Pembayaran dan Penyaluran</li>
+            <li>
+                <a class="nav-link" href="{{url('/admin/statistik')}}"><i class="fas fa-th-large"></i>
+                    <span>Statistik</span></a>
+            </li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave"></i>
                     <span>Pembayaran</span></a>
