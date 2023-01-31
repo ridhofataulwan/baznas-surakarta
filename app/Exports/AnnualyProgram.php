@@ -27,7 +27,7 @@ class AnnualyProgram implements FromView, ShouldAutoSize, WithStyles, WithColumn
 
         $data = $distributions->where([
             ['created_at', 'LIKE', $year . '-' . $month . '%'],
-            ['distribution_category_id', $program]
+            ['program_id', $program]
         ])->get();
 
         $amounts = 0;

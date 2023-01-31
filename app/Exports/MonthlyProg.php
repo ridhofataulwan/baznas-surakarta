@@ -30,7 +30,7 @@ class MonthlyProg implements FromView, ShouldAutoSize, WithStyles, WithColumnWid
 
         $data = $distributions->where([
             ['type', 'LIKE', $type],
-            ['distribution_category_id', '=', $program]
+            ['program_id', '=', $program]
         ])->get();
         $amounts = 0;
         for ($i = 0; $i <= count($data) - 1; $i++) {

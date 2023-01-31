@@ -27,31 +27,25 @@
                                     <form action="" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->nik}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->nik}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->name}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->name}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->birthplace}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->birthplace}}">
                                             </div>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input type="date" class="form-control" name="date" readonly
-                                                    value="{{$dist->birthdate}}">
+                                                <input type="date" class="form-control" name="date" readonly value="{{$dist->birthdate}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -59,51 +53,43 @@
                                                 Bantuan</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <select type="select" readonly class="form-control" name="category">
-                                                    <option selected value="{{$dist->distribution_category_id}}">
+                                                    <option selected value="{{$dist->program_id}}">
                                                         {{$program->name}}
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->religion}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->religion}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->job}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->job}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input type="text" class="form-control" name="title" readonly
-                                                    value="{{$dist->phone_number}}">
+                                                <input type="text" class="form-control" name="title" readonly value="{{$dist->phone_number}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"
-                                                for="alamat">Alamat</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="alamat">Alamat</label>
                                             <div class="col-md-9">
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white"
-                                                            name="province" id="select-province">
+                                                        <select class="form-control form-select bg-white" name="province" id="select-province">
                                                             <option value="">{{$json->address->province->name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white"
-                                                            name="district" id="select-district">
+                                                        <select class="form-control form-select bg-white" name="district" id="select-district">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->district->name }}
                                                             </option>
@@ -112,16 +98,14 @@
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white" name="regency"
-                                                            id="select-regency">
+                                                        <select class="form-control form-select bg-white" name="regency" id="select-regency">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->regency->name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select class="form-control form-select bg-white" name="village"
-                                                            id="select-village">
+                                                        <select class="form-control form-select bg-white" name="village" id="select-village">
                                                             <option class="form-option" value="" disabled selected>
                                                                 {{$json->address->village->name }}
                                                             </option>
@@ -131,30 +115,25 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea style="height: 150px;" name="content" readonly
-                                                    class="form-control summernote-simple">{{$dist->description}}</textarea>
+                                                <textarea style="height: 150px;" name="content" readonly class="form-control summernote-simple">{{$dist->description}}</textarea>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3"></label>
+                                            <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3"></label>
                                             <div class="col-sm-12 col-md-6">
                                                 <h3>Kelengkapan Dokumen</h3>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label
-                                                class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Persyaratan
+                                            <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Persyaratan
                                                 {{$program->name}}</label>
                                             <div class="row-md-6">
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck1">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
                                                         <label class="custom-control-label" for="customCheck1">Surat
                                                             Permohonan Bantuan</label>
                                                     </div>
@@ -163,8 +142,7 @@
 
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck2">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
                                                         <label class="custom-control-label" for="customCheck2">Scan
                                                             KTP</label>
                                                     </div>
@@ -172,8 +150,7 @@
 
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck3">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
                                                         <label class="custom-control-label" for="customCheck3">Scan
                                                             KK</label>
                                                     </div>
@@ -181,8 +158,7 @@
 
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck4">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
                                                         <label class="custom-control-label" for="customCheck4">SKTM
                                                             atau
                                                             Gakin</label>
@@ -191,8 +167,7 @@
 
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck5">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck5">
                                                         <label class="custom-control-label" for="customCheck5">Suket
                                                             Permohonan Bantuan
                                                             ke Baznas dari kelurahan</label>
@@ -201,8 +176,7 @@
 
                                                 <div class="col-sm-12 col-md-auto">
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input"
-                                                            id="customCheck6">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck6">
                                                         <label class="custom-control-label" for="customCheck6">Tagihan
                                                             dari Sekolah</label>
                                                     </div>
@@ -227,9 +201,9 @@
     @include('admin.stisla.script')
 </body>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

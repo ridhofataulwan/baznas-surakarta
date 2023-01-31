@@ -33,7 +33,7 @@ class AdmDistributionController extends Controller
         $db = DB::table('provinces');
         $data = $db->get();
 
-        $program = DB::table('distribution')->join('program', 'distribution.distribution_category_id', '=', 'program.id')->get()->first();
+        $program = DB::table('distribution')->join('program', 'distribution.program_id', '=', 'program.id')->get()->first();
         // dd($program->name);
         return view('admin.penyaluran.detail', compact('data', 'dist', 'json', 'program'));
     }
