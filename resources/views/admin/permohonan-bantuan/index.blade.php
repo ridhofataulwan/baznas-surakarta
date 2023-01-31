@@ -17,8 +17,7 @@
                     <div class="section-header">
                         <h1>Tabel Permohonan Bantuan</h1>
                     </div>
-                    <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
-                            aria-hidden="true"></i>
+                    <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
                         Tambah Permohonan </a>
                     <div class="section-body">
                         <div class="row">
@@ -27,8 +26,7 @@
                                 @foreach ($errors->all() as $error)
                                 <div class="alert alert-warning alert-dismissible show fade">
                                     <div class="alert-body">
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         {{ $error }}
                                     </div>
                                 </div>
@@ -37,8 +35,7 @@
                                 @if (session('status'))
                                 <div class="alert alert-info alert-dismissible show fade">
                                     <div class="alert-body">
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         {{ session('status') }}
                                     </div>
                                 </div>
@@ -53,7 +50,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="table-responsive">
+                                        <div class="table-responsive px-3">
                                             <table class="table table-striped" id="table-1">
                                                 <thead>
                                                     <tr>
@@ -102,9 +99,9 @@
     @include('admin.stisla.script')
 </body>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

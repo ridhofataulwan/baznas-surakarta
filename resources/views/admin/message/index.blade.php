@@ -42,7 +42,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="table-responsive">
+                                        <div class="table-responsive px-3">
                                             <table class="table table-bordered table-md align-middle" id="myTable">
                                                 <thead class="thead-dark">
                                                     <tr>
@@ -61,8 +61,7 @@
                                                     <tr>
                                                         <th scope="row">{{ $no++ }}</th>
                                                         <td>
-                                                            <h6 class="m-0 pb-0">{{ $r->name }} </h6><span
-                                                                class="text-primary d-block">{{$r->email}}</span>
+                                                            <h6 class="m-0 pb-0">{{ $r->name }} </h6><span class="text-primary d-block">{{$r->email}}</span>
                                                         </td>
                                                         <td>{{ $r->kategori }}</td>
                                                         <td>{{ $r->message }}</td>
@@ -91,9 +90,9 @@
 </body>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

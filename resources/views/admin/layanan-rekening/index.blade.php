@@ -18,8 +18,7 @@
                     <div class="section-header">
                         <h1>Halaman Daftar Rekening</h1>
                     </div>
-                    <a href="{{ url('admin/layanan/rekening/add') }}" class="btn btn-success mb-1"><i class="fa fa-plus"
-                            aria-hidden="true"></i> Input Rekening </a>
+                    <a href="{{ url('admin/layanan/rekening/add') }}" class="btn btn-success mb-1"><i class="fa fa-plus" aria-hidden="true"></i> Input Rekening </a>
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12" style="width: 100%;">
@@ -44,7 +43,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="table-responsive">
+                                        <div class="table-responsive px-3">
                                             <table class="table table-bordered table-md" id="myTable">
                                                 <thead class="thead-dark">
                                                     <tr>
@@ -62,17 +61,14 @@
                                                     <tr>
                                                         <th scope="row">{{ $no++ }}</th>
                                                         <td>
-                                                            <img src="{{ asset($g->image) }}" alt=""
-                                                                style="height: 5rem; ">
+                                                            <img src="{{ asset($g->image) }}" alt="" style="height: 5rem; ">
                                                         </td>
                                                         <td>{{ $g->no_rek }}</td>
                                                         <td>
-                                                            <a href="{{ url('admin/layanan/rekening/'.$g->id.'/edit') }}"
-                                                                class="btn btn-transparent text-center text-dark">
+                                                            <a href="{{ url('admin/layanan/rekening/'.$g->id.'/edit') }}" class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-edit fa-2x"></i>
                                                             </a>
-                                                            <a href="{{ url('admin/layanan/rekening/'.$g->id.'/delete') }}"
-                                                                class="btn btn-transparent text-center text-dark">
+                                                            <a href="{{ url('admin/layanan/rekening/'.$g->id.'/delete') }}" class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-trash-alt fa-2x"></i>
                                                             </a>
                                                         </td>
@@ -101,9 +97,9 @@
 </body>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

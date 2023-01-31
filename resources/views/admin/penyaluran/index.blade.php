@@ -17,8 +17,7 @@
                     <div class="section-header">
                         <h1>Tabel Penyaluran Sedekah</h1>
                     </div>
-                    <a href="{{ route('add.penyaluran') }}" class="btn btn-success mb-4"><i class="fa fa-plus"
-                            aria-hidden="true"></i>
+                    <a href="{{ route('add.penyaluran') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
                         Buat Baru</a>
                     <div class="section-body">
                         <div class="row">
@@ -33,7 +32,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="table-responsive">
+                                        <div class="table-responsive px-3">
                                             <table class="table table-striped" id="table-1">
                                                 <thead>
                                                     <tr>
@@ -52,8 +51,7 @@
                                                     @foreach($data as $distribution)
                                                     <tr>
                                                         <th scope="row">1</th>
-                                                        <td><a
-                                                                href="/admin/penyaluran/{{$distribution->id}}">{{$distribution->name}}</a>
+                                                        <td><a href="/admin/penyaluran/{{$distribution->id}}">{{$distribution->name}}</a>
                                                         </td>
                                                         <td>{{$distribution->ashnaf}}</td>
                                                         <td>{{date("d F Y",strtotime("$distribution->created_at"))}}
@@ -64,16 +62,13 @@
                                                             <!-- <span class="badge badge-danger">Nonaktif</span> -->
                                                         </td>
                                                         <td>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
+                                                            <a href="" class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-edit fa-2x"></i>
                                                             </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
+                                                            <a href="" class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-power-off"></i>
                                                             </a>
-                                                            <a href=""
-                                                                class="btn btn-transparent text-center text-dark">
+                                                            <a href="" class="btn btn-transparent text-center text-dark">
                                                                 <i class="fas fa-trash-alt fa-2x"></i>
                                                             </a>
                                                         </td>
@@ -98,9 +93,9 @@
     @include('admin.stisla.script')
 </body>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#myTable').DataTable();
-});
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
 </script>
 
 </html>

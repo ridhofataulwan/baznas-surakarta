@@ -40,7 +40,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="table-responsive">
+                                        <div class="table-responsive px-3">
                                             <table class="table table-bordered table-md" id="myTable">
                                                 <thead class="thead-dark">
                                                     <tr>
