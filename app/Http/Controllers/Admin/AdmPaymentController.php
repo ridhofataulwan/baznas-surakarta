@@ -175,6 +175,29 @@ class AdmPaymentController extends Controller
         }
         DB::table('payment')->where('id', $id)->update(['visible' => $visibility]);
     }
+
+    /**
+     * -------------------------------------------------------------------
+     * formatRupiah($angka, $prefix) 
+     * -------------------------------------------------------------------
+     * Method to set angka to format currency
+     * Rp. $angka
+     */
+    public static function formatRupiah($angka, $prefix = "")
+    {
+        $number_string = preg_replace("/[^,\d]/", "", $angka);
+        $split = explode(",", $number_string);
+        $sisa = strlen($split[0]) % 3;
+        $rupiah = substr($split[0], 0, $sisa);
+        $ribuan = substr($split[0], $sisa);
+        $ribuan = preg_match_all("/\d{3}/", $ribuan, $match);
+        if ($ribuan) {
+            $separator = $sisa ? "." : "";
+            $rupiah .= $separator . implode(".", $match[0]);
+        }
+        $rupiah = isset($split[1]) ? $rupiah . "," . $split[1] : $rupiah;
+        return $prefix == "" ? $rupiah : "Rp. " . $rupiah;
+    }
     public function validatePembayaran($id, $value)
     {
         // Check if data is already available 
