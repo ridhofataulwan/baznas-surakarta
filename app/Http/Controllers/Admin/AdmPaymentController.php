@@ -73,11 +73,22 @@ class AdmPaymentController extends Controller
         $payment = Payment::where('id', $id)->get()->first();
         return view('admin.pembayaran.detail', compact('data', 'payment', 'json'));
     }
+
+    /**
+     * -------------------------------------------------------------------
+     * createPembayaran() - Create [GET]
+     * -------------------------------------------------------------------
+     * Method untuk menampilkan form buat data pembayaran baru
+     * @return view
+     */
     public function createPembayaran()
     {
         $db = DB::table('provinces');
         $data = $db->get();
         return view('admin.pembayaran.add', compact('data'));
+        $provinces = DB::table('provinces')->get();
+        $lembaga = DB::table('lembaga')->get();
+        return view('admin.pembayaran.add', compact('provinces', 'lembaga'));
     }
 
     public function paymentStore()
