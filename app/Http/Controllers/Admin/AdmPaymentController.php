@@ -91,6 +91,13 @@ class AdmPaymentController extends Controller
         return view('admin.pembayaran.add', compact('provinces', 'lembaga'));
     }
 
+    /**
+     * -------------------------------------------------------------------
+     * paymentStore() - Create [POST]
+     * -------------------------------------------------------------------
+     * Method untuk membuat data pembayaran baru ke dalam database
+     * @return view
+     */
     public function paymentStore()
     {
         /**
@@ -119,20 +126,68 @@ class AdmPaymentController extends Controller
 
         // DATA VALIDATION ✅🔐
         $validator = Validator::make(request()->all(), [
+        // Custom Error Message for Validation
+        $messages = [
+            'required' => 'Data :attribute harus diisi',
+            'in'      => 'Data :attribute harus bertipe :values',
+            'nik.min' => 'Panjang NIK minimal 16 karakter',
+            'nik.max' => 'Panjang NIK maksimal 16 karakter',
+            'amount.min' => 'Jumlah besaran minimal Rp.10.000',
+            'proof_of_payment.required' => 'Bukti pembayaran harus diisi',
+            'proof_of_payment.mimes' => 'Bukti pembayaran harus bertpe gambar :values',
+            'proof_of_payment.max' => 'Bukti pembayaran maksimal berukuran :max KB',
+        ];
+
+        // Set Rules for Form Input
+        $rules = [
             'name' => 'required|string',
             'nik' => 'required|string|min:16|max:16',
             'gender' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
             // 'address' => 'required',
+            'province' => 'required',
+            'district' => 'required',
+            'regency' => 'required',
+            'village' => 'required',
 
             'type' => 'required',
             'amount' => 'required',
             'proof_of_payment' => 'required|max:1024|mimes:png,jpg,jpeg',
         ]);
+            'amount' => 'required|int|min:10000',
+            'proof_of_payment' => 'required|max:5000|mimes:png,jpg,jpeg',
+        ];
 
+        // Adding rule if Lembaga is Set
+        if (request('lembaga')) {
+            unset($rules['name']);
+            unset($rules['nik']);
+
+            $lembaga = DB::table('lembaga')->where('code', request('lembaga'))->first();
+            $nik = $lembaga->code;
+            $name = $lembaga->name;
+        } else {
+            $nik = request('nik');
+            $name = request('name');
+        }
+
+        //  amount ✅
+        $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
+        $amount = preg_replace($pattern, '', request('amount'));
+
+        // change amount data into integer
+        request()->merge([
+            'amount' => $amount,
+        ]);
+        // DATA VALIDATION ✅🔐
+        $validator = Validator::make(request()->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Data gagal dikirim. Silakan cek kembali form yang Anda isi');
+            session()->flash('status', 'error');
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         // Get Region Name ✅
@@ -193,6 +248,8 @@ class AdmPaymentController extends Controller
         $data = [
             'name' => request('name'),
             'nik' => request('nik'),
+            'name' => $name,
+            'nik' => $nik,
             'gender' => request('gender'),
             'phone' => request('phone'),
             'email' => request('email'),
@@ -200,21 +257,33 @@ class AdmPaymentController extends Controller
 
             'type' => request('type'),
             'amount' => $amount,
+            'created_by' => 'ADMIN',
             'created_at' => $created_at,
             'proof_of_payment' => $pop,
         ];
 
         // dd($data);
         $file->move(public_path('uploads/bayar'), $filename);
+        // ! Deactivated
+        // $file->move(public_path('uploads/bayar'), $filename);
         Payment::create($data);
 
         // SMTP MAIL ❗
+        // SMTP MAIL ❗ Disabled
         // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
         // $users = User::role('admin')->get();
         // foreach ($users as $user) {
         //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . $tf->name));
         // }
         return redirect()->back();
+
+        // Success ✅   
+        session()->flash('title', 'Sukses');
+        session()->flash('message', 'Data berhasil dikirim');
+        session()->flash('status', 'success');
+        return redirect('/admin/pembayaran');
+    }
+
     /**
      * -------------------------------------------------------------------
      * setVisibility() 
