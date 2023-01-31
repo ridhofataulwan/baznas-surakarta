@@ -62,16 +62,46 @@ class AdmPaymentController extends Controller
 
         return view('admin.pembayaran.index', compact('data', 'fmt_date', 'fmt_time'));
     }
+
+    /**
+     * -------------------------------------------------------------------
+     * detailPembayaran($id) - Detail [GET]
+     * -------------------------------------------------------------------
+     * Method untuk menampilkan detail pembayaran berdasarkan ID Pembayaran
+     * @return view
+     */
     public function detailPembayaran($id)
     {
         $db = DB::table('provinces');
         $data = $db->get();
+        // Check if pembayar is lembaga or not
+        $check = DB::table('payment')->where('id', $id)->get()->first();
+        $boolean = DB::table('lembaga')->where('code', $check->nik)->get();
+        if (count($boolean) > 0) {
+            $isLembaga = true;
+        } else {
+            $isLembaga = false;
+        }
+
+        $provinces = DB::table('provinces')->get();
+        $lembaga = DB::table('lembaga')->get();
 
         $req = DB::table('payment')->where('id', $id)->get()->first();
         $json =  json_decode($req->address);
+        $address = DB::table('payment')->where('id', $id)->get()->first();
+        $json_address =  json_decode($address->address);
+
+        $payment_type = [
+            'MAAL' => '',
+            'INFAQ' => '',
+            'FITRAH' => 'disabled',
+            'FIDYAH' => 'disabled',
+            'QURBAN' => 'disabled'
+        ];
 
         $payment = Payment::where('id', $id)->get()->first();
         return view('admin.pembayaran.detail', compact('data', 'payment', 'json'));
+        return view('admin.pembayaran.detail', compact('payment', 'json_address', 'isLembaga', 'provinces', 'lembaga', 'payment_type'));
     }
 
     /**
