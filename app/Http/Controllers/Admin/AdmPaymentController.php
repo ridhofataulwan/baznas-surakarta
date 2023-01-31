@@ -198,6 +198,29 @@ class AdmPaymentController extends Controller
         $rupiah = isset($split[1]) ? $rupiah . "," . $split[1] : $rupiah;
         return $prefix == "" ? $rupiah : "Rp. " . $rupiah;
     }
+
+    public function destroyPembayaran($id)
+    {
+        // Check if data is already available 
+        $data = Payment::where('id', $id)->get();
+
+        // If data > 0, that means data has already stored in database
+        // If request code and new_code same, that means it updates itself
+        if (count($data) > 0) {
+            Payment::where('id', $id)->delete();
+            // Success ✅   
+            session()->flash('title', 'Sukses');
+            session()->flash('message', 'Data Pembayaran berhasil dihapus');
+            session()->flash('status', 'success');
+            return redirect('/admin/pembayaran/')->with('success', 'Data Pembayaran berhasil dihapus');
+        } else {
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Data Pembayaran tidak ditemukan');
+            session()->flash('status', 'error');
+            return redirect('/admin/pembayaran/')->with('danger', 'Data Pembayaran tidak ditemukan');
+        }
+    }
+
     public function validatePembayaran($id, $value)
     {
         // Check if data is already available 

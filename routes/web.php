@@ -217,6 +217,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/pembayaran/add', [AdmPaymentController::class, 'createPembayaran'])->name('add.pembayaran');
             Route::post('/pembayaran/store', [AdmPaymentController::class, 'paymentStore'])->name('store.pembayaran');
             Route::get('/pembayaran/{id}', [AdmPaymentController::class, 'detailPembayaran']);
+            Route::get('/pembayaran/delete/{id}', [AdmPaymentController::class, 'destroyPembayaran']);
             Route::get('/pembayaran/validate/{id}/{value}', [AdmPaymentController::class, 'validatePembayaran']);
 
             Route::get('/permohonan', [AdmRequestController::class, 'permohonan']);
