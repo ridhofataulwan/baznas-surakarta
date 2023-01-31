@@ -35,13 +35,13 @@ class AdmRequestController extends Controller
         $db = DB::table('request');
         $req = $db->where('id', $id)->get()->first();
 
-        $json =  json_decode($req->address);
-        // echo gettype($json);
+        $json_address =  json_decode($req->address);
+        // echo gettype($json_address);
 
         $db = DB::table('provinces');
         $data = $db->get();
 
-        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json'));
+        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_addres'));
     }
     public function createPermohonan()
     {

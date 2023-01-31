@@ -27,14 +27,13 @@ class AdmDistributionController extends Controller
         $db = DB::table('distribution');
         $dist = $db->where('id', $id)->get()->first();
 
-        $json =  json_decode($dist->address);
-        // echo gettype($json);
+        $json_address =  json_decode($dist->address);
 
         $db = DB::table('provinces');
         $data = $db->get();
 
         $program = DB::table('distribution')->join('program', 'distribution.program_id', '=', 'program.id')->get()->first();
         // dd($program->name);
-        return view('admin.penyaluran.detail', compact('data', 'dist', 'json', 'program'));
+        return view('admin.penyaluran.detail', compact('data', 'dist', 'json_address', 'program'));
     }
 }
