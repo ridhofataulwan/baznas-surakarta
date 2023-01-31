@@ -84,14 +84,14 @@
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="province" id="select-province">
-                                                            <option value="">{{$json->address->province->name }}
+                                                            <option value="">{{$json_address->province->name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="district" id="select-district">
                                                             <option class="form-option" value="" disabled selected>
-                                                                {{$json->address->district->name }}
+                                                                {{$json_address->district->name }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -100,14 +100,14 @@
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="regency" id="select-regency">
                                                             <option class="form-option" value="" disabled selected>
-                                                                {{$json->address->regency->name }}
+                                                                {{$json_address->regency->name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="village" id="select-village">
                                                             <option class="form-option" value="" disabled selected>
-                                                                {{$json->address->village->name }}
+                                                                {{$json_address->village->name }}
                                                             </option>
                                                         </select>
                                                     </div>
