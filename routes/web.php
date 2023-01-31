@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdmBerandaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdmCategoryController;
+use App\Http\Controllers\Admin\AdmLembagaController;
 use App\Http\Controllers\Admin\AdmDistributionController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\PostController;
@@ -193,6 +194,13 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
+            /**
+             * Lembaga Management
+             */
+            Route::get('/lembaga', [AdmLembagaController::class, 'listLembaga']);
+            Route::post('/lembaga/store', [AdmLembagaController::class, 'storeLembaga'])->name('store.lembaga');
+            Route::post('/lembaga/update', [AdmLembagaController::class, 'updateLembaga'])->name('update.lembaga');
+            Route::get('/lembaga/delete/{id}', [AdmLembagaController::class, 'destroyLembaga'])->name('destroy.lembaga');
             /*
             ! Transactional Feature
             Need to fix
