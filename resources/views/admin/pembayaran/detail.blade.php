@@ -133,6 +133,8 @@
                                                             <select class="form-control form-select bg-white"
                                                                 name="province" id="select-province">
                                                                 <option value="">{{$json->address->province->name }}
+                                                            <select class="form-control form-select bg-white" name="province" id="select-province">
+                                                                <option value="">{{$json_address->province->name }}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -141,6 +143,7 @@
                                                                 name="district" id="select-district">
                                                                 <option class="form-option" value="" disabled selected>
                                                                     {{$json->address->district->name }}
+                                                                    {{$json_address->district->name }}
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -150,6 +153,7 @@
                                                             <select class="form-control form-select bg-white"
                                                                 name="regency" id="select-regency"
                                                                 onchange="pilihKec(this.value)">
+                                                            <select class="form-control form-select bg-white" name="regency" id="select-regency" onchange="pilihKec(this.value)">
                                                                 <option class="form-option" value="" disabled selected>
                                                                     {{$json->address->regency->name }}
                                                                 </option>
