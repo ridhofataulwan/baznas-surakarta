@@ -134,6 +134,7 @@ Route::post('/get-regency', [AjaxController::class, 'getRegency']);
 Route::post('/get-village', [AjaxController::class, 'getVillage']);
 
 Route::post('/program/update-state', [AdmProgramController::class, 'updateProgramState']);
+Route::post('/payment/set-visibility', [AdmPaymentController::class, 'setVisibility']);
 
 /*
 ! ==============

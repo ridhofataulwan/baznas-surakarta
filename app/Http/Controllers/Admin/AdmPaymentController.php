@@ -157,5 +157,23 @@ class AdmPaymentController extends Controller
         //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . $tf->name));
         // }
         return redirect()->back();
+    /**
+     * -------------------------------------------------------------------
+     * setVisibility() 
+     * -------------------------------------------------------------------
+     * Set visibility data pembayaran
+     * HIDDEN - SHOW
+     */
+    public function setVisibility(Request $request)
+    {
+        $id = $request->get('id');
+        $visibility = $request->get('visibility');
+        if ($visibility == 'HIDDEN') {
+            $visibility = 'SHOW';
+        } else {
+            $visibility = 'HIDDEN';
+        }
+        DB::table('payment')->where('id', $id)->update(['visible' => $visibility]);
+    }
     }
 }
