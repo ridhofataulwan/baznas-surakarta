@@ -54,6 +54,7 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
 </head>
 
 <body id="page-top">
+    <div class="response" data-title="<?= session()->get('title') ?>" data-message="<?= session()->get('message') ?>" data-status="<?= session()->get('status') ?>"></div>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white" id="mainNav" style="color: white; border-bottom: #01502D; border-style: solid;">
         <div class="container">
@@ -638,5 +639,19 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
     }
 </script>
 @endif
+
+<!-- Swal -->
+<script>
+    let title = $(".response").data("title");
+    let message = $(".response").data("message");
+    let status = $(".response").data("status");
+    if (status) {
+        Swal.fire(
+            title,
+            message,
+            status
+        )
+    }
+</script>
 
 </html>

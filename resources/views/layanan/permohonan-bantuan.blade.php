@@ -3,24 +3,6 @@
 <!--Form-->
 <section class="page-section pb-0 p-0">
     <div class="container-fluid" style="background-image:url('assets/img/kraton-2.png');background-size:cover; padding-top:5%;">
-        @if ($errors->any())
-        @foreach ($errors->all() as $error)
-        <div class="alert alert-warning alert-dismissible show fade">
-            <div class="alert-body">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {{ $error }}
-            </div>
-        </div>
-        @endforeach
-        @endif
-        @if (session('status'))
-        <div class="alert alert-info alert-dismissible show fade">
-            <div class="alert-body">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                {{ session('status') }}
-            </div>
-        </div>
-        @endif
         <div class="row">
             <div class="col-md-12">
                 <div class="form-zakat shadow border border-white bg-white p-5">
@@ -47,50 +29,91 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <form action="{{ url('bayar-zakat') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('store.permohonan') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group mt-4">
                                         <label for="select-program" class="form-label">Jenis Bantuan<i style="color:red;">*</i></label>
-                                        <select class="form-control form-select bg-white" name="jenis" id="select-program" required>
-                                            <option value>Pilih Jenis Bantuan</option>
-                                            <option value="Pendidikan">Pendidikan</option>
-                                            <option value="Ekonomi Produktif">Ekonomi Produktif</option>
-                                            <option value="Dakwah & Advokasi">Dakwah & Advokasi</option>
-                                            <option value="Kemanusiaan">Kemanusiaan</option>
-                                            <option value="Kesehatan">Kesehatan</option>
+                                        <select class="form-control form-select bg-white" name="program_id" id="select-program">
+                                            <option value="">Pilih Jenis Bantuan</option>
+                                            @foreach($program as $key => $value )
+                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group mt-4">
-                                        <label for="" class="form-label">NIK<i style="color:red;">*</i></label>
-                                        <input type="number" placeholder="Masukkan NIK" class="form-control bg-white" id="" name="nik" autocomplete="no" required>
+                                        <label for="nik" class="form-label" id="nik">NIK <i style="color:red;">*</i></label>
+                                        <input type="text" placeholder="Masukkan NIK lengkap" class="form-control bg-white @error('nik') is-invalid @enderror" id="nik" name="nik" autocomplete="no" onkeyup="countChars(this)" maxlength="16" minlength="16" value="{{ old('nik') }}">
+                                        @error('nik')
+                                        <span class="badge rounded bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="form-group mt-4">
-                                        <label for="nominal-zakat" class="form-label">Nama Lengkap<i style="color:red;">*</i></label>
-                                        <input type="text" placeholder="Masukkan nama" class="form-control bg-white" id="nominalzakat" name="nama" autocomplete="no" required>
+                                        <label for="nama" class="form-label">Nama Lengkap <i style="color:red;">*</i></label>
+                                        <input type="text" placeholder="Masukkan nama lengkap" class="form-control bg-white @error('name') is-invalid @enderror" id="name" name="name" autocomplete="no" value="{{ old('name') }}">
+                                        @error('name')
+                                        <span class="badge rounded bg-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
+                                    <div class="form-group mt-4 row">
+                                        <label for="jenis-kelamin" class="form-label">Jenis Kelamin <i style="color:red;">*</i></label>
+                                        <div class="form-check col ms-3 col-auto">
+                                            <input type="radio" class="form-check-input bg-white" id="male" value="LAKI_LAKI" name="gender" autocomplete="no" {{ old('gender') == "LAKI_LAKI" ? 'checked' : '' }}>
+                                            <label for="male" class="text-black">Laki-laki</label>
+                                        </div>
+                                        <div class="form-check col ms-3 col-auto">
+                                            <input type="radio" class="form-check-input bg-white" id="female" value="PEREMPUAN" name="gender" autocomplete="no" {{ old('gender') == "PEREMPUAN" ? 'checked' : '' }}>
+                                            <label for="female" class="text-black">Perempuan</label>
+                                        </div>
+                                    </div>
+                                    @error('gender')
+                                    <span class="badge rounded bg-danger">{{ $message }}</span>
+                                    @enderror
                                     <div class="form-group mt-4">
                                         <label class="form-label">Tempat, Tanggal Lahir<i style="color:red;">*</i></label>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control bg-white" placeholder="Masukkan Kota Kelahiran" required>
+                                                <input type="text" class="form-control bg-white" name="birthplace" placeholder="Masukkan Kota Kelahiran">
+                                                @error('birthplace')
+                                                <span class="badge rounded bg-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control bg-white" required>
+                                                <input type="date" class="form-control bg-white" name="birthdate">
+                                                @error('birthdate')
+                                                <span class="badge rounded bg-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group mt-4">
                                         <label for="alamat">Alamat<i style="color:red;">*</i></label>
                                         <div class="row">
                                             <div class="col">
-                                                <select class="form-control form-select bg-white" name="alamat" id="kecamatan" onchange="pilihKec(this.value)" required>
-                                                    <option class="form-option" value="" disabled selected>Pilih Kecamatan</option>
+                                                <input type="hidden" name="province" id="province_id" value="{{ $default_region['province'] }}">
+                                                <input type="hidden" name="district" id="district_id" value="{{ $default_region['district'] }}">
+                                                <select class="form-control form-select bg-white @error('regency') is-invalid @enderror" name="regency" id="select-regency">
+                                                    <option class="form-option" value disabled selected>Pilih Kecamatan</option>
+                                                    @foreach ($regencies as $regency)
+                                                    <option class="form-option" value="{{ $regency->id }}" {{ old('regency') == $regency->id ? 'selected' : '' }}>{{ $regency->name }}</option>
+                                                    @endforeach
                                                 </select>
+                                                @error('regency')
+                                                <span class="badge rounded bg-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                             <div class="col">
-                                                <select class="form-control form-select bg-white" name="alamat" id="kelurahan" required>
-                                                    <option class="form-option" value="" disabled selected>Pilih Kelurahan</option>
+                                                <select class="form-control form-select bg-white @error('village') is-invalid @enderror" name="village" id="select-village">
+                                                    <option class="form-option" value disabled selected>Pilih Kelurahan</option>
+                                                    @error('any')
+                                                    @foreach ($villages as $village)
+                                                    <option class="form-option" value="{{ $village->id }}" {{ old('village') == $village->id ? 'selected' : '' }}>{{ $village->name }}</option>
+                                                    @endforeach
+                                                    @enderror
                                                 </select>
+                                                @error('village')
+                                                <span class="badge rounded bg-danger">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -98,7 +121,7 @@
                             <div class="col-md-4">
                                 <div class="form-group mt-4">
                                     <label for="select-zakat" class="form-label">Agama<i style="color:red;">*</i></label>
-                                    <select class="form-control form-select bg-white" name="jenis" id="select-zakat" required>
+                                    <select class="form-control form-select bg-white" name="religion" id="select-zakat">
                                         <option value="Islam">Islam</option>
                                         <option value="Kristen">Kristen</option>
                                         <option value="Katholik">Katholik</option>
@@ -109,15 +132,24 @@
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">Pekerjaan<i style="color:red;">*</i></label>
-                                    <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white" id="" name="pekerjaan" autocomplete="no" required>
+                                    <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white @error('job') is-invalid @enderror" id="" name="job" autocomplete="no">
+                                    @error('job')
+                                    <span class="badge rounded bg-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">No Telp<i style="color:red;">*</i></label>
-                                    <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white" id="" name="no_telp" autocomplete="no" required>
+                                    <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white @error('phone') is-invalid @enderror" id="" name="phone" autocomplete="no">
+                                    @error('phone')
+                                    <span class="badge rounded bg-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">Keterangan<i style="color:red;">*</i></label>
-                                    <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="keterangan" id="" cols="30" rows="5" class="form-control bg-white" autocomplete="no" style="height: auto;" required></textarea>
+                                    <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="description" id="" cols="30" rows="5" class="form-control bg-white @error('description') is-invalid @enderror" autocomplete="no" style="height: auto;"></textarea>
+                                    @error('description')
+                                    <span class="badge rounded bg-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -128,6 +160,36 @@
                                 </div>
                                 <div id="persyaratan">
                                     Pilih Jenis Bantuan terlebih dahulu!
+                                    <div id="element_sp" style="display: none;">
+                                        <div class="form-group mt-4" id="sp"><label for="surat-permohonan" class="form-label">Surat Permohonan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="sp" id="surat-permohonan" autocomplete="no" style="height: auto;"></div>
+                                        <div class="mt-2">Template surat permohonan bisa download <a href="/assets/file/Format%20Surat%20Permohonan%20Bantuan%20Perorangan.docx" class="font-weight-bold text-success">Di sini</a></div>
+                                    </div>
+                                    <div id="element_ktpkk" style="display: none;">
+                                        <div class="form-group mt-4">
+                                            <div class="row">
+                                                <div class="col"><label for="" class="form-label">Scan KTP<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="ktp" autocomplete="no" style="height: auto;"></div>
+                                                <div class="col"><label for="" class="form-label">Scan KK<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="kk" autocomplete="no" style="height: auto;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="element_sktm" style="display: none;">
+                                        <div class="form-group mt-4"><label for="sktm" class="form-label">SKTM atau Gakin (Tidak Wajib)</label><input type="file" class="form-control bg-white" name="sktm" id="sktm" autocomplete="no" style="height: auto;"></div>
+                                    </div>
+                                    <div id="element_sp_kelurahan" style="display: none;">
+                                        <div class="form-group mt-4"><label for="sp_kelurahan" class="form-label">Surat Keterangan Permohonan Bantuan ke Baznas dari Kelurahan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="sp_kelurahan" id="sp_kelurahan" autocomplete="no" style="height: auto;"></div>
+                                    </div>
+                                    <div id="element_tagihan_sklh" style="display: none;">
+                                        <div class="form-group mt-4"><label for="tagihan_sklh" class="form-label">Tagihan dari Sekolah<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_sklh" id="tagihan_sklh" autocomplete="no" style="height: auto;"></div>
+                                    </div>
+                                    <div id="element_foto_usaha" style="display: none;">
+                                        <div class="form-group mt-4"><label for="foto_usaha" class="form-label">Foto Usaha<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="foto_usaha" id="foto_usaha" autocomplete="no" style="height: auto;"></div>
+                                    </div>
+                                    <div id="element_tagihan_rs" style="display: none;">
+                                        <div class="form-group mt-4"><label for="tagihan_rs" class="form-label">Tagihan dari Rumah Sakit<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_rs" id="tagihan_rs" autocomplete="no" style="height: auto;"></div>
+                                    </div>
+                                    <div id="element_proposal" style="display: none;">
+                                        <div class="form-group mt-4" id="proposal"><label for="proposal" class="form-label">Proposal<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="proposal" id="proposal" autocomplete="no" style="height: auto;"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -174,100 +236,144 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<!-- Script Address -->
 <script>
-    let kec = [
-        "Pasar Kliwon",
-        "Jebres",
-        "Banjarsari",
-        "Laweyan",
-        "Serengan",
-    ]
-    let kelurahan = [
-        ['Banyuanyar', 'Banjarsari', 'Gilingan', 'Joglo', 'Kadipiro', 'Keprabon', 'Kestalan', 'Ketelan', 'Manahan',
-            'Mangkubumen', 'Nusukan', 'Punggawan', 'Setabelan', 'Sumber', 'Timuran'
-        ],
-        ['Gandekan', 'Jagalan', 'Jebres', 'Kepatihan Kulon', 'Kepatihan Wetan', 'Mojosongo', 'Pucang Sawit',
-            'Purwodiningratan', 'Sewu', 'Sudiroprajan', 'Tegalharjo'
-        ],
-        ['Bumi', 'Jajar', 'Karangasem', 'Kerten', 'Laweyan', 'Pajang', 'Panularan', 'Penumping', 'Purwosari',
-            'Sondakan', 'Sriwedari'
-        ],
-        ['Baluwarti', 'Gajahan', 'Joyosuran', 'Kampung Baru', 'Kauman', 'Kedung Lumbu', 'Mojo', 'Pasar Kliwon',
-            'Sangkrah', 'Semanggi'
-        ],
-        ['Danukusuman', 'Jayengan', 'Joyotakan', 'Kemlayan', 'Kratonan', 'Serengan', 'Tipes']
-    ]
-</script>
+    // Select Kecamatan
+    $(document).on('change', '#select-regency', function() {
+        let regency_id = $(this).val();
+        let district_id = $('#district_id').val();
+        let province_id = $('#province_id').val();
 
-<script>
-    for (i = 0; i < kec.length; i++) {
-        $('#kecamatan').append('<option value="' + kec[i] + '">' + kec[i] + '</option>');
-    }
+        // ! Remove Html Below
+        $('#select-village').html('<option value="" disabled selected>Pilih Kelurahan</option>')
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-village",
+                method: 'POST',
+                data: {
+                    regency_id: regency_id,
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="" disabled selected>Pilih Kelurahan</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' + element['name'] + '</option>')
+                    });
+                    $('#select-village').html(option)
 
-    function pilihKec(value) {
-        index = kec.indexOf(value)
-        $("#kelurahan option").remove();
-        for (i = 0; i < kelurahan[index].length; i++) {
-            $('#kelurahan').append('<option value="' + kelurahan[index][i] + '">' + kelurahan[index][i] + '</option>');
-            console.log(kelurahan[index][i])
-        }
-    }
+                }
+            })
+        });
+    })
+
+    // Get Village While Page On Load 
+    $(function() {
+        let regency_id = $('#select-regency').val();
+        let district_id = $('#district_id').val();
+        let province_id = $('#province_id').val();
+        console.log(regency_id);
+
+        $(document).ready(function() {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/get-village",
+                method: 'POST',
+                data: {
+                    regency_id: regency_id,
+                    district_id: district_id,
+                    province_id: province_id
+                },
+                success: function(response) {
+                    let districs = response;
+                    let option = ['<option value="" disabled selected>Pilih Kelurahan</option>']
+                    districs.forEach(element => {
+                        option.push('<option value=' + element['id'] + '>' + element['name'] + '</option>')
+                    });
+                    $('#select-village').html(option)
+
+                }
+            })
+        });
+    });
 </script>
 
 <script type="text/javascript">
-    let persyaratan = {
-        "sp": '<div class="form-group mt-4" id="sp"><label for="surat-permohonan" class="form-label">Surat Permohonan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="permohonan" id="surat-permohonan" autocomplete="no" style="height: auto;" required></div><div class="mt-2">Template surat permohonan bisa download <a href="/assets/file/Format%20Surat%20Permohonan%20Bantuan%20Perorangan.docx" class="font-weight-bold text-success">Di sini</a></div>',
-        "ktpkk": '<div class="form-group mt-4"><div class="row"><div class="col"><label for="" class="form-label">Scan KTP<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="ktp" autocomplete="no" style="height: auto;" required></div><div class="col"><label for="" class="form-label">Scan KK<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="kk" autocomplete="no" style="height: auto;" required></div></div></div>',
-        "sktm": '<div class="form-group mt-4"><label for="sktm" class="form-label">SKTM atau Gakin (Tidak Wajib)</label><input type="file" class="form-control bg-white" name="tagihan" id="sktm" autocomplete="no" style="height: auto;"></div>',
-        "sp_kelurahan": '<div class="form-group mt-4"><label for="suket" class="form-label">Surat Keterangan Permohonan Bantuan ke Baznas dari Kelurahan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="suket" id="suket" autocomplete="no" style="height: auto;" required></div>',
-        "tagihan_sklh": '<div class="form-group mt-4"><label for="tagihan_sklh" class="form-label">Tagihan dari Sekolah<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_sklh" id="tagihan_sklh" autocomplete="no" style="height: auto;" required></div>',
-        "foto_usaha": '<div class="form-group mt-4"><label for="foto-usaha" class="form-label">Foto Usaha<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="foto-usaha" id="foto-usaha" autocomplete="no" style="height: auto;" required></div>',
-        "tagihan_rs": '<div class="form-group mt-4"><label for="tagihan_rs" class="form-label">Tagihan dari Rumah Sakit<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_rs" id="tagihan_rs" autocomplete="no" style="height: auto;" required></div>',
-        "proposal": '<div class="form-group mt-4" id="proposal"><label for="proposal" class="form-label">Proposal<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="proposal" id="proposal" autocomplete="no" style="height: auto;" required></div>',
-    }
+    // let persyaratan = {
+    //     "sp": '<div class="form-group mt-4" id="sp"><label for="surat-permohonan" class="form-label">Surat Permohonan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="permohonan" id="surat-permohonan" autocomplete="no" style="height: auto;" ></div><div class="mt-2">Template surat permohonan bisa download <a href="/assets/file/Format%20Surat%20Permohonan%20Bantuan%20Perorangan.docx" class="font-weight-bold text-success">Di sini</a></div>',
+    //     "ktpkk": '<div class="form-group mt-4"><div class="row"><div class="col"><label for="" class="form-label">Scan KTP<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="ktp" autocomplete="no" style="height: auto;" ></div><div class="col"><label for="" class="form-label">Scan KK<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="kk" autocomplete="no" style="height: auto;" ></div></div></div>',
+    //     "sktm": '<div class="form-group mt-4"><label for="sktm" class="form-label">SKTM atau Gakin (Tidak Wajib)</label><input type="file" class="form-control bg-white" name="tagihan" id="sktm" autocomplete="no" style="height: auto;"></div>',
+    //     "sp_kelurahan": '<div class="form-group mt-4"><label for="suket" class="form-label">Surat Keterangan Permohonan Bantuan ke Baznas dari Kelurahan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="suket" id="suket" autocomplete="no" style="height: auto;" ></div>',
+    //     "tagihan_sklh": '<div class="form-group mt-4"><label for="tagihan_sklh" class="form-label">Tagihan dari Sekolah<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_sklh" id="tagihan_sklh" autocomplete="no" style="height: auto;" ></div>',
+    //     "foto_usaha": '<div class="form-group mt-4"><label for="foto-usaha" class="form-label">Foto Usaha<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="foto-usaha" id="foto-usaha" autocomplete="no" style="height: auto;" ></div>',
+    //     "tagihan_rs": '<div class="form-group mt-4"><label for="tagihan_rs" class="form-label">Tagihan dari Rumah Sakit<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_rs" id="tagihan_rs" autocomplete="no" style="height: auto;" ></div>',
+    //     "proposal": '<div class="form-group mt-4" id="proposal"><label for="proposal" class="form-label">Proposal<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="proposal" id="proposal" autocomplete="no" style="height: auto;" ></div>',
+    // }
 
     $("#select-program").change(function() {
         let program = $(this).val()
-        let requirements = []
         console.log(program);
         switch (program) {
-            case "Pendidikan":
-                requirements += persyaratan['sp']
-                requirements += persyaratan['ktpkk']
-                requirements += persyaratan['sktm']
-                requirements += persyaratan['sp_kelurahan']
-                requirements += persyaratan['tagihan_sklh']
+            case "2":
+                $("#element_sp").show();
+                $("#element_ktpkk").show();
+                $("#element_sktm").show();
+                $("#element_sp_kelurahan").show();
+                $("#element_tagihan_sklh").show();
+                $("#element_foto_usaha").hide();
+                $("#element_tagihan_rs").hide();
+                $("#element_proposal").hide();
                 break;
-            case "Ekonomi Produktif":
-                requirements += persyaratan['sp']
-                requirements += persyaratan['ktpkk']
-                requirements += persyaratan['sktm']
-                requirements += persyaratan['sp_kelurahan']
-                requirements += persyaratan['foto_usaha']
+            case "5":
+                $("#element_sp").show();
+                $("#element_ktpkk").show();
+                $("#element_sktm").show();
+                $("#element_sp_kelurahan").show();
+                $("#element_tagihan_sklh").hide();
+                $("#element_foto_usaha").show();
+                $("#element_tagihan_rs").hide();
+                $("#element_proposal").hide();
                 break;
-            case "Dakwah & Advokasi":
-                requirements += persyaratan['sp']
-                requirements += persyaratan['proposal']
+            case "4":
+                $("#element_sp").show();
+                $("#element_ktpkk").hide();
+                $("#element_sktm").hide();
+                $("#element_sp_kelurahan").hide();
+                $("#element_tagihan_sklh").hide();
+                $("#element_foto_usaha").hide();
+                $("#element_tagihan_rs").hide();
+                $("#element_proposal").show();
                 break;
-            case "Kemanusiaan":
-                requirements += persyaratan['sp']
-                requirements += persyaratan['ktpkk']
-                requirements += persyaratan['sktm']
-                requirements += persyaratan['sp_kelurahan']
+            case "1":
+                $("#element_sp").show();
+                $("#element_ktpkk").show();
+                $("#element_sktm").show();
+                $("#element_sp_kelurahan").show();
+                $("#element_tagihan_sklh").hide();
+                $("#element_foto_usaha").hide();
+                $("#element_tagihan_rs").hide();
+                $("#element_proposal").hide();
                 break;
-            case "Kesehatan":
-                requirements += persyaratan['sp']
-                requirements += persyaratan['ktpkk']
-                requirements += persyaratan['sktm']
-                requirements += persyaratan['sp_kelurahan']
-                requirements += persyaratan['tagihan_rs']
+            case "3":
+                $("#element_sp").show();
+                $("#element_ktpkk").show();
+                $("#element_sktm").show();
+                $("#element_sp_kelurahan").show();
+                $("#element_tagihan_sklh").hide();
+                $("#element_foto_usaha").hide();
+                $("#element_tagihan_rs").show();
+                $("#element_proposal").hide();
                 break;
             default:
                 requirements += "Pilih Jenis Bantuan terlebih dahulu!"
                 break;
         }
-        $("#persyaratan").html(requirements)
-
     })
 </script>
 @endsection

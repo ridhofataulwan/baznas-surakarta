@@ -58,7 +58,9 @@ Route::controller(BerandaController::class)->group(function () {
     Route::get('/rekening', 'rekening');
     Route::get('/layanan-pembayaran', 'layananPembayaran');
     Route::get('/permohonan-bantuan', 'permohonanBantuan');
+    Route::post('/permohonan-bantuan', 'permohonanBantuanStore')->name('store.permohonan');
     Route::get('/cek-permohonan-bantuan', 'cekPermohonanBantuan');
+    Route::post('/cek-permohonan-bantuan', 'cekPermohonanBantuanStore')->name('cek.permohonan');
 
     /*==============
     | Hubungi Kami |

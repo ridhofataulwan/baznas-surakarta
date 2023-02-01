@@ -73,7 +73,6 @@
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->phone_number}}">
                                                 <input readonly type="text" class="form-control" name="title" value="{{$req->phone}}">
                                             </div>
                                         </div>
@@ -133,63 +132,20 @@
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
+                                            <?php $req->requirements = json_decode($req->requirements) ?>
+                                            @foreach($req->requirements as $key => $value)
+                                            @if($value != null)
                                             <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
+                                                <a href="/{{$value}}" target="_blank">
                                                     <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/surat.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
                                                         <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Permohonan</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/2.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>SKTM Gakin</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/ktp.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KTP</h5>
+                                                            <h5>{{strtoupper($key)}}</h5>
                                                         </div>
                                                     </div>
                                                 </a>
                                             </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/uploads/persyaratan-permohonan/surat-permohonan.pdf" target="_blank">
-
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/kk.png');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>Scan KK</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/suket.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>Surat Keterangan Kelurahan</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-sm-12 col-md-4 mb-4">
-                                                <a href="/assets/img/pasar-gede.png" target="_blank">
-                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/tagihan.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
-                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
-                                                            <h5>Tagihan Sekolah</h5>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
+                                            @endif
+                                            @endforeach
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status
