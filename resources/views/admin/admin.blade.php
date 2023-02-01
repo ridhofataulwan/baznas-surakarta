@@ -6,6 +6,8 @@
 </head>
 
 <body>
+    <div class="response" data-title="<?= session()->get('title') ?>" data-message="<?= session()->get('message') ?>" data-status="<?= session()->get('status') ?>"></div>
+
     <div id="app">
         <div class="main-wrapper">
             <div class="navbar-bg"></div>
@@ -278,6 +280,19 @@
     </div>
 
     @include('admin.stisla.script')
+    <!-- Swal -->
+    <script>
+        let title = $(".response").data("title");
+        let message = $(".response").data("message");
+        let status = $(".response").data("status");
+        if (status) {
+            Swal.fire(
+                title,
+                message,
+                status
+            )
+        }
+    </script>
 </body>
 
 </html>
