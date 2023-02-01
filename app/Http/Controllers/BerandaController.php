@@ -259,10 +259,14 @@ class BerandaController extends Controller
         session()->flash('status', 'success');
         return redirect('cek-permohonan-bantuan')->with('success', 'Permohonan berhasil dikirim. Anda bisa mengecek status permohonan pada laman ini');
     }
+
+
     public function cekPermohonanBantuan()
     {
         return view('layanan.cek-permohonan-bantuan');
     }
+
+
     public function cekPermohonanBantuanStore()
     {
         if (request()->id != null) {

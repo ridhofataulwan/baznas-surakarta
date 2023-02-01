@@ -115,9 +115,9 @@
                     <li>
                         <a class="nav-link" href="{{url('/admin/pembayaran')}}"><span>Semua Pembayaran</span></a>
                     </li>
-                    <li>
-                        <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
-                    </li>
+                    <!-- <li> -->
+                    <!-- <a class="nav-link" href="{{url('/admin/peninjauan/pembayaran')}}"> <span>Peninjauan</span></a> -->
+                    <!-- </li> -->
                 </ul>
             </li>
             <li class="dropdown">
@@ -128,7 +128,7 @@
                         <a class="nav-link" href="{{url('/admin/permohonan')}}"><span>Semua Permohonan</span></a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
+                        <a class="nav-link" href="{{url('/admin/peninjauan-permohonan')}}"> <span>Peninjauan</span></a>
                     </li>
                 </ul>
             </li>
@@ -140,7 +140,7 @@
                         <a class="nav-link" href="{{url('/admin/penyaluran')}}"><span>Semua Penyaluran</span></a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Peninjauan</span></a>
+                        <a class="nav-link" href="{{url('/admin/peninjauan-penyaluran')}}"> <span>Peninjauan</span></a>
                     </li>
                 </ul>
             </li>

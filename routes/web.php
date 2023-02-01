@@ -224,11 +224,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/pembayaran/validate/{id}/{value}', [AdmPaymentController::class, 'validatePembayaran']);
 
             Route::get('/permohonan', [AdmRequestController::class, 'permohonan']);
+            Route::get('/peninjauan-permohonan', [AdmRequestController::class, 'peninjauanPermohonan']);
             Route::get('/permohonan/add', [AdmRequestController::class, 'createPermohonan'])->name('add.permohonan-bantuan');
             Route::get('/permohonan/{slug}', [AdmRequestController::class, 'detailPermohonan']);
             Route::post('/permohonan/store', [AdmRequestController::class, 'requestStore'])->name('store.request');
+            Route::get('/permohonan/delete/{id}', [AdmRequestController::class, 'destroyPermohonan']);
+            Route::get('/permohonan/validate/{id}/{value}', [AdmRequestController::class, 'validatePermohonan']);
 
             Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
+            // Route::get('/peninjauan-penyaluran', [AdmDistributionController::class, 'peninjauanPenyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');
             Route::get('/penyaluran/{id}', [AdmDistributionController::class, 'detailPenyaluran']);
 

@@ -82,8 +82,9 @@
                                                                 <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 29px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                                     <a class="dropdown-item has-icon" href="/admin/permohonan/{{$req->id}}"><i class="far fa-eye"></i> Detail</a>
                                                                     <a class="dropdown-item has-icon" href="https://wa.me/{{$req->phone}}" target="_blank"><i class="fas fa-phone"></i> Hubungi</a>
-                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/VALID" data-id="valid_{{$req->id}}"><i class=" fas fa-check"></i> Valid</a>
-                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/INVALID" data-id="invalid_{{$req->id}}"><i class=" fas fa-times"></i> Invalid</a>
+                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/INVESTIGATE" data-id="INVESTIGATE_{{$req->id}}"><i class=" fas fa-check"></i> Investigate</a>
+                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/ACCEPTED" data-id="ACCEPTED_{{$req->id}}"><i class=" fas fa-check"></i> Accept</a>
+                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/DONE" data-id="DONE_{{$req->id}}"><i class=" fas fa-check"></i> Done</a>
                                                                     <a class="dropdown-item has-icon delete-request" href="#" data-id="delete_{{$req->id}}"><i class="fas fa-trash"></i> Hapus</a>
                                                                 </div>
                                                             </div>
