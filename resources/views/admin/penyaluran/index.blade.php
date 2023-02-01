@@ -33,7 +33,7 @@
                                         </div>
                                         @endif
                                         <div class="table-responsive px-3">
-                                            <table class="table table-striped" id="table-1">
+                                            <table class="table table-striped" id="myTable">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col" style="width: 5%">No</th>

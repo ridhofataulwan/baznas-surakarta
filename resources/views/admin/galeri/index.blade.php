@@ -55,7 +55,7 @@
 
 
                                         <div class="table-responsive px-3">
-                                            <table class="table table-striped" id="table-1">
+                                            <table class="table table-striped" id="myTable">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scrope="col" width="5%">No</th>
