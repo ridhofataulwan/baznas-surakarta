@@ -45,7 +45,7 @@ class MonthlyDistribution implements FromView, ShouldAutoSize, WithStyles, WithC
 
             $data = [
                 'name'      => $payment->name,
-                'phone'     => $payment->phone_number,
+                'phone'     => $payment->phone,
                 'type'      => $payment->type,
                 'ashnaf'    => $payment->ashnaf,
                 'program'   => $program[$i],

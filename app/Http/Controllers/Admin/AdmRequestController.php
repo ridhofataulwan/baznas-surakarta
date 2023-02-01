@@ -41,7 +41,7 @@ class AdmRequestController extends Controller
         $db = DB::table('provinces');
         $data = $db->get();
 
-        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_addres'));
+        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_address'));
     }
     public function createPermohonan()
     {
@@ -118,7 +118,7 @@ class AdmRequestController extends Controller
             'address'               => json_encode($address),
             'religion'              => $request->religion,
             'job'                   => $request->job,
-            'phone_number'          => $request->phone_number,
+            'phone'          => $request->phone,
             'description'           => $request->description,
             'requirements'          => ($requirements),
         ];
@@ -133,7 +133,7 @@ class AdmRequestController extends Controller
             'address'               => $data['address'],
             'religion'              => $data['religion'],
             'job'                   => $data['job'],
-            'phone_number'          => $data['phone_number'],
+            'phone'          => $data['phone'],
             'description'           => $data['description'],
             'requirements'          => $data['requirements'],
             // erorr

@@ -74,6 +74,7 @@
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
                                                 <input readonly type="text" class="form-control" name="title" value="{{$req->phone_number}}">
+                                                <input readonly type="text" class="form-control" name="title" value="{{$req->phone}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
