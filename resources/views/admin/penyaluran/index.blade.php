@@ -15,7 +15,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Tabel Penyaluran Sedekah</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     <a href="{{ route('add.penyaluran') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
                         Buat Baru</a>

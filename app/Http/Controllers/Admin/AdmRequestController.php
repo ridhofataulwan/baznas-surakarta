@@ -29,7 +29,8 @@ class AdmRequestController extends Controller
             }
         }
 
-        return view('admin.permohonan-bantuan.index', compact('data', 'programs'));
+        $title = 'Daftar Permohonan';
+        return view('admin.permohonan-bantuan.index', compact('data', 'programs', 'title'));
     }
     public function peninjauanPermohonan()
     {
@@ -50,7 +51,8 @@ class AdmRequestController extends Controller
             }
         }
 
-        return view('admin.permohonan-bantuan.index-peninjauan', compact('data', 'programs'));
+        $title = 'Daftar Peninjauan Permohonan';
+        return view('admin.permohonan-bantuan.index-peninjauan', compact('data', 'programs', 'title'));
     }
     public function detailPermohonan($id)
     {
@@ -63,7 +65,8 @@ class AdmRequestController extends Controller
         $db = DB::table('provinces');
         $data = $db->get();
 
-        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_address'));
+        $title = 'Detail Permohonan';
+        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_address', 'title'));
     }
     public function createPermohonan()
     {

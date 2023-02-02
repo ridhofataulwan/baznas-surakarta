@@ -16,7 +16,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Admin Page</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     <div class="section-body">
                         <div class="row">
@@ -26,36 +26,30 @@
                                         <h4>Edit Galeri</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form action="{{ url('admin/galeri/update/'.$galeri->id) }}" method="POST"
-                                            enctype="multipart/form-data">
+                                        <form action="{{ url('admin/galeri/update/'.$galeri->id) }}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <input type="hidden" name="old_image[]" value="{{ $galeri->gambar }}">
                                             <div class="form-group row mb-4">
-                                                <label
-                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Judul</label>
                                                 <div class="col-sm-12 col-md-7">
-                                                    <input type="text" class="form-control" name="judul"
-                                                        value="{{ $galeri->judul }}">
+                                                    <input type="text" class="form-control" name="judul" value="{{ $galeri->judul }}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row mb-4">
-                                                <label
-                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
                                                 <div class="col-sm-12 col-md-7">
                                                     <input type="file" class="form-control" name="gambar[]" multiple>
 
                                                     @foreach (explode('|', $galeri->gambar) as $image)
-                                                    <img src="{{ asset($image) }}" alt="" @endforeach
-                                                        style="width:400px;" class="mt-4">
+                                                    <img src="{{ asset($image) }}" alt="" @endforeach style="width:400px;" class="mt-4">
                                                 </div>
                                                 {{-- <img src="{{ asset($image) }}" alt=""
                                                 style="height: 40px; width:70px;"> --}}
                                             </div>
 
                                             <div class="form-group row mb-4">
-                                                <label
-                                                    class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                                 <div class="col-sm-12 col-md-7">
                                                     <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>

@@ -16,7 +16,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Halaman Daftar Pembayar Zakat</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     {{-- <a href="{{ url('admin/layanan/rekening/add') }}" class="btn btn-success mb-1"><i class="fa fa-plus" aria-hidden="true"></i> Input Rekening </a> --}}
                     <div class="section-body">

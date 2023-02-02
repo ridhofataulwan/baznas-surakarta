@@ -18,7 +18,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Lembaga</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     <button class="btn btn-success mb-1" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus" aria-hidden="true"></i> Input Lembaga </button>
                     <div class="section-body">

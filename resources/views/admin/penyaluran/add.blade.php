@@ -17,6 +17,7 @@
                 <section class="section">
                     <div class="section-header">
                         <h1>Form Penyaluran Sedekah</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     <div class="section-body">
                         <div class="row">

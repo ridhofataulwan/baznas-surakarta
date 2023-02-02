@@ -17,7 +17,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Tabel Permohonan Bantuan</h1>
+                        <h1>{{$title}}</h1>
                     </div>
                     <a href="{{ route('add.permohonan-bantuan') }}" class="btn btn-success mb-4"><i class="fa fa-plus" aria-hidden="true"></i>
                         Tambah Permohonan </a>
