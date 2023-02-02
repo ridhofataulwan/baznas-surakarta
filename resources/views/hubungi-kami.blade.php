@@ -38,8 +38,6 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
             <div class="col-lg-6">
-                {{-- <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{{ url('hubungi-kami') }}"
-                method="POST" enctype="multipart/form-data"> --}}
                 <form action="{{ url('hubungi-kami') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <!-- Name input-->

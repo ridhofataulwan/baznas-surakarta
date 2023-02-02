@@ -208,7 +208,6 @@ class AdmRequestController extends Controller
     {
         // Check if data is already available 
         $data = Permohonan::where('id', $id);
-
         // If data > 0, that means data has already stored in database
         if (count($data->get()) > 0) {
             $data->update([
@@ -216,12 +215,12 @@ class AdmRequestController extends Controller
             ]);
             // Success ✅   
             session()->flash('title', 'Sukses');
-            session()->flash('message', 'Data permohonan berhasil diubah: ' . $value);
+            session()->flash('message', 'Data permohonan berhasil diubah: ' . strtoupper($value));
             session()->flash('status', 'success');
-            if ($value = "ACCEPTED") {
+            if ($value == "ACCEPTED") {
                 // Distribusi Auto Fill
             }
-            return redirect()->back()->with('success', 'Data permohonan berhasil diubah: ' . $value);
+            return redirect()->back()->with('success', 'Data permohonan berhasil diubah: ' . strtoupper($value));
         } else {
             session()->flash('title', 'Gagal');
             session()->flash('message', 'Data permohonan tidak ditemukan');

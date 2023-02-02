@@ -33,28 +33,46 @@
                     @endif
                     <form action="{{ route('cek.permohonan') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="form-group mt-4">
+                        <label for="select-form" class="form-label">Pilih data yang akan diinput<i style="color:red;">*</i></label>
+                        <div class="col" id="select-form">
+                            <input type="radio" class="btn-check" name="type" id="radio_nik" value="NIK" autocomplete="off" checked>
+                            <label class="btn btn-outline-success my-1" for="radio_nik">NIK</label>
+                            <input type="radio" class="btn-check" name="type" id="radio_kp" value="KP" autocomplete="off">
+                            <label class="btn btn-outline-success my-1" for="radio_kp">Kode Permohonan</label>
+                        </div>
+                        <div class="form-group mt-4" id="element_kp" style="display: none;">
                             <label for="" class="form-label">Kode Permohonan</label>
-                            <input type="text" placeholder="Masukkan Kode" class="form-control bg-white" id="" name="id" autocomplete="no">
+                            <input type="text" placeholder="Masukkan Kode" class="form-control bg-white" name="id" autocomplete="no">
                         </div>
-                        <div class="form-group mt-4">
-                            <label for="nik" class="form-label" id="nik">NIK <i style="color:red;">*</i></label>
-                            <input type="number" placeholder="Masukkan NIK" class="form-control bg-white" id="nik" name="nik" autocomplete="no" minlength="16" maxlength="16">
+                        <div class="form-group mt-4" id="element_nik">
+                            <label for="nik" class="form-label nik" id="nik">NIK <i style="color:red;">*</i></label>
+                            <input type="text" placeholder="Masukkan NIK" class="form-control bg-white" id="nik" name="nik" autocomplete="no" onkeyup="countChars(this)" minlength="16" maxlength="16">
                         </div>
-                        <div class="footer-form" style="margin-top: 10%;">
+                        <div class="footer-form">
                             <div class="text-center">
-                                <button type="submit" id="testzakat" class="btn btn-success mt-4" style="font-size: 20px;">Cek Permohonan</button>
+                                <button type="submit" class="btn btn-success mt-4" style="font-size: 20px;">Cek Permohonan</button>
                             </div>
                         </div>
                     </form>
                     @if (session('data'))
-                    <div class="alert alert-info alert-dismissible show fade">
+                    <div class="alert alert-info alert-dismissible show fade mt-4">
                         <div class="alert-body">
                             <strong class="row">Status Permohonan Anda</strong>
                             <span class="row">NIK : {{session('data')->nik}} </span>
                             <span class="row">Status : {{session('data')->status}} </span>
                             <span class="row">Diajukan pada: {{session('data')->created_at}} </span>
                             <span class="row">Diubah pada: {{session('data')->updated_at}} </span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    @endif
+                    @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible show fade mt-4">
+                        <div class="alert-body">
+                            <strong class="row">Permohonan Tidak Ditemukan</strong>
+                            <span class="row">{{session('label')}}: {{session('error')}}</span>
+                            <span class="row">Data tidak ditemukan</span>
+                            <span class="row">Silakan masukan data dengan benar</span>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
@@ -70,24 +88,41 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $(document).on('keyup', '#nominalzakat', function() {
-        rupiah = $('#nominalzakat').val();
-        $('#nominalzakat').val(formatRupiah(rupiah, 'Rp. '));
+    $(function() {
+        $('input[name="nik"]').bind('keypress', function(e) {
+            var keyCode = (e.which) ? e.which : event.keyCode
+            return !(keyCode > 31 && (keyCode < 48 || keyCode > 57));
+        });
     });
 
-    function formatRupiah(angka, prefix) {
-        var number_string = angka.replace(/[^,\d]/g, '').toString(),
-            split = number_string.split(','),
-            sisa = split[0].length % 3,
-            rupiah = split[0].substr(0, sisa),
-            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-        if (ribuan) {
-            separator = sisa ? '.' : '';
-            rupiah += separator + ribuan.join('.');
+    $(document).on('keyup', '#nik', function() {
+        var maxLength = 16;
+        var strLength = this.value.length;
+        if (this.value == '') {} else if (!(/\D/.test(this.value)) && strLength < maxLength) {
+            $('.nik').html('<span class="text-dark">NIK</span> <i style="color:red;">*</i> <span class="text-danger"> [' + strLength + '/' + maxLength + '] ❌</span>')
+        } else if (!(/\D/.test(this.value)) && strLength == maxLength) {
+            $('.nik').html('<span class="text-success">NIK</span> <i style="color:red;">*</i> <span class="text-success"> [' + strLength + '/' + maxLength + '] ✅</span>')
         }
+    })
+</script>
 
-        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
+<script>
+    $(document).ready(function() {
+        $("input[name='type']").change(function() {
+            var radioValue = this.value;
+            switch (radioValue) {
+                case "NIK":
+                    $("#element_nik").show();
+                    $("#element_kp").hide();
+                    break;
+                case "KP":
+                    $("#element_nik").hide();
+                    $("#element_kp").show();
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
 </script>
 @endsection

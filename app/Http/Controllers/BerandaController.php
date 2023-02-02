@@ -270,15 +270,20 @@ class BerandaController extends Controller
     public function cekPermohonanBantuanStore()
     {
         if (request()->id != null) {
+            $label = 'Kode Permohonan';
             $id = request()->id;
             $data = Permohonan::where('id', $id)->first();
         } else {
+            $label = 'NIK';
             $nik = request()->nik;
             $data = Permohonan::where('nik', $nik)->first();
-            $id = $data->id;
         }
 
-        session()->flash('data', $data);
-        return redirect('cek-permohonan-bantuan');
+        if ($data == null) {
+            session()->flash('error', request('nik') ? request('nik') : request('id'));
+        } else {
+            session()->flash('data', $data);
+        }
+        return redirect('cek-permohonan-bantuan')->with('label', $label);
     }
 }
