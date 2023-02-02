@@ -192,9 +192,6 @@ Route::middleware('auth')->group(function () {
             Route::post('/layanan/rekening/{rekID}/edit', [LayananController::class, 'updateRekening']);
             Route::get('/layanan/rekening/{rekID}/delete', [LayananController::class, 'deleteRekening']);
 
-            Route::get('/layanan/pembayaran', [LayananController::class, 'indexBayarZakat']);
-            Route::get('/layanan/pembayaran/{transID}/status', [LayananController::class, 'updateStatusBayar']);
-
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
             /**

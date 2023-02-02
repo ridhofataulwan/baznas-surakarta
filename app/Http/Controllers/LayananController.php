@@ -12,12 +12,15 @@ class LayananController extends Controller
     public function indexLayananRekening()
     {
         $rek = Rekening::all();
-        return view('admin.layanan-rekening.index', compact('rek'));
+
+        $title = 'Daftar Rekening';
+        return view('admin.layanan-rekening.index', compact('rek', 'title'));
     }
 
     public function addRekening()
     {
-        return view('admin.layanan-rekening.add');
+        $title = 'Tambah Rekening';
+        return view('admin.layanan-rekening.add', compact('title'));
     }
 
     public function storeRekening()
@@ -52,7 +55,8 @@ class LayananController extends Controller
         if (!$rek) {
             return redirect()->back()->with('status', 'Data tidak ditemukan');
         }
-        return view('admin.layanan-rekening.edit', compact('rek'));
+        $title = 'Edit Rekening';
+        return view('admin.layanan-rekening.edit', compact('rek', 'title'));
     }
 
     public function updateRekening($rekeningID)
@@ -106,21 +110,5 @@ class LayananController extends Controller
             Rekening::find($rekeningID)->delete();
             return redirect()->back()->with('success', 'Rekening Delete Successfully');
         }
-    }
-
-    public function indexBayarZakat()
-    {
-        $bayar = Payment::all();
-        return view('admin.bayar-zakat.index', compact('bayar'));
-    }
-
-    public function updateStatusBayar($transID)
-    {
-        $trans = Payment::find($transID);
-        if (!$trans) {
-            return redirect()->back()->with('success', 'Data tidak ditemukan');
-        }
-        $trans->status == 'HIDDEN' ? $trans->update(['status' => 'SHOW']) : $trans->update(['status' => 'HIDDEN']);
-        return redirect()->back()->with('success', 'Data berhasil ditampilkan');
     }
 }
