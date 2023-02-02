@@ -28,11 +28,12 @@ class MessageController extends Controller
             'kategori' => request('kategori'),
             'message' => request('message'),
         ]);
-        Mail::to(request()->email)->send(new Notifikasi(request()->email, request('kategori') . ' anda sudah dikirimkan ke admin'));
-        $users = User::role('admin')->get();
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada yang mengisi ' . request('kategori') . ' dengan nama ' . request('name')));
-        }
+        // SMTP MAIL ❗Disabled
+        // Mail::to(request()->email)->send(new Notifikasi(request()->email, request('kategori') . ' anda sudah dikirimkan ke admin'));
+        // $users = User::role('admin')->get();
+        // foreach ($users as $user) {
+        //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada yang mengisi ' . request('kategori') . ' dengan nama ' . request('name')));
+        // }
         return redirect()->back()->with('status', request('kategori') . ' berhasil dikirimkan');
     }
 }

@@ -164,6 +164,11 @@ class PaymentController extends Controller
         foreach ($users as $user) {
             Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . request('name')));
         }
+        // Mail::to(request()->email)->send(new Notifikasi(request('email'), 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
+        // $users = User::role('admin')->get();
+        // foreach ($users as $user) {
+        //     Mail::to($user->email)->send(new Notifikasi($user->email, 'Ada pembayar zakat baru dengan nama ' . request('name')));
+        // }
 
         // Success ✅   
         session()->flash('title', 'Sukses');
