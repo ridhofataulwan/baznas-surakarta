@@ -291,22 +291,6 @@
 
     @include('admin.stisla.script')
     <script>
-        $(document).ready(() => {
-            $("#image-upload").change(function() {
-                const file = this.files[0];
-                if (file) {
-                    $("#file-name").html(file.name).removeAttr("hidden");
-                    $("#image-file").attr("hidden", true);
-                    let reader = new FileReader();
-                    reader.onload = function(event) {
-                        $("#image-preview").attr("src", event.target.result).removeAttr("hidden");
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
-    <script>
         $(document).on('keyup', '#rupiah', function() {
             rupiah = $('#rupiah').val();
             $('#rupiah').val(formatRupiah(rupiah, ''));
@@ -330,7 +314,23 @@
         }
     </script>
 
+    <!-- Script for image upload preview -->
     <script>
+        $(document).ready(() => {
+            $("#image-upload").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    $("#file-name").html(file.name).removeAttr("hidden");
+                    $("#image-file").attr("hidden", true);
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#image-preview").attr("src", event.target.result).removeAttr("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
         $("[type='file']").change(function() {
             var file = this.files[0].name;
             $("[for='" + this.id + "']").html(file);

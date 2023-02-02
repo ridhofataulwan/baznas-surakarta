@@ -105,7 +105,7 @@
                     <span>Dashboard</span></a>
             </li>
             <li>
-                <a class="nav-link" href="{{url('/admin/dashboard')}}"><i class="fas fa-money-bill-wave"></i>
+                <a class="nav-link" href="{{url('/admin/pembayaran')}}"><i class="fas fa-money-bill-wave"></i>
                     <span>Pembayaran</span></a>
             </li>
             <!-- <li class="dropdown">

@@ -37,8 +37,14 @@
 
                                             <div class="form-group row mb-4">
                                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <input type="file" class="form-control" name="gambar[]" multiple>
+                                                <div class="col">
+                                                    <span class="badge badge-primary" for="image-upload">Filename</span>
+                                                    <div>Jenis file: jpg, png, jpeg</div>
+                                                    <div class="image-preview" height="100%">
+                                                        <label class="bagde badge-pill" for="image-upload" id="image-label" style="opacity: 85%; background-color: #6777ef;">Pilih File</label>
+                                                        <input type="file" name="gambar[]" id="image-upload">
+                                                        <img src="" id="image-preview" width="100%" height="auto" hidden="true">
+                                                    </div>
                                                     @error('gambar')
                                                     <span class="text-danger"> {{ $message }} </span>
                                                     @enderror
@@ -68,31 +74,37 @@
 
     @include('admin.stisla.script')
 
-    <script type="text/javascript">
-        var rupiah = document.getElementById('rupiah');
-        rupiah.addEventListener('keyup', function(e) {
-            // tambahkan 'Rp.' pada saat form di ketik
-            // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-            rupiah.value = formatRupiah(this.value, 'Rp. ');
+    <!-- Script for image upload preview -->
+    <script>
+        $(document).ready(() => {
+            $("#image-upload").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    $("#file-name").html(file.name).removeAttr("hidden");
+                    $("#image-file").attr("hidden", true);
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#image-preview").attr("src", event.target.result).removeAttr("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
 
-        /* Fungsi formatRupiah */
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+        $("[type='file']").change(function() {
+            var file = this.files[0].name;
+            $("[for='" + this.id + "']").html(file);
+        });
 
-            // tambahkan titik jika yang di input sudah menjadi angka ribuan
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+        function fileName(obj) {
+            var file = obj.value.split(/(\\|\/)/g).pop();
+            $("[for='" + obj.id + "']").html(file);
         }
+
+        // Use Function
+        $("[type='file']").change(function() {
+            fileName(this)
+        })
     </script>
 
 </body>
