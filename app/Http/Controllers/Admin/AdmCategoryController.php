@@ -12,7 +12,8 @@ class AdmCategoryController extends Controller
     public function listCategoryPost()
     {
         $category_post = CategoryPost::all();
-        return view('admin.category.index', compact('category_post'));
+        $title = 'Daftar Kategori';
+        return view('admin.category.index', compact('category_post', 'Daftar Kategori'));
     }
 
     public function storeCategoryPost(Request $request)

@@ -14,6 +14,8 @@ class AdmDistributionController extends Controller
         $data = $db->get();
 
         return view('admin.penyaluran.index', compact('data'));
+        $title = 'Daftar Penyaluran';
+        return view('admin.penyaluran.index', compact('data', 'title'));
     }
     public function createPenyaluran()
     {
@@ -35,5 +37,7 @@ class AdmDistributionController extends Controller
         $program = DB::table('distribution')->join('program', 'distribution.program_id', '=', 'program.id')->get()->first();
         // dd($program->name);
         return view('admin.penyaluran.detail', compact('data', 'dist', 'json_address', 'program'));
+        $title = 'Detail Penyaluran';
+        return view('admin.penyaluran.detail', compact('data', 'dist', 'json_address', 'program', 'title'));
     }
 }

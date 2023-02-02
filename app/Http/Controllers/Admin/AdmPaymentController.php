@@ -58,7 +58,9 @@ class AdmPaymentController extends Controller
             }
         }
 
-        return view('admin.pembayaran.index', compact('data', 'fmt_date', 'fmt_time'));
+        $title = 'Daftar Pembayaran';
+
+        return view('admin.pembayaran.index', compact('data', 'fmt_date', 'fmt_time', 'title'));
     }
 
     /**
@@ -94,7 +96,9 @@ class AdmPaymentController extends Controller
         ];
 
         $payment = Payment::where('id', $id)->get()->first();
-        return view('admin.pembayaran.detail', compact('payment', 'json_address', 'isLembaga', 'provinces', 'lembaga', 'payment_type'));
+        $title = 'Detail Pembayaran';
+
+        return view('admin.pembayaran.detail', compact('payment', 'json_address', 'isLembaga', 'provinces', 'lembaga', 'payment_type', 'title'));
     }
 
     /**
@@ -108,7 +112,9 @@ class AdmPaymentController extends Controller
     {
         $provinces = DB::table('provinces')->get();
         $lembaga = DB::table('lembaga')->where('type', 'PEMBAYAR')->orWhere('type', 'PEMBAYAR_PENERIMA')->get();
-        return view('admin.pembayaran.add', compact('provinces', 'lembaga'));
+        $title = 'Tambah Pembayaran';
+
+        return view('admin.pembayaran.add', compact('provinces', 'lembaga', 'title'));
     }
 
     /**

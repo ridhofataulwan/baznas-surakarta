@@ -73,7 +73,8 @@ class AdmRequestController extends Controller
         $program = DB::table('program')->where('request', 1)->get();
         $provinces = DB::table('provinces')->get();
 
-        return view('admin.permohonan-bantuan.add', compact('provinces', 'program'));
+        $title = 'Tambah Permohonan';
+        return view('admin.permohonan-bantuan.add', compact('provinces', 'program', 'title'));
     }
 
     public function requestStore(Request $request)

@@ -10,6 +10,8 @@ class AdmMessageController extends Controller
     public function indexMessage()
     {
         $message = Message::all();
-        return view('admin.message.index', compact('message'));
+
+        $title = 'Daftar Pesan';
+        return view('admin.message.index', compact('message', 'title'));
     }
 }

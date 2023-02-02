@@ -31,7 +31,8 @@ class AdmLembagaController extends Controller
             'HH:mm'
         );
         $lembaga = Lembaga::all();
-        return view('admin.lembaga.index', compact('lembaga', 'fmt_date', 'fmt_time'));
+        $title = 'Daftar Lembaga';
+        return view('admin.lembaga.index', compact('lembaga', 'fmt_date', 'fmt_time', 'title'));
     }
 
     public function storeLembaga(Request $request)

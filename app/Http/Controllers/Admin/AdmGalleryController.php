@@ -13,11 +13,13 @@ class AdmGalleryController extends Controller
     {
         $galeri = Galeri::latest()->paginate(10);
 
-        return view('admin.galeri.index', compact('galeri'));
+        $title = 'Galeri';
+        return view('admin.galeri.index', compact('galeri', 'title'));
     }
     public function createGaleri()
     {
-        return view('admin.galeri.add');
+        $title = 'Tambah Galeri';
+        return view('admin.galeri.add', compact('title'));
     }
     public function storeGaleri(Request $request)
     {
@@ -51,7 +53,8 @@ class AdmGalleryController extends Controller
     {
         $galeri = Galeri::find($galeriID);
         // return $berita;
-        return view('admin.galeri.edit', compact('galeri'));
+        $title = 'Edit Galeri';
+        return view('admin.galeri.edit', compact('galeri', 'title'));
     }
     public function updateGaleri(Request $request, $galeriID)
     {

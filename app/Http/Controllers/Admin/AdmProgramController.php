@@ -13,7 +13,9 @@ class AdmProgramController extends Controller
     public function listProgram()
     {
         $program = Program::all();
-        return view('admin.program.index', compact('program'));
+
+        $title = 'Daftar Program';
+        return view('admin.program.index', compact('program', 'title'));
     }
 
     public function storeProgram(Request $request)
@@ -55,22 +57,24 @@ class AdmProgramController extends Controller
         $column = $request->get('program');
         $data = [$id, $state, $column];
         DB::table('program')->where('id', $id)->update([$column => $state]);
+
         return $data;
-        // return redirect('/admin/program/')->with('success', 'Program berhasil diubah');
     }
 
     public function destroyProgram($id)
     {
-        // if ($id != 1) {
-        //     $post = Post::where('id', $id)->get();
-        //     if ($post == true) {
-        //         for ($i = 0; $i < count($post); $i++) {
-        //             $post[$i]->update(['id' => 1]);
-        //         }
-        //     }
-        //     Program::destroy($id);
-        //     return redirect('/admin/program/')->with('success', 'Program berhasil dihapus');
-        // }
+        /*
+        if ($id != 1) {
+            $post = Post::where('id', $id)->get();
+            if ($post == true) {
+                for ($i = 0; $i < count($post); $i++) {
+                    $post[$i]->update(['id' => 1]);
+                }
+            }
+            Program::destroy($id);
+            return redirect('/admin/program/')->with('success', 'Program berhasil dihapus');
+        }
+        */
         return redirect('/admin/program/')->with('danger', 'Program ini tidak boleh dihapus');
     }
 }

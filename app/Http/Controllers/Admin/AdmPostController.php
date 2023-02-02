@@ -15,7 +15,9 @@ class AdmPostController extends Controller
     {
         $category_name = ucwords(str_replace('-', ' ', $category));
         $post = Post::Join('category_post', 'category_post.id', '=', 'post.category_id')->where('name', $category_name)->select('post.*', 'category_post.name')->get();
-        return view('admin.post.index', compact('post', 'category_name'));
+
+        $title = 'Daftar ' . $category_name;
+        return view('admin.post.index', compact('post', 'title'));
     }
 
     public function editPost($id)
@@ -23,13 +25,17 @@ class AdmPostController extends Controller
         $categories = CategoryPost::all();
         $category = Post::where('id', $id)->first();
         $post = Post::find($id);
-        return view('admin.post.edit', compact('post', 'category', 'categories'));
+
+        $title = 'Edit Kabar';
+        return view('admin.post.edit', compact('post', 'category', 'categories', 'title'));
     }
 
     public function createPost()
     {
         $category = CategoryPost::all();
-        return view('admin.post.add', compact('category'));
+
+        $title = 'Tambah Kabar';
+        return view('admin.post.add', compact('category', 'title'));
     }
 
     public function storePost(Request $request)
