@@ -69,16 +69,9 @@ class AdmGalleryController extends Controller
 
         if ($galeri_image) {
             foreach ($galeri_image as $multi_img) {
-
                 $name_gen = hexdec(uniqid()) . '.' . $multi_img->getClientOriginalExtension();
                 $multi_img->move(public_path('uploads/galeri'), $name_gen);
                 $last_img[] = 'uploads/galeri/' . $name_gen;
-                // unlink($old_image);
-                // foreach ($old_image as $multi_old) {
-                //     if (file_exists($multi_old)) {
-                //         unlink($multi_old);
-                //     }
-                // }
             }
             $galeri->update([
                 'judul' => $request->judul,

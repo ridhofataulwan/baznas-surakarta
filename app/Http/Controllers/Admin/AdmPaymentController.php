@@ -526,6 +526,9 @@ class AdmPaymentController extends Controller
         // If data > 0, that means data has already stored in database
         // If request code and new_code same, that means it updates itself
         if (count($data) > 0) {
+            if (file_exists($data[0]->proof_of_payment)) {
+                unlink($data[0]->proof_of_payment);
+            }
             Payment::where('id', $id)->delete();
             // Success ✅   
             session()->flash('title', 'Sukses');
