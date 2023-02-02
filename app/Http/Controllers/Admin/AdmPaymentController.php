@@ -183,13 +183,16 @@ class AdmPaymentController extends Controller
         if (request('lembaga')) {
             unset($rules['name']);
             unset($rules['nik']);
+            unset($rules['gender']);
 
             $lembaga = DB::table('lembaga')->where('code', request('lembaga'))->first();
             $nik = $lembaga->code;
             $name = $lembaga->name;
+            $gender = "LEMBAGA";
         } else {
             $nik = request('nik');
             $name = request('name');
+            $gender = request('gender');
         }
 
         //  amount ✅
@@ -265,7 +268,7 @@ class AdmPaymentController extends Controller
         $data = [
             'name' => $name,
             'nik' => $nik,
-            'gender' => request('gender'),
+            'gender' => $gender,
             'phone' => request('phone'),
             'email' => request('email'),
             'address' => json_encode($address),

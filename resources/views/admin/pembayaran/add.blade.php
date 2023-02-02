@@ -82,7 +82,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="form-group row mb-3">
+                                            <div class="form-group row mb-3" id="element-gender" style="display:none">
                                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
                                                     Kelamin</label>
                                                 <div class="col-sm-12 col-md-7">
@@ -465,20 +465,22 @@
     <script>
         $(document).ready(() => {
             if ($('[name="payer_type"]').is(':checked')) {
-                showElements('payer_type', '#element-nik', '#element-name', '#element-lembaga');
+                showElements('payer_type', '#element-nik', '#element-name', '#element-lembaga', '#element-gender');
             }
             $('[name="payer_type"]').change(function() {
-                showElements('payer_type', '#element-nik', '#element-name', '#element-lembaga');
+                showElements('payer_type', '#element-nik', '#element-name', '#element-lembaga', '#element-gender');
             })
         });
 
-        function showElements(name, element1, element2, element3) {
+        function showElements(name, element1, element2, element3, element4) {
             var value = $('[name="' + name + '"]:checked').val();
             if (value == "1") {
                 $(element1).css('display', 'flex')
                 $(element2).css('display', 'flex')
                 $(element3).css('display', 'none')
+                $(element4).css('display', 'flex')
             } else if (value == "2") {
+                $(element4).css('display', 'none')
                 $(element3).css('display', 'flex')
                 $(element1).css('display', 'none')
                 $(element2).css('display', 'none')
