@@ -26,7 +26,7 @@ class AdmPostController extends Controller
         $category = Post::where('id', $id)->first();
         $post = Post::find($id);
 
-        $title = 'Edit Kabar';
+        $title = 'Edit Postingan';
         return view('admin.post.edit', compact('post', 'category', 'categories', 'title'));
     }
 
@@ -34,7 +34,7 @@ class AdmPostController extends Controller
     {
         $category = CategoryPost::all();
 
-        $title = 'Tambah Kabar';
+        $title = 'Tambah Postingan';
         return view('admin.post.add', compact('category', 'title'));
     }
 
