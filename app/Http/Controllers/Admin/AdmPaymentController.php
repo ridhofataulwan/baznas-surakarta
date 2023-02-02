@@ -107,7 +107,7 @@ class AdmPaymentController extends Controller
     public function createPembayaran()
     {
         $provinces = DB::table('provinces')->get();
-        $lembaga = DB::table('lembaga')->get();
+        $lembaga = DB::table('lembaga')->where('type', 'PEMBAYAR')->orWhere('type', 'PEMBAYAR_PENERIMA')->get();
         return view('admin.pembayaran.add', compact('provinces', 'lembaga'));
     }
 
