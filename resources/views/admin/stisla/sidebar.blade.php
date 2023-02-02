@@ -101,23 +101,39 @@
             </li>
             <li class="menu-header">Pembayaran dan Penyaluran</li>
             <li>
-                <a class="nav-link" href="{{url('/admin/statistik')}}"><i class="fas fa-th-large"></i>
-                    <span>Statistik</span></a>
+                <a class="nav-link" href="{{url('/admin/dashboard')}}"><i class="fas fa-th-large"></i>
+                    <span>Dashboard</span></a>
             </li>
-            <li class="dropdown">
+            <li>
+                <a class="nav-link" href="{{url('/admin/dashboard')}}"><i class="fas fa-money-bill-wave"></i>
+                    <span>Pembayaran</span></a>
+            </li>
+            <!-- <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-money-bill-wave"></i>
                     <span>Pembayaran</span></a>
                 <ul class="dropdown-menu">
-                    <!-- <li>
+                    <li>
                         <a class="nav-link" href="{{url('/admin/layanan/pembayaran')}}"> <span>Daftar
                                 Pembayar</span></a>
-                    </li> -->
+                    </li>
                     <li>
                         <a class="nav-link" href="{{url('/admin/pembayaran')}}"><span>Semua Pembayaran</span></a>
                     </li>
-                    <!-- <li> -->
-                    <!-- <a class="nav-link" href="{{url('/admin/peninjauan/pembayaran')}}"> <span>Peninjauan</span></a> -->
-                    <!-- </li> -->
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/peninjauan/pembayaran')}}"> <span>Peninjauan</span></a>
+                    </li>
+                </ul>
+            </li> -->
+            <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-holding-heart"></i>
+                    <span>Penyaluran</span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/penyaluran')}}"><span>Semua Penyaluran</span></a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{url('/admin/peninjauan-penyaluran')}}"> <span>Peninjauan</span></a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -129,18 +145,6 @@
                     </li>
                     <li>
                         <a class="nav-link" href="{{url('/admin/peninjauan-permohonan')}}"> <span>Peninjauan</span></a>
-                    </li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-hand-holding-heart"></i>
-                    <span>Penyaluran</span></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="nav-link" href="{{url('/admin/penyaluran')}}"><span>Semua Penyaluran</span></a>
-                    </li>
-                    <li>
-                        <a class="nav-link" href="{{url('/admin/peninjauan-penyaluran')}}"> <span>Peninjauan</span></a>
                     </li>
                 </ul>
             </li>

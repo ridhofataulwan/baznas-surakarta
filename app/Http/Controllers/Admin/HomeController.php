@@ -28,12 +28,38 @@ class HomeController extends Controller
         }
         $Month = date('Y-m-d');
         $thisMonth = (int)date("m");
-
-        return view('admin.admin', compact('messages', 'posts', 'count_messages', 'count_requests', 'now', 'last', 'allpost', 'Month', 'thisMonth'));
+        $title = 'Dashboard CMS';
+        return view('admin.admin-cms', compact('messages', 'posts', 'count_messages', 'count_requests', 'now', 'last', 'allpost', 'Month', 'thisMonth', 'title'));
     }
 
-    public function statistik()
+    public function dashboard()
     {
-        return view('admin.statistik.index');
+        $posts = Post::take(5)->latest('id')->get();
+
+        $payment = DB::table('payment')->get()->count();
+        $distribution = DB::table('distribution')->get()->count();
+        $request = DB::table('request')->get()->count();
+
+        $count = [
+            'payment' => $payment,
+            'distribution' => $distribution,
+            'request' => $request,
+        ];
+
+        $messages = Message::take(3)->latest('id', 'desc')->get();
+        $count_messages = Message::count();
+
+        date_default_timezone_set("Asia/Jakarta");
+        $now = date('Y');
+        $margin = $now - 2023;
+        if ($margin < 5) {
+            $last = 2023;
+        } else {
+            $last = $now - 5;
+        }
+        $Month = date('Y-m-d');
+        $thisMonth = (int)date("m");
+        $title = 'Dashboard Transaksi';
+        return view('admin.admin-paydist', compact('messages', 'posts', 'count_messages', 'count', 'now', 'last', 'Month', 'thisMonth', 'title'));
     }
 }

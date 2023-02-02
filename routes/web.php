@@ -151,7 +151,7 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/', [HomeController::class, 'index']);
-            Route::get('/statistik', [HomeController::class, 'statistik']);
+            Route::get('/dashboard', [HomeController::class, 'dashboard']);
 
 
             Route::get('/category', [AdmCategoryController::class, 'listCategoryPost']);
@@ -235,6 +235,7 @@ Route::middleware('auth')->group(function () {
             // Route::get('/peninjauan-penyaluran', [AdmDistributionController::class, 'peninjauanPenyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');
             Route::get('/penyaluran/{id}', [AdmDistributionController::class, 'detailPenyaluran']);
+            Route::post('/penyaluran/store', [AdmDistributionController::class, 'penyaluranStore'])->name('store.penyaluran');
 
             // export laporan
             Route::get('export/tahun/{id}', [AdmBerandaController::class, 'exportLaporanTahun'])->name('export.laporan.tahun');
