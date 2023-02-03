@@ -234,9 +234,18 @@ class AdmRequestController extends Controller
         // Check if data is already available 
         $data = Permohonan::where('id', $id)->get();
 
+
+        $files = json_decode($data[0]->requirements);
         // If data > 0, that means data has already stored in database
         // If request code and new_code same, that means it updates itself
         if (count($data) > 0) {
+            foreach ($files as $file => $filepath) {
+                // Make loop to check if filepath is avaliable or not
+                if (file_exists($filepath)) {
+                    // Delete file
+                    unlink($filepath);
+                }
+            }
             Permohonan::where('id', $id)->delete();
             // Success ✅   
             session()->flash('title', 'Sukses');
