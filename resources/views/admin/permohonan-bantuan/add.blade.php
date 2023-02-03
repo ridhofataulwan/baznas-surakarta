@@ -430,62 +430,66 @@
 
     <script>
         $("#select-program").change(function() {
-            let program = $(this).val()
-            console.log(program);
+            let showElements = [
+                "#element_sp",
+                "#element_ktpkk",
+                "#element_sktm",
+                "#element_sp_kelurahan",
+                "#element_tagihan_sklh",
+                "#element_foto_usaha",
+                "#element_tagihan_rs",
+                "#element_proposal"
+            ];
+
+            let program = $(this).val();
+            $(showElements.join(",")).hide();
+            $(showElements.join(",") + " input").removeAttr('required');
+
             switch (program) {
                 case "2":
-                    $("#element_sp").show();
-                    $("#element_ktpkk").show();
-                    $("#element_sktm").show();
-                    $("#element_sp_kelurahan").show();
-                    $("#element_tagihan_sklh").show();
-                    $("#element_foto_usaha").hide();
-                    $("#element_tagihan_rs").hide();
-                    $("#element_proposal").hide();
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_sklh").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_sklh input").attr("required", "required");
                     break;
                 case "5":
-                    $("#element_sp").show();
-                    $("#element_ktpkk").show();
-                    $("#element_sktm").show();
-                    $("#element_sp_kelurahan").show();
-                    $("#element_tagihan_sklh").hide();
-                    $("#element_foto_usaha").show();
-                    $("#element_tagihan_rs").hide();
-                    $("#element_proposal").hide();
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
                     break;
                 case "4":
-                    $("#element_sp").show();
-                    $("#element_ktpkk").hide();
-                    $("#element_sktm").hide();
-                    $("#element_sp_kelurahan").hide();
-                    $("#element_tagihan_sklh").hide();
-                    $("#element_foto_usaha").hide();
-                    $("#element_tagihan_rs").hide();
-                    $("#element_proposal").show();
+                    $("#element_sp, #element_proposal").show();
+                    $("#element_sp input, #element_proposal input").attr("required", "required");
                     break;
                 case "1":
-                    $("#element_sp").show();
-                    $("#element_ktpkk").show();
-                    $("#element_sktm").show();
-                    $("#element_sp_kelurahan").show();
-                    $("#element_tagihan_sklh").hide();
-                    $("#element_foto_usaha").hide();
-                    $("#element_tagihan_rs").hide();
-                    $("#element_proposal").hide();
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
+                    $("# inputelement_sp, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
                     break;
                 case "3":
-                    $("#element_sp").show();
-                    $("#element_ktpkk").show();
-                    $("#element_sktm").show();
-                    $("#element_sp_kelurahan").show();
-                    $("#element_tagihan_sklh").hide();
-                    $("#element_foto_usaha").hide();
-                    $("#element_tagihan_rs").show();
-                    $("#element_proposal").hide();
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_rs").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_rs input").attr("required", "required");
                     break;
                 default:
-                    requirements += "Pilih Jenis Bantuan terlebih dahulu!"
+                    requirements += "Pilih Jenis Bantuan terlebih dahulu!";
                     break;
+            }
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $('input[name="nik"]').bind('keypress', function(e) {
+                var keyCode = (e.which) ? e.which : event.keyCode
+                return !(keyCode > 31 && (keyCode < 48 || keyCode > 57));
+            });
+        });
+
+        $(document).on('keyup', '#nik', function() {
+            var maxLength = 16;
+            var strLength = this.value.length;
+            if (this.value == '') {
+                $('.nik').html('')
+            } else if (!(/\D/.test(this.value)) && strLength < maxLength) {
+                $('.nik').html('<span class="text-danger"> [' + strLength + '/' + maxLength + '] ❌</span>')
+            } else if (!(/\D/.test(this.value)) && strLength == maxLength) {
+                $('.nik').html('<span class="text-success"> [' + strLength + '/' + maxLength + '] ✅</span>')
             }
         })
     </script>

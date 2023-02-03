@@ -304,76 +304,48 @@
     });
 </script>
 
-<script type="text/javascript">
-    // let persyaratan = {
-    //     "sp": '<div class="form-group mt-4" id="sp"><label for="surat-permohonan" class="form-label">Surat Permohonan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="permohonan" id="surat-permohonan" autocomplete="no" style="height: auto;" ></div><div class="mt-2">Template surat permohonan bisa download <a href="/assets/file/Format%20Surat%20Permohonan%20Bantuan%20Perorangan.docx" class="font-weight-bold text-success">Di sini</a></div>',
-    //     "ktpkk": '<div class="form-group mt-4"><div class="row"><div class="col"><label for="" class="form-label">Scan KTP<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="ktp" autocomplete="no" style="height: auto;" ></div><div class="col"><label for="" class="form-label">Scan KK<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="kk" autocomplete="no" style="height: auto;" ></div></div></div>',
-    //     "sktm": '<div class="form-group mt-4"><label for="sktm" class="form-label">SKTM atau Gakin (Tidak Wajib)</label><input type="file" class="form-control bg-white" name="tagihan" id="sktm" autocomplete="no" style="height: auto;"></div>',
-    //     "sp_kelurahan": '<div class="form-group mt-4"><label for="suket" class="form-label">Surat Keterangan Permohonan Bantuan ke Baznas dari Kelurahan<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="suket" id="suket" autocomplete="no" style="height: auto;" ></div>',
-    //     "tagihan_sklh": '<div class="form-group mt-4"><label for="tagihan_sklh" class="form-label">Tagihan dari Sekolah<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_sklh" id="tagihan_sklh" autocomplete="no" style="height: auto;" ></div>',
-    //     "foto_usaha": '<div class="form-group mt-4"><label for="foto-usaha" class="form-label">Foto Usaha<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="foto-usaha" id="foto-usaha" autocomplete="no" style="height: auto;" ></div>',
-    //     "tagihan_rs": '<div class="form-group mt-4"><label for="tagihan_rs" class="form-label">Tagihan dari Rumah Sakit<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="tagihan_rs" id="tagihan_rs" autocomplete="no" style="height: auto;" ></div>',
-    //     "proposal": '<div class="form-group mt-4" id="proposal"><label for="proposal" class="form-label">Proposal<i style="color:red;">*</i></label><input type="file" class="form-control bg-white" name="proposal" id="proposal" autocomplete="no" style="height: auto;" ></div>',
-    // }
-
+<script>
     $("#select-program").change(function() {
-        let program = $(this).val()
-        console.log(program);
+        let showElements = [
+            "#element_sp",
+            "#element_ktpkk",
+            "#element_sktm",
+            "#element_sp_kelurahan",
+            "#element_tagihan_sklh",
+            "#element_foto_usaha",
+            "#element_tagihan_rs",
+            "#element_proposal"
+        ];
+
+        let program = $(this).val();
+        $(showElements.join(",")).hide();
+        $(showElements.join(",") + " input").removeAttr('required');
+
         switch (program) {
             case "2":
-                $("#element_sp").show();
-                $("#element_ktpkk").show();
-                $("#element_sktm").show();
-                $("#element_sp_kelurahan").show();
-                $("#element_tagihan_sklh").show();
-                $("#element_foto_usaha").hide();
-                $("#element_tagihan_rs").hide();
-                $("#element_proposal").hide();
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_sklh").show();
+                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_sklh input").attr("required", "required");
                 break;
             case "5":
-                $("#element_sp").show();
-                $("#element_ktpkk").show();
-                $("#element_sktm").show();
-                $("#element_sp_kelurahan").show();
-                $("#element_tagihan_sklh").hide();
-                $("#element_foto_usaha").show();
-                $("#element_tagihan_rs").hide();
-                $("#element_proposal").hide();
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
+                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
                 break;
             case "4":
-                $("#element_sp").show();
-                $("#element_ktpkk").hide();
-                $("#element_sktm").hide();
-                $("#element_sp_kelurahan").hide();
-                $("#element_tagihan_sklh").hide();
-                $("#element_foto_usaha").hide();
-                $("#element_tagihan_rs").hide();
-                $("#element_proposal").show();
+                $("#element_sp, #element_proposal").show();
+                $("#element_sp input, #element_proposal input").attr("required", "required");
                 break;
             case "1":
-                $("#element_sp").show();
-                $("#element_ktpkk").show();
-                $("#element_sktm").show();
-                $("#element_sp_kelurahan").show();
-                $("#element_tagihan_sklh").hide();
-                $("#element_foto_usaha").hide();
-                $("#element_tagihan_rs").hide();
-                $("#element_proposal").hide();
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
+                $("# inputelement_sp, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
                 break;
             case "3":
-                $("#element_sp").show();
-                $("#element_ktpkk").show();
-                $("#element_sktm").show();
-                $("#element_sp_kelurahan").show();
-                $("#element_tagihan_sklh").hide();
-                $("#element_foto_usaha").hide();
-                $("#element_tagihan_rs").show();
-                $("#element_proposal").hide();
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_rs").show();
+                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_rs input").attr("required", "required");
                 break;
             default:
-                requirements += "Pilih Jenis Bantuan terlebih dahulu!"
+                requirements += "Pilih Jenis Bantuan terlebih dahulu!";
                 break;
         }
-    })
+    });
 </script>
 @endsection
