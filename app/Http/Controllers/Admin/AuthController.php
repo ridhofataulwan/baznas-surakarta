@@ -14,7 +14,8 @@ class AuthController extends Controller
 {
     public function login()
     {
-        return view('admin.auth.login');
+        $title = 'Baznas - Login';
+        return view('admin.auth.login', compact('title'));
     }
 
     public function storeLogin()
