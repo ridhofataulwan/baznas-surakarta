@@ -98,6 +98,7 @@ class MonthlyAshnaf implements FromView, ShouldAutoSize, WithStyles, WithColumnW
         }
 
         $month = $this->id;
+        datefmt_set_pattern($fmt, 'MMMM');
         $monthName = datefmt_format($fmt, date_create('0001-' . $month . '-01'));
         return view('export.monthlyashnaf', [
             'reports' => $report,

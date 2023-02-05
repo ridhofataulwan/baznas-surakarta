@@ -92,6 +92,7 @@ class MonthlyProg implements FromView, ShouldAutoSize, WithStyles, WithColumnWid
         }
 
         $month = $this->id;
+        datefmt_set_pattern($fmt, 'MMMM');
         $monthName = datefmt_format($fmt, date_create('0001-' . $month . '-01'));
         return view('export.monthlyprog', [
             'reports' => $report,
