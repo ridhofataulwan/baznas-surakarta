@@ -6,7 +6,8 @@
 </head>
 
 <body>
-    <div class="response" data-title="<?= session()->get('title') ?>" data-message="<?= session()->get('message') ?>" data-status="<?= session()->get('status') ?>"></div>
+    <div class="response" data-title="<?= session()->get('title') ?>" data-message="<?= session()->get('message') ?>"
+        data-status="<?= session()->get('status') ?>"></div>
 
     <div id="app">
         <div class="main-wrapper">
@@ -22,7 +23,8 @@
                     </div>
                     <div class="row">
                         <div class="col-12 mb-4">
-                            <div class="hero text-white hero-bg-image hero-bg-parallax" style="background-image: url('assets/gallery/scene.jpg');">
+                            <div class="hero text-white hero-bg-image hero-bg-parallax"
+                                style="background-image: url('assets/gallery/scene.jpg');">
                                 <div class="hero-inner">
                                     <h2>Selamat Datang, {{ auth()->user()->name }}!</h2>
                                     <p class="lead">Berkah, Bermanfaat, Berkelanjutan.</p>
@@ -44,7 +46,7 @@
                                         <h4>Total Admin</h4>
                                     </div>
                                     <div class="card-body">
-                                        10
+                                        1
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +103,8 @@
                                 <div class="card-header">
                                     <h4>Latest Post</h4>
                                     <div class="card-header-action">
-                                        <a href="/admin/post/artikel" class="btn btn-primary">View All <i class="fas fa-chevron-right"></i></a>
+                                        <a href="/admin/post/artikel" class="btn btn-primary">View All <i
+                                                class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                                 <div class="card-body p-0">
@@ -126,7 +129,9 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a href="#" class="font-weight-600"><img src="assets/img/avatar/avatar-1.png" alt="avatar" width="30" class="rounded-circle mr-1">
+                                                        <a href="#" class="font-weight-600"><img
+                                                                src="assets/img/avatar/avatar-1.png" alt="avatar"
+                                                                width="30" class="rounded-circle mr-1">
                                                             {{$post->author}}</a>
                                                     </td>
                                                     <td><a href="#">
@@ -144,7 +149,10 @@
                                                     <!-- Date -->
                                                     <td>{{date_format($post->created_at,"d F Y")}}</td>
                                                     <td>
-                                                        <a href="/admin/post/edit/{{$post->id}}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                        <a href="/admin/post/edit/{{$post->id}}"
+                                                            class="btn btn-primary btn-action mr-1"
+                                                            data-toggle="tooltip" title="" data-original-title="Edit"><i
+                                                                class="fas fa-pencil-alt"></i></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -196,28 +204,36 @@
                                         <div class="col-12 col-sm-12 col-md-4">
                                             <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active show" id="{{$now}}" data-toggle="tab" href="#laporan-{{$now}}" role="tab" aria-controls="{{$now}}" aria-selected="false">{{$now}}</a>
+                                                    <a class="nav-link active show" id="{{$now}}" data-toggle="tab"
+                                                        href="#laporan-{{$now}}" role="tab" aria-controls="{{$now}}"
+                                                        aria-selected="false">{{$now}}</a>
                                                 </li>
                                                 @for($i=$now-1; $i >= $last;$i--)
                                                 <li class="nav-item">
-                                                    <a class="nav-link" id="{{$i}}" data-toggle="tab" href="#laporan-{{$i}}" role="tab" aria-controls="{{$i}}" aria-selected="true">{{$i}}</a>
+                                                    <a class="nav-link" id="{{$i}}" data-toggle="tab"
+                                                        href="#laporan-{{$i}}" role="tab" aria-controls="{{$i}}"
+                                                        aria-selected="true">{{$i}}</a>
                                                 </li>
                                                 @endfor
                                             </ul>
                                         </div>
                                         <div class="col-12 col-sm-12 col-md-8">
                                             <div class="tab-content no-padding" id="myTab2Content">
-                                                <div class="tab-pane fade active show" id="laporan-{{$now}}" role="tabpanel" aria-labelledby="{{$now}}">
+                                                <div class="tab-pane fade active show" id="laporan-{{$now}}"
+                                                    role="tabpanel" aria-labelledby="{{$now}}">
                                                     <h6>Laporan</h6>
-                                                    <p>Unduh laporan tahun {{$now}} <a href="{{route('export.laporan.tahun',['id' => $now])}}">Di
+                                                    <p>Unduh laporan tahun {{$now}} <a
+                                                            href="{{route('export.laporan.tahun',['id' => $now])}}">Di
                                                             sini </a>
                                                     </p>
                                                     <hr>
                                                 </div>
                                                 @for($i=$now-1; $i >= $last;$i--)
-                                                <div class="tab-pane fade" id="laporan-{{$i}}" role="tabpanel" aria-labelledby="{{$i}}">
+                                                <div class="tab-pane fade" id="laporan-{{$i}}" role="tabpanel"
+                                                    aria-labelledby="{{$i}}">
                                                     <h6>Laporan</h6>
-                                                    <p>Unduh laporan tahun {{$i}} <a href="{{route('export.laporan.tahun',['id' => $i])}}">Di
+                                                    <p>Unduh laporan tahun {{$i}} <a
+                                                            href="{{route('export.laporan.tahun',['id' => $i])}}">Di
                                                             sini </a>
                                                     </p>
                                                     <hr>
@@ -239,11 +255,15 @@
                                         <div class="col-12 col-sm-12 col-md-4">
                                             <ul class="nav nav-pills flex-column" id="myTab4" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active show" id="home-tab4" data-toggle="tab" href="#home4" role="tab" aria-controls="home" aria-selected="false">
+                                                    <a class="nav-link active show" id="home-tab4" data-toggle="tab"
+                                                        href="#home4" role="tab" aria-controls="home"
+                                                        aria-selected="false">
                                                         {{date("F", mktime(0, 0, 0, $thisMonth, 10))}}</a>
                                                 </li>
                                                 @for($m = $thisMonth-1; $m>=1; $m--) <li class="nav-item">
-                                                    <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#bulan-{{$m}}" role=" tab" aria-controls="profile" aria-selected="true">
+                                                    <a class="nav-link" id="profile-tab4" data-toggle="tab"
+                                                        href="#bulan-{{$m}}" role=" tab" aria-controls="profile"
+                                                        aria-selected="true">
                                                         {{date("F", mktime(0, 0, 0, $m, 10))}}
                                                     </a>
                                                 </li>
@@ -254,13 +274,16 @@
                                         <div class=" col-12 col-sm-12 col-md-8">
                                             <div class="tab-content no-padding" id="myTab2Content">
                                                 <?php $id = 1; ?>
-                                                <div class="tab-pane fade active show" id="home4" role="tabpanel" aria-labelledby="home-tab4">
+                                                <div class="tab-pane fade active show" id="home4" role="tabpanel"
+                                                    aria-labelledby="home-tab4">
                                                     Unduh laporan bulan
                                                     {{date("F", mktime(0, 0, 0, $thisMonth, 10))}} tahun
-                                                    {{$now}} <a href="{{route('export.laporan.bulan',['id' => $thisMonth])}}">Di
+                                                    {{$now}} <a
+                                                        href="{{route('export.laporan.bulan',['id' => $thisMonth])}}">Di
                                                         sini</a>
                                                 </div>
-                                                @for($m = $thisMonth; $m>=1; $m--) <div class="tab-pane fade" id="bulan-{{$m}}" role=" tabpanel" aria-labelledby="profile-tab4">
+                                                @for($m = $thisMonth; $m>=1; $m--) <div class="tab-pane fade"
+                                                    id="bulan-{{$m}}" role=" tabpanel" aria-labelledby="profile-tab4">
                                                     Unduh laporan bulan
                                                     {{date("F", mktime(0, 0, 0, $m, 10))}} tahun
                                                     {{$now}} <a href="{{route('export.laporan.bulan',['id' => $m])}}">Di
@@ -285,16 +308,16 @@
     @include('admin.stisla.script')
     <!-- Swal -->
     <script>
-        let title = $(".response").data("title");
-        let message = $(".response").data("message");
-        let status = $(".response").data("status");
-        if (status) {
-            Swal.fire(
-                title,
-                message,
-                status
-            )
-        }
+    let title = $(".response").data("title");
+    let message = $(".response").data("message");
+    let status = $(".response").data("status");
+    if (status) {
+        Swal.fire(
+            title,
+            message,
+            status
+        )
+    }
     </script>
 </body>
 
