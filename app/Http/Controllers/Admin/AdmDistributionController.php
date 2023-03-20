@@ -13,15 +13,15 @@ class AdmDistributionController extends Controller
         $db = DB::table('distribution');
         $data = $db->get();
 
-        return view('admin.penyaluran.index', compact('data'));
         $title = 'Daftar Penyaluran';
+        // return view('admin.penyaluran.index', compact('data'));
         return view('admin.penyaluran.index', compact('data', 'title'));
     }
     public function createPenyaluran()
     {
         $db = DB::table('provinces');
         $data = $db->get();
-        return view('admin.penyaluran.add', compact('data'));
+        return view('admin.penyaluran.add', compact('data', 'title'));
     }
 
     public function detailPenyaluran($id)
