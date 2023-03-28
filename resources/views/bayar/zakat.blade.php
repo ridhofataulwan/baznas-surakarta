@@ -71,8 +71,6 @@
                             <label for="alamat">Alamat <i style="color:red;">*</i></label>
                             <div class="row">
                                 <div class="col">
-                                    <input type="hidden" name="province" id="province_id" value="{{ $default_region['province'] }}">
-                                    <input type="hidden" name="district" id="district_id" value="{{ $default_region['district'] }}">
                                     <select class="form-control form-select bg-white @error('regency') is-invalid @enderror" name="regency" id="select-regency" requirede>
                                         <option class="form-option" value disabled selected>Pilih Kecamatan</option>
                                         @foreach ($regencies as $regency)
@@ -248,9 +246,7 @@
     // Select Kecamatan
     $(document).on('change', '#select-regency', function() {
         let regency_id = $(this).val();
-        let district_id = $('#district_id').val();
-        let province_id = $('#province_id').val();
-
+        console.log(regency_id);
         // ! Remove Html Below
         $('#select-village').html('<option value="" disabled selected>Pilih Kelurahan</option>')
         $(document).ready(function() {
@@ -261,9 +257,7 @@
                 url: "/get-village",
                 method: 'POST',
                 data: {
-                    regency_id: regency_id,
-                    district_id: district_id,
-                    province_id: province_id
+                    id: regency_id,
                 },
                 success: function(response) {
                     let districs = response;
@@ -272,7 +266,7 @@
                         option.push('<option value=' + element['id'] + '>' + element['name'] + '</option>')
                     });
                     $('#select-village').html(option)
-
+                    console.log(response);
                 }
             })
         });
@@ -281,9 +275,6 @@
     // Get Village While Page On Load 
     $(function() {
         let regency_id = $('#select-regency').val();
-        let district_id = $('#district_id').val();
-        let province_id = $('#province_id').val();
-        console.log(regency_id);
 
         $(document).ready(function() {
             $.ajax({
@@ -293,9 +284,7 @@
                 url: "/get-village",
                 method: 'POST',
                 data: {
-                    regency_id: regency_id,
-                    district_id: district_id,
-                    province_id: province_id
+                    id: regency_id,
                 },
                 success: function(response) {
                     let districs = response;

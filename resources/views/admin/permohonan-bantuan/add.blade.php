@@ -198,10 +198,10 @@
                                             <div class="form-group row mb-3">
                                                 <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3"></label>
                                                 <div class="col-sm-12 col-md-6">
-                                                    <h3>Persyaratan</h3>
+                                                    <h3>Persyaratan Dokumen</h3>
                                                 </div>
                                             </div>
-                                            <div id="persyaratan">
+                                            <div class="row-md-6" id="persyaratan">
                                                 <div id="element_sp" style="display: none;">
                                                     <div class="form-group row mb-3"><label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Surat Permohonan</label>
                                                         <div class="col-sm-12 col-md-6"><input type="file" class="custom-file-input" name="surat_permohonan" id="sp"><label class="custom-file-label" for="sp">Choose file</label>
@@ -295,37 +295,6 @@
         })
     </script>
 
-    <script type="text/javascript">
-        var rupiah = document.getElementById('rupiah');
-        rupiah.addEventListener('keyup', function(e) {
-            // tambahkan 'Rp.' pada saat form di ketik
-            // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-            rupiah.value = formatRupiah(this.value, 'Rp. ');
-        });
-
-        /* Fungsi formatRupiah */
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.replace(/[^,\d]/g, '').toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                rupiah = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-
-            // tambahkan titik jika yang di input sudah menjadi angka ribuan
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
-
-            rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-            return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-        }
-    </script>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
-
-
     <!-- Address -->
     <script>
         // Pilih Provinsi
@@ -344,9 +313,10 @@
                     url: "/get-district",
                     method: 'POST',
                     data: {
-                        province_id: province_id
+                        id: province_id
                     },
                     success: function(response) {
+                        console.log(response);
                         let districs = response;
                         let option = ['<option value="">Pilih Kota/Kabupaten</option>']
                         districs.forEach(element => {
@@ -362,7 +332,6 @@
         // Pilih Kabupaten/Kota
         $(document).on('change', '#select-district', function() {
             let district_id = $(this).val();
-            let province_id = $('#select-province').val();
 
             // ! Remove Html Below
             $('#select-regency').html('<option value="">Pilih Kecamatan</option>')
@@ -375,10 +344,11 @@
                     url: "/get-regency",
                     method: 'POST',
                     data: {
-                        district_id: district_id,
-                        province_id: province_id
+                        id: district_id,
                     },
                     success: function(response) {
+                        console.log(response);
+
                         let districs = response;
                         let option = ['<option value="">Pilih Kecamatan</option>']
                         districs.forEach(element => {
@@ -396,8 +366,6 @@
         // Pilih Kabupaten/Kota
         $(document).on('change', '#select-regency', function() {
             let regency_id = $(this).val();
-            let district_id = $('#select-district').val();
-            let province_id = $('#select-province').val();
 
             // ! Remove Html Below
             $('#select-village').html('<option value="">Pilih Kelurahan/Desa</option>')
@@ -409,9 +377,7 @@
                     url: "/get-village",
                     method: 'POST',
                     data: {
-                        regency_id: regency_id,
-                        district_id: district_id,
-                        province_id: province_id
+                        id: regency_id,
                     },
                     success: function(response) {
                         let districs = response;
@@ -440,31 +406,30 @@
                 "#element_tagihan_rs",
                 "#element_proposal"
             ];
-
             let program = $(this).val();
             $(showElements.join(",")).hide();
-            $(showElements.join(",") + " input").removeAttr('required');
+            $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_sklh input").removeAttr("required");
 
             switch (program) {
+                case "1":
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
+                    break;
                 case "2":
                     $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_sklh").show();
                     $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_sklh input").attr("required", "required");
                     break;
-                case "5":
-                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
-                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
+                case "3":
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_rs").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_rs input").attr("required", "required");
                     break;
                 case "4":
                     $("#element_sp, #element_proposal").show();
                     $("#element_sp input, #element_proposal input").attr("required", "required");
                     break;
-                case "1":
-                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
-                    $("# inputelement_sp, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
-                    break;
-                case "3":
-                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_rs").show();
-                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_rs input").attr("required", "required");
+                case "5":
+                    $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
+                    $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
                     break;
                 default:
                     requirements += "Pilih Jenis Bantuan terlebih dahulu!";

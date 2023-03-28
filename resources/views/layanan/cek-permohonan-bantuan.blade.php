@@ -41,7 +41,7 @@
                             <label class="btn btn-outline-success my-1" for="radio_kp">Kode Permohonan</label>
                         </div>
                         <div class="form-group mt-4" id="element_kp" style="display: none;">
-                            <label for="" class="form-label">Kode Permohonan</label>
+                            <label for="" class="form-label">Kode Permohonan <i style="color:red;">*</i></label>
                             <input type="text" placeholder="Masukkan Kode" class="form-control bg-white" name="id" autocomplete="no">
                         </div>
                         <div class="form-group mt-4" id="element_nik">
@@ -59,6 +59,7 @@
                         <div class="alert-body">
                             <strong class="row">Status Permohonan Anda</strong>
                             <span class="row">NIK : {{session('data')->nik}} </span>
+                            <span class="row">Kode Permohonan : {{session('data')->id}} </span>
                             <span class="row">Status : {{session('data')->status}} </span>
                             <span class="row">Diajukan pada: {{session('data')->created_at}} </span>
                             <span class="row">Diubah pada: {{session('data')->updated_at}} </span>

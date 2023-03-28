@@ -13,26 +13,9 @@ class AdmLembagaController extends Controller
 {
     public function listLembaga()
     {
-        //  Date Formatter
-        $fmt_date = datefmt_create(
-            'id_ID',
-            IntlDateFormatter::LONG,
-            IntlDateFormatter::LONG,
-            'Asia/Jakarta',
-            IntlDateFormatter::GREGORIAN,
-            'dd MMMM yyyy'
-        );
-        $fmt_time = datefmt_create(
-            'id_ID',
-            IntlDateFormatter::LONG,
-            IntlDateFormatter::LONG,
-            'Asia/Jakarta',
-            IntlDateFormatter::GREGORIAN,
-            'HH:mm'
-        );
         $lembaga = Lembaga::all();
         $title = 'Daftar Lembaga';
-        return view('admin.lembaga.index', compact('lembaga', 'fmt_date', 'fmt_time', 'title'));
+        return view('admin.lembaga.index', compact('lembaga', 'title'));
     }
 
     public function storeLembaga(Request $request)

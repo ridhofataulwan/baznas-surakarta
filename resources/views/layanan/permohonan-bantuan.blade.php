@@ -72,13 +72,13 @@
                                         <label class="form-label">Tempat, Tanggal Lahir<i style="color:red;">*</i></label>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="text" class="form-control bg-white" name="birthplace" placeholder="Masukkan Kota Kelahiran">
+                                                <input type="text" class="form-control bg-white" name="birthplace" placeholder="Masukkan Kota Kelahiran" value="{{ old('birthplace') }}">
                                                 @error('birthplace')
                                                 <span class="badge rounded bg-danger">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col">
-                                                <input type="date" class="form-control bg-white" name="birthdate">
+                                                <input type="date" class="form-control bg-white" name="birthdate" value="{{ old('birthdate') }}">
                                                 @error('birthdate')
                                                 <span class="badge rounded bg-danger">{{ $message }}</span>
                                                 @enderror
@@ -90,8 +90,6 @@
                                         <label for="alamat">Alamat<i style="color:red;">*</i></label>
                                         <div class="row">
                                             <div class="col">
-                                                <input type="hidden" name="province" id="province_id" value="{{ $default_region['province'] }}">
-                                                <input type="hidden" name="district" id="district_id" value="{{ $default_region['district'] }}">
                                                 <select class="form-control form-select bg-white @error('regency') is-invalid @enderror" name="regency" id="select-regency">
                                                     <option class="form-option" value disabled selected>Pilih Kecamatan</option>
                                                     @foreach ($regencies as $regency)
@@ -132,21 +130,21 @@
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">Pekerjaan<i style="color:red;">*</i></label>
-                                    <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white @error('job') is-invalid @enderror" id="" name="job" autocomplete="no">
+                                    <input type="text" placeholder="Masukkan pekerjaan" class="form-control bg-white @error('job') is-invalid @enderror" id="" name="job" autocomplete="no" value="{{ old('job') }}">
                                     @error('job')
                                     <span class="badge rounded bg-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">No Telp<i style="color:red;">*</i></label>
-                                    <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white @error('phone') is-invalid @enderror" id="" name="phone" autocomplete="no">
+                                    <input type="number" placeholder="Masukkan Nomor Telepon" class="form-control bg-white @error('phone') is-invalid @enderror" id="" name="phone" autocomplete="no" value="{{ old('phone') }}">
                                     @error('phone')
                                     <span class="badge rounded bg-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group mt-4">
                                     <label for="" class="form-label">Keterangan<i style="color:red;">*</i></label>
-                                    <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="description" id="" cols="30" rows="5" class="form-control bg-white @error('description') is-invalid @enderror" autocomplete="no" style="height: auto;"></textarea>
+                                    <textarea placeholder='Contoh : "Saya mengajukan permohonan bantuan untuk beasiswa anak saya melanjutkan ke SMP Negeri 0 Surakarta"' name="description" id="" cols="30" rows="5" class="form-control bg-white @error('description') is-invalid @enderror" autocomplete="no" style="height: auto;" value="{{ old('description') }}"></textarea>
                                     @error('description')
                                     <span class="badge rounded bg-danger">{{ $message }}</span>
                                     @enderror
@@ -241,9 +239,7 @@
     // Select Kecamatan
     $(document).on('change', '#select-regency', function() {
         let regency_id = $(this).val();
-        let district_id = $('#district_id').val();
-        let province_id = $('#province_id').val();
-
+        console.log(regency_id);
         // ! Remove Html Below
         $('#select-village').html('<option value="" disabled selected>Pilih Kelurahan</option>')
         $(document).ready(function() {
@@ -254,9 +250,7 @@
                 url: "/get-village",
                 method: 'POST',
                 data: {
-                    regency_id: regency_id,
-                    district_id: district_id,
-                    province_id: province_id
+                    id: regency_id,
                 },
                 success: function(response) {
                     let districs = response;
@@ -265,7 +259,7 @@
                         option.push('<option value=' + element['id'] + '>' + element['name'] + '</option>')
                     });
                     $('#select-village').html(option)
-
+                    console.log(response);
                 }
             })
         });
@@ -274,9 +268,6 @@
     // Get Village While Page On Load 
     $(function() {
         let regency_id = $('#select-regency').val();
-        let district_id = $('#district_id').val();
-        let province_id = $('#province_id').val();
-        console.log(regency_id);
 
         $(document).ready(function() {
             $.ajax({
@@ -286,9 +277,7 @@
                 url: "/get-village",
                 method: 'POST',
                 data: {
-                    regency_id: regency_id,
-                    district_id: district_id,
-                    province_id: province_id
+                    id: regency_id,
                 },
                 success: function(response) {
                     let districs = response;
@@ -322,30 +311,35 @@
         $(showElements.join(",") + " input").removeAttr('required');
 
         switch (program) {
+            case "1":
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
+                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
+                break;
             case "2":
                 $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_sklh").show();
                 $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_sklh input").attr("required", "required");
-                break;
-            case "5":
-                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
-                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
-                break;
-            case "4":
-                $("#element_sp, #element_proposal").show();
-                $("#element_sp input, #element_proposal input").attr("required", "required");
-                break;
-            case "1":
-                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan").show();
-                $("# inputelement_sp, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input").attr("required", "required");
                 break;
             case "3":
                 $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_tagihan_rs").show();
                 $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_tagihan_rs input").attr("required", "required");
                 break;
+            case "4":
+                $("#element_sp, #element_proposal").show();
+                $("#element_sp input, #element_proposal input").attr("required", "required");
+                break;
+            case "5":
+                $("#element_sp, #element_ktpkk, #element_sktm, #element_sp_kelurahan, #element_foto_usaha").show();
+                $("#element_sp input, #element_ktpkk input, #element_sktm input, #element_sp_kelurahan input, #element_foto_usaha input").attr("required", "required");
+                break;
             default:
                 requirements += "Pilih Jenis Bantuan terlebih dahulu!";
                 break;
         }
+        $(showElements.join(",") + " input").each(function() {
+            if (!$(this).closest(showElements.join(",")).is(":visible")) {
+                $(this).removeAttr("required");
+            }
+        });
     });
 </script>
 @endsection

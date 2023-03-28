@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdmBerandaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdmCategoryController;
+use App\Http\Controllers\Admin\AdmFileController;
 use App\Http\Controllers\Admin\AdmLembagaController;
 use App\Http\Controllers\Admin\AdmDistributionController;
 use App\Http\Controllers\AjaxController;
@@ -57,6 +58,8 @@ Route::controller(BerandaController::class)->group(function () {
     =========*/
     Route::get('/rekening', 'rekening');
     Route::get('/layanan-pembayaran', 'layananPembayaran');
+    Route::get('/unduh-dokumen', 'unduhDokumen');
+    Route::post('/cari-dokumen', 'searchFile')->name('search.file');
     Route::get('/permohonan-bantuan', 'permohonanBantuan');
     Route::post('/permohonan-bantuan', 'permohonanBantuanStore')->name('store.permohonan');
     Route::get('/cek-permohonan-bantuan', 'cekPermohonanBantuan');
@@ -147,12 +150,16 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'storeLogin']);
 Route::middleware('auth')->group(function () {
     Route::middleware('is.admin')->group(function () {
-        Route::post('data-zis-ajax/', [AjaxController::class, 'getDataZisCategory']);
         Route::group(['prefix' => 'admin', 'namespace' => 'admin'], function () {
             Route::get('logout', [AuthController::class, 'logout'])->name('logout');
             Route::get('/', [HomeController::class, 'index']);
             Route::get('/dashboard', [HomeController::class, 'dashboard']);
 
+
+            Route::get('/file', [AdmFileController::class, 'listFile']);
+            Route::post('/file/store', [AdmFileController::class, 'storeFile'])->name('store.file');
+            Route::post('/file/update', [AdmFileController::class, 'updateFile'])->name('update.file');
+            Route::get('/file/delete/{id}', [AdmFileController::class, 'destroyFile'])->name('destroy.file');
 
             Route::get('/category', [AdmCategoryController::class, 'listCategoryPost']);
             Route::post('/category/store', [AdmCategoryController::class, 'storeCategoryPost'])->name('store.category');
@@ -194,24 +201,11 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/pesan', [AdmMessageController::class, 'indexMessage']);
 
-            /**
-             * Lembaga Management
-             */
             Route::get('/lembaga', [AdmLembagaController::class, 'listLembaga']);
             Route::post('/lembaga/store', [AdmLembagaController::class, 'storeLembaga'])->name('store.lembaga');
             Route::post('/lembaga/update', [AdmLembagaController::class, 'updateLembaga'])->name('update.lembaga');
             Route::get('/lembaga/delete/{id}', [AdmLembagaController::class, 'destroyLembaga'])->name('destroy.lembaga');
-            /*
-            ! Transactional Feature
-            Need to fix
-            Main Route is 
-            ==============
-            get All -> Table
-            get {id} -> Detail Can Edit
-            get add -> Add
-            post store -> Store new data
-            post update {id} -> Update row data
-            */
+
             Route::get('/pembayaran', [AdmPaymentController::class, 'pembayaran']);
             Route::get('/pembayaran/add', [AdmPaymentController::class, 'createPembayaran'])->name('add.pembayaran');
             Route::post('/pembayaran/store', [AdmPaymentController::class, 'paymentStore'])->name('store.pembayaran');
@@ -229,9 +223,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/permohonan/validate/{id}/{value}', [AdmRequestController::class, 'validatePermohonan']);
 
             Route::get('/penyaluran', [AdmDistributionController::class, 'penyaluran']);
-            // Route::get('/peninjauan-penyaluran', [AdmDistributionController::class, 'peninjauanPenyaluran']);
             Route::get('/penyaluran/add', [AdmDistributionController::class, 'createPenyaluran'])->name('add.penyaluran');
             Route::get('/penyaluran/{id}', [AdmDistributionController::class, 'detailPenyaluran']);
+            Route::get('/penyaluran/delete/{id}', [AdmDistributionController::class, 'destroyPenyaluran']);
             Route::post('/penyaluran/store', [AdmDistributionController::class, 'penyaluranStore'])->name('store.penyaluran');
 
             // export laporan

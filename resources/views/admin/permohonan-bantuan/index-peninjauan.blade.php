@@ -60,17 +60,17 @@
                                                         <td>
                                                             @if($req->status == 'VALID')
                                                             <span class="badge badge-info">{{$req->status}}</span>
-                                                            @endif
-                                                            @if($req->status == 'INVALID')
+                                                            @elseif($req->status == 'INVALID')
                                                             <span class="badge badge-danger">{{$req->status}}</span>
-                                                            @endif
-                                                            @if($req->status == 'UNCHECKED')
+                                                            @elseif($req->status == 'UNCHECKED')
                                                             <span class="badge badge-warning">{{$req->status}}</span>
-                                                            @endif
-                                                            @if($req->status == 'ACCEPTED')
+                                                            @elseif($req->status == 'ACCEPTED')
                                                             <span class="badge badge-success">{{$req->status}}</span>
-                                                            @endif
-                                                            @if($req->status == 'INVESTIGATE')
+                                                            @elseif($req->status == 'UNACCEPTED')
+                                                            <span class="badge badge-danger">{{$req->status}}</span>
+                                                            @elseif($req->status == 'INVESTIGATE')
+                                                            <span class="badge badge-warning">{{$req->status}}</span>
+                                                            @elseif($req->status == 'DONE')
                                                             <span class="badge badge-info">{{$req->status}}</span>
                                                             @endif
                                                         </td>
@@ -84,6 +84,7 @@
                                                                     <a class="dropdown-item has-icon" href="https://wa.me/{{$req->phone}}" target="_blank"><i class="fas fa-phone"></i> Hubungi</a>
                                                                     <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/INVESTIGATE" data-id="INVESTIGATE_{{$req->id}}"><i class=" fas fa-check"></i> Investigate</a>
                                                                     <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/ACCEPTED" data-id="ACCEPTED_{{$req->id}}"><i class=" fas fa-check"></i> Accept</a>
+                                                                    <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/UNACCEPTED" data-id="UNACCEPTED_{{$req->id}}"><i class=" fas fa-check"></i> Unaccept</a>
                                                                     <a class="dropdown-item has-icon validasi" href="/admin/pembayaran/validate/{{$req->id}}/DONE" data-id="DONE_{{$req->id}}"><i class=" fas fa-check"></i> Done</a>
                                                                     <a class="dropdown-item has-icon delete-request" href="#" data-id="delete_{{$req->id}}"><i class="fas fa-trash"></i> Hapus</a>
                                                                 </div>

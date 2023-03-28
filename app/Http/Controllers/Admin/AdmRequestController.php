@@ -34,7 +34,7 @@ class AdmRequestController extends Controller
     }
     public function peninjauanPermohonan()
     {
-        $db = DB::table('request')->where('status', 'VALID')->orWhere('status', 'INVESTIGATE')->orWhere('status', 'DONE')->orWhere('status', 'ACCEPTED');
+        $db = DB::table('request')->where('status', 'VALID')->orWhere('status', 'INVESTIGATE')->orWhere('status', 'DONE')->orWhere('status', 'ACCEPTED')->orWhere('status', 'UNACCEPTED');
         $data = $db->get();
         $programs = "";
         foreach ($data as $d) {
@@ -59,19 +59,18 @@ class AdmRequestController extends Controller
         $db = DB::table('request');
         $req = $db->where('id', $id)->get()->first();
 
-        $json_address =  json_decode($req->address);
-        // echo gettype($json_address);
-
-        $db = DB::table('provinces');
-        $data = $db->get();
+        $provinces  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 2)->get();
+        $districts  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 5)->where('id', 'LIKE', substr($req->address, 0, 2) . '%')->get();
+        $regencies  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 8)->where('id', 'LIKE', substr($req->address, 0, 5) . '%')->get();
+        $villages  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 13)->where('id', 'LIKE', substr($req->address, 0, 8) . '%')->get();
 
         $title = 'Detail Permohonan';
-        return view('admin.permohonan-bantuan.detail', compact('data', 'req', 'json_address', 'title'));
+        return view('admin.permohonan-bantuan.detail', compact('provinces', 'districts', 'regencies', 'villages', 'req', 'title'));
     }
     public function createPermohonan()
     {
         $program = DB::table('program')->where('request', 1)->get();
-        $provinces = DB::table('provinces')->get();
+        $provinces  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 2)->get();
 
         $title = 'Tambah Permohonan';
         return view('admin.permohonan-bantuan.add', compact('provinces', 'program', 'title'));
@@ -108,44 +107,6 @@ class AdmRequestController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Get Region Name ✅
-        $province = DB::table('provinces')->where('id', request('province'))->first();
-        $district = DB::table('districts')->where([
-            'id'            => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $regency = DB::table('regencies')->where([
-            'id'            => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $village = DB::table('villages')->where([
-            'id'            => request('village'),
-            'regencies_id'  => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-
-        //  address ✅
-        $address = [
-            'province' => [
-                'id' => request('province'),
-                'name' => $province->name,
-            ],
-            'district' => [
-                'id' => request('district'),
-                'name' => $district->name,
-            ],
-            'regency' => [
-                'id' => request('regency'),
-                'name' => $regency->name,
-            ],
-            'village' => [
-                'id' => request('village'),
-                'name' => $village->name,
-            ],
-        ];
-
         // created_at ✅
         date_default_timezone_set("Asia/Jakarta");
         $created_at = date('Y-m-d H:i:s');
@@ -179,7 +140,7 @@ class AdmRequestController extends Controller
             'nik' => $request->nik,
             'birthplace' => $request->birthplace,
             'birthdate' => $request->birthdate,
-            'address' => json_encode($address),
+            'address' => $request->village,
             'religion' => $request->religion,
             'job' => $request->job,
             'phone' => $request->phone,
@@ -188,6 +149,93 @@ class AdmRequestController extends Controller
             'created_at'    => $created_at,
         ];
 
+        if ($validator->fails()) {
+            // Gagal ❌   
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Tidak bisa menambahkan Permohonan');
+            session()->flash('status', 'error');
+            return redirect()->back()->with('danger', 'Permohonan gagal ditambahkan');
+        }
+
+        Permohonan::insert($data);
+        // Success ✅   
+        session()->flash('title', 'Sukses');
+        session()->flash('message', 'Data berhasil dikirim');
+        session()->flash('status', 'success');
+        return redirect('/admin/permohonan')->with('success', 'Permohonan berhasil dikirim');
+    }
+
+    public function updateRequestStore(Request $request)
+    {
+        $rules = [
+            'program_id' => 'required',
+            'name' => 'required',
+            'nik' => 'required',
+            'birthplace' => 'required',
+            'birthdate' => 'required',
+            'province' => 'required',
+            'district' => 'required',
+            'regency' => 'required',
+            'village' => 'required',
+            'religion' => 'required',
+            'job' => 'required',
+            'phone' => 'required',
+            'description' => 'required',
+        ];
+
+        // Custom Error Message for Validation
+        $messages = [
+            'required' => 'Data :attribute harus diisi',
+        ];
+
+        $validator = Validator::make(request()->all(), $rules, $messages);
+        if ($validator->fails()) {
+            session()->flash('title', 'Gagal');
+            session()->flash('message', 'Data gagal dikirim. Silakan cek kembali form yang Anda isi');
+            session()->flash('status', 'error');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // created_at ✅
+        date_default_timezone_set("Asia/Jakarta");
+        $created_at = date('Y-m-d H:i:s');
+
+        $requirements = [
+            'sp' => null,
+            'ktp' => null,
+            'kk' => null,
+            'sktm' => null,
+            'sp_kelurahan' => null,
+            'tagihan_sklh' => null,
+            'foto_usaha' => null,
+            'tagihan_rs' => null,
+            'proposal' => null,
+        ];
+
+        $date = date("dmy");
+        $uniqueId = "REQ" . uniqid() . $date;
+        $file = request()->file();
+        foreach ($file as $label => $file) {
+            $filename = $label . '-' . $uniqueId . '.' . $file->getClientOriginalExtension();
+            $path = "uploads/permohonan/" . $label . '/';
+            $requirements[$label] = $path . '' . $filename;
+            $file->move(public_path($path), $filename);
+        }
+        $data = [
+            'id' => request('id'),
+            'program_id' => $request->program_id,
+            'name' => $request->name,
+            'nik' => $request->nik,
+            'birthplace' => $request->birthplace,
+            'birthdate' => $request->birthdate,
+            'address' => $request->village,
+            'religion' => $request->religion,
+            'job' => $request->job,
+            'phone' => $request->phone,
+            'description' => $request->description,
+            'requirements' => json_encode($requirements),
+            'created_at'    => $created_at,
+        ];
         if ($validator->fails()) {
             // Gagal ❌   
             session()->flash('title', 'Gagal');

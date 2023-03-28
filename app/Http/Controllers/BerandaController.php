@@ -11,6 +11,7 @@ use App\Models\Rekening;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Admin\AdmPaymentController as AdmPaymentController;
@@ -30,7 +31,7 @@ class BerandaController extends Controller
         }
 
         $galeri = Galeri::latest()->take(4)->get();
-        $bayar = Payment::where('visible', 'SHOW')->latest()->take(10)->get();
+        $bayar = Payment::where('visible', 'SHOW')->where('valid', 'VALID')->latest()->take(10)->get();
         // Format Rupiah
         foreach ($bayar as $payment => $value) {
             $value->amount = AdmPaymentController::formatRupiah($value->amount, 'Rp. ');
@@ -79,17 +80,8 @@ class BerandaController extends Controller
 
     public function zakat()
     {
-        $regencies = DB::table('regencies')->where([
-            'provinces_id' => '33',
-            'districts_id' => '72'
-        ])->get();
-
-        $default_region = [
-            'province' => 33,
-            'district' => 72,
-        ];
-
-        return view('bayar.zakat', compact('regencies', 'default_region'));
+        $regencies = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 8)->where('id', 'like', '33.72%')->get();
+        return view('bayar.zakat', compact('regencies'));
     }
 
     public function hubungiKami()
@@ -116,20 +108,26 @@ class BerandaController extends Controller
     {
         return view('layanan.layanan-pembayaran');
     }
+    public function unduhDokumen()
+    {
+        $file = File::get();
+        $search = false;
+        return view('layanan.unduh-dokumen', compact('file', 'search'));
+    }
+
+    public function searchFile(Request $request)
+    {
+        $search = $request->search;
+        $file = File::where('name', 'LIKE', '%' . $search . '%')->get();
+        return view('layanan.unduh-dokumen', compact('file', 'search'));
+    }
+
     public function permohonanBantuan()
     {
         $program = DB::table('program')->where('request', 1)->get();
+        $regencies = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 8)->where('id', 'like', '33.72%')->get();
 
-        $regencies = DB::table('regencies')->where([
-            'provinces_id' => '33',
-            'districts_id' => '72'
-        ])->get();
-
-        $default_region = [
-            'province' => 33,
-            'district' => 72,
-        ];
-        return view('layanan.permohonan-bantuan', compact('program', 'regencies', 'default_region'));
+        return view('layanan.permohonan-bantuan', compact('program', 'regencies'));
     }
 
     public function permohonanBantuanStore(Request $request)
@@ -140,8 +138,6 @@ class BerandaController extends Controller
             'nik' => 'required',
             'birthplace' => 'required',
             'birthdate' => 'required',
-            'province' => 'required',
-            'district' => 'required',
             'regency' => 'required',
             'village' => 'required',
             'religion' => 'required',
@@ -162,44 +158,6 @@ class BerandaController extends Controller
             session()->flash('status', 'error');
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        // Get Region Name ✅
-        $province = DB::table('provinces')->where('id', request('province'))->first();
-        $district = DB::table('districts')->where([
-            'id'            => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $regency = DB::table('regencies')->where([
-            'id'            => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $village = DB::table('villages')->where([
-            'id'            => request('village'),
-            'regencies_id'  => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-
-        //  address ✅
-        $address = [
-            'province' => [
-                'id' => request('province'),
-                'name' => $province->name,
-            ],
-            'district' => [
-                'id' => request('district'),
-                'name' => $district->name,
-            ],
-            'regency' => [
-                'id' => request('regency'),
-                'name' => $regency->name,
-            ],
-            'village' => [
-                'id' => request('village'),
-                'name' => $village->name,
-            ],
-        ];
 
         // created_at ✅
         date_default_timezone_set("Asia/Jakarta");
@@ -234,7 +192,7 @@ class BerandaController extends Controller
             'nik' => $request->nik,
             'birthplace' => $request->birthplace,
             'birthdate' => $request->birthdate,
-            'address' => json_encode($address),
+            'address' => $request->village,
             'religion' => $request->religion,
             'job' => $request->job,
             'phone' => $request->phone,
@@ -272,17 +230,16 @@ class BerandaController extends Controller
         if (request()->id != null) {
             $label = 'Kode Permohonan';
             $id = request()->id;
-            $data = Permohonan::where('id', $id)->first();
+            $data = DB::table('request')->where('id', $id)->latest()->get();
         } else {
             $label = 'NIK';
             $nik = request()->nik;
-            $data = Permohonan::where('nik', $nik)->first();
+            $data = DB::table('request')->where('nik', $nik)->latest()->get();
         }
-
         if ($data == null) {
             session()->flash('error', request('nik') ? request('nik') : request('id'));
         } else {
-            session()->flash('data', $data);
+            session()->flash('data', $data[0]);
         }
         return redirect('cek-permohonan-bantuan')->with('label', $label);
     }

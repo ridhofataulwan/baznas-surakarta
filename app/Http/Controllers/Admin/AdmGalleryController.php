@@ -94,10 +94,10 @@ class AdmGalleryController extends Controller
         if (file_exists($galeri->gambar)) {
             unlink($galeri->gambar);
             Galeri::find($galeriID)->delete();
-            return redirect()->back()->with('success', 'Berita Delete Successfully');
+            return redirect()->back()->with('success', 'Galeri Delete Successfully');
         } else {
             Galeri::find($galeriID)->delete();
-            return redirect()->back()->with('success', 'Berita Delete Successfully');
+            return redirect()->back()->with('success', 'Galeri Delete Successfully');
         }
     }
 }

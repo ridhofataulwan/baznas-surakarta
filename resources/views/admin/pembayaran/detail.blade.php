@@ -151,7 +151,7 @@
                                                             <select class="form-control form-select bg-white select2 select2-hidden-accessible @error('province') is-invalid @enderror" name="province" id="select-province" disabled>
                                                                 <option value="">Pilih Provinsi</option>
                                                                 @foreach ($provinces as $province)
-                                                                <option value="{{ $province->id }}" {{$json_address->province->id == $province->id ? 'selected' : ''}}>
+                                                                <option value="{{ $province->id }}" {{substr($payment->address, 0, 2) == $province->id ? 'selected' : ''}}>
                                                                     {{ $province->name }}
                                                                 </option>
                                                                 @endforeach
@@ -159,25 +159,31 @@
                                                         </div>
                                                         <div class="col-sm-6 col-md-5 mb-1">
                                                             <select class="form-control form-select bg-white select2 select2-hidden-accessible @error('district') is-invalid @enderror" name="district" id="select-district" disabled>
-                                                                <option class="form-option" value="{{$json_address->district->id}}" selected>
-                                                                    {{$json_address->district->name }}
+                                                                @foreach ($districts as $district)
+                                                                <option value="{{ $district->id }}" {{substr($payment->address, 0, 5) == $district->id ? 'selected' : ''}}>
+                                                                    {{ $district->name }}
                                                                 </option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-md-5 mb-1">
                                                             <select class="form-control form-select bg-white select2 select2-hidden-accessible @error('regency') is-invalid @enderror" name="regency" id="select-regency" disabled>
-                                                                <option class="form-option" value="{{$json_address->regency->id}}" selected>
-                                                                    {{$json_address->regency->name }}
+                                                                @foreach ($regencies as $regency)
+                                                                <option value="{{ $regency->id }}" {{substr($payment->address, 0, 8) == $regency->id ? 'selected' : ''}}>
+                                                                    {{ $regency->name }}
                                                                 </option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6 col-md-5 mb-1">
                                                             <select class="form-control form-select bg-white select2 select2-hidden-accessible @error('village') is-invalid @enderror" name="village" id="select-village" disabled>
-                                                                <option class="form-option" value="{{$json_address->village->id}}" selected>
-                                                                    {{$json_address->village->name }}
+                                                                @foreach ($villages as $village)
+                                                                <option value="{{ $village->id }}" {{substr($payment->address, 0, 13) == $village->id ? 'selected' : ''}}>
+                                                                    {{ $village->name }}
                                                                 </option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -367,7 +373,7 @@
                     url: "/get-district",
                     method: 'POST',
                     data: {
-                        province_id: province_id
+                        id: province_id
                     },
                     success: function(response) {
                         let districs = response;
@@ -398,8 +404,7 @@
                     url: "/get-regency",
                     method: 'POST',
                     data: {
-                        district_id: district_id,
-                        province_id: province_id
+                        id: district_id,
                     },
                     success: function(response) {
                         let districs = response;
@@ -432,9 +437,7 @@
                     url: "/get-village",
                     method: 'POST',
                     data: {
-                        regency_id: regency_id,
-                        district_id: district_id,
-                        province_id: province_id
+                        id: regency_id,
                     },
                     success: function(response) {
                         let districs = response;

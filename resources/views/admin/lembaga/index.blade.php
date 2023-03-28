@@ -66,7 +66,7 @@
                                                         <td id="value_code_{{$l->code}}">{{ $l->code}}</td>
                                                         <td id="value_name_{{$l->code}}">{{ $l->name}}</td>
                                                         <td id="value_type_{{$l->code}}">{{ $l->type}}</td>
-                                                        <td><span class="badge badge-primary badge-sm"><i class="fas fa-calendar"></i> {{datefmt_format($fmt_date, $l->updated_at)}} - <i class="fas fa-clock"></i> {{datefmt_format($fmt_time, $l->updated_at)}}</span></td>
+                                                        <td>{{$l->updated_at}}</td>
                                                         <td>
                                                             <button class="btn btn-transparent text-center text-dark edit-lembaga" id="{{$l->code}}">
                                                                 <i class="fas fa-edit fa-2x"></i>

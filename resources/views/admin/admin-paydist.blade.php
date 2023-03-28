@@ -81,12 +81,44 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-success">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Pemasukan</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        {{$amount['in']}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-info">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Pengeluaran</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        {{$amount['out']}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-8">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Latest Post</h4>
+                                    <h4>Transaksi Pembayaran Terkini</h4>
                                     <div class="card-header-action">
-                                        <a href="/admin/post/artikel" class="btn btn-primary">View All <i class="fas fa-chevron-right"></i></a>
+                                        <a href="/admin/pembayaran" class="btn btn-primary">View All <i class="fas fa-chevron-right"></i></a>
                                     </div>
                                 </div>
                                 <div class="card-body p-0">
@@ -94,43 +126,53 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Author</th>
-                                                    <th>Category</th>
-                                                    <th>Date</th>
-                                                    <th>Action</th>
+                                                    <th>ID</th>
+                                                    <th>Nama</th>
+                                                    <th>Besaran</th>
+                                                    <th>Kategori</th>
+                                                    <th>Status</th>
+                                                    <th>Tanggal</th>
                                                 </tr>
-                                                @foreach($posts as $post)
+                                                @foreach($table['payment'] as $p)
                                                 <tr>
-                                                    <td>
-                                                        {{ $post->title}}
-                                                        <div class="table-links">
-                                                            <a href="/admin/post/edit/{{$post->id}}">Edit</a>
-                                                            <div class="bullet"></div>
-                                                            <a target="_blank" href="/post/{{$post->id}}">View</a>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#" class="font-weight-600"><img src="/assets/img/avatar/avatar-1.png" alt="avatar" width="30" class="rounded-circle mr-1">
-                                                            {{$post->author}}</a>
-                                                    </td>
-                                                    <td><a href="#">
-                                                            <?php if ($post->category_id == 1) {
-                                                                $post->category_id = 'Uncategorized';
-                                                            } elseif ($post->category_id == 2) {
-                                                                $post->category_id = 'Artikel';
-                                                            } elseif ($post->category_id == 3) {
-                                                                $post->category_id = 'Inspirasi';
-                                                            } elseif ($post->category_id == 4) {
-                                                                $post->category_id = 'Kabar Zakat';
-                                                            } ?>
-                                                            {{$post->category_id}}
-                                                        </a></td>
-                                                    <!-- Date -->
-                                                    <td>{{date_format($post->created_at,"d F Y")}}</td>
-                                                    <td>
-                                                        <a href="/admin/post/edit/{{$post->id}}" class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                    </td>
+                                                    <td><a href="/admin/pembayaran/{{$p->id}}">{{ $p->id}}</a></td>
+                                                    <td>{{ $p->name}}</td>
+                                                    <td>{{$p->amount}}</td>
+                                                    <td>{{$p->type}}</td>
+                                                    <td>{{$p->valid}}</td>
+                                                    <td>{{$p->created_at}}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Transaksi Penyaluran Terkini</h4>
+                                    <div class="card-header-action">
+                                        <a href="/admin/pembayaran" class="btn btn-primary">View All <i class="fas fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive px-3 table-invoice">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nama</th>
+                                                    <th>Besaran</th>
+                                                    <th>Kategori</th>
+                                                    <th>Tanggal</th>
+                                                </tr>
+                                                @foreach($table['distribution'] as $d)
+                                                <tr>
+                                                    <td><a href="/admin/penyaluran/{{$d->id}}">{{ $d->id}}</a></td>
+                                                    <td>{{ $d->name}}</td>
+                                                    <td>{{$d->amount}}</td>
+                                                    <td>{{$d->type}}</td>
+                                                    <td>{{$d->created_at}}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -143,34 +185,24 @@
                             <div class="card card-hero">
                                 <div class="card-header">
                                     <div class="card-icon">
-                                        <i class="far fa-question-circle"></i>
+                                        <i class="far fa-sign-in"></i>
                                     </div>
-                                    <h4>{{$count_messages}}</h4>
-                                    <div class="card-description">Messages</div>
+                                    <h4>{{$saldo['infaq']}}</h4>
+                                    <div class="card-description">Saldo Rekening Infaq</div>
                                 </div>
-                                <div class="card-body p-0">
-                                    <div class="tickets-list">
-                                        @foreach ($messages as $message)
-                                        <a href="#" class="ticket-item">
-                                            <div class="ticket-title">
-                                                <h4>{{$message->message}}</h4>
-                                            </div>
-                                            <div class="ticket-info">
-                                                <div>{{$message->name}}</div>
-                                                <div class="bullet"></div>
-                                                <div class="text-primary">a few days ago</div>
-                                            </div>
-                                        </a>
-                                        @endforeach
-                                        <a href="/admin/pesan" class="ticket-item ticket-more">
-                                            View All <i class="fas fa-chevron-right"></i>
-                                        </a>
+                            </div>
+                            <div class="card card-hero">
+                                <div class="card-header">
+                                    <div class="card-icon">
+                                        <i class="far fa-sign-out"></i>
                                     </div>
+                                    <h4>{{$saldo['zakat']}}</h4>
+                                    <div class="card-description">Saldo Rekening Zakat</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12 col-sm-6 col-lg-6">
                             <div class="card">
                                 <div class="card-header">
@@ -258,7 +290,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
             </div>
             <footer class="main-footer">

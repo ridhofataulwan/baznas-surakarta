@@ -18,7 +18,7 @@
                         <div class="align-self-start">
                             <h1>Detail Permohonan Bantuan</h1>
                         </div>
-                        <div class="align-self-start">Senin, 12 Oktober 2022</div>
+                        <div class="align-self-start">{{$req->created_at}}</div>
                     </div>
                     <div class="row">
                         <div class="col-12 ">
@@ -29,30 +29,49 @@
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->nik}}">
+                                                <input readonly type="text" class="form-control" name="nik" value="{{$req->nik}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input disabled type="text" class="form-control" name="title" value="{{$req->name}}">
+                                                <input disabled type="text" class="form-control" name="name" value="{{$req->name}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
+                                                Kelamin</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="selectgroup">
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" name="gender" value="LAKI_LAKI" class="selectgroup-input" disabled {{$req->gender == 'LAKI_LAKI' ? 'checked' : ''}}>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Laki - laki</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" name="gender" value="PEREMPUAN" class="selectgroup-input" disabled {{$req->gender == 'PEREMPUAN' ? 'checked' : ''}}>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Perempuan</span>
+                                                    </label>
+                                                </div>
+                                                @error('gender')
+                                                <a class="text-danger" style="font-size: 80%;">{{ $message }}</a>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->birthplace}}">
+                                                <input readonly type="text" class="form-control" name="birthplace" value="{{$req->birthplace}}">
                                             </div>
                                             <div class="col-sm-6 col-md-3 col-6">
-                                                <input readonly type="date" class="form-control" name="date" value="{{$req->birthdate}}">
+                                                <input readonly type="date" class="form-control" name="birthdate" value="{{$req->birthdate}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
                                                 Bantuan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <select readonly type="select" class="form-control" name="category">
+                                                <select readonly type="select" class="form-control" name="program_id">
                                                     <option selected value="Pendidikan">Pendidikan</option>
                                                 </select>
                                             </div>
@@ -60,20 +79,20 @@
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Agama</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->religion}}">
+                                                <input readonly type="text" class="form-control" name="religion" value="{{$req->religion}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pekerjaan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->job}}">
+                                                <input readonly type="text" class="form-control" name="job" value="{{$req->job}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">No
                                                 Telp</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <input readonly type="text" class="form-control" name="title" value="{{$req->phone}}">
+                                                <input readonly type="text" class="form-control" name="phone" value="{{$req->phone}}">
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
@@ -81,37 +100,42 @@
                                             <div class="col-md-9">
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select disabled class="form-control form-select bg-white" name="provinsi" id="select-province">
-                                                            <option value="">{{$json_address->province->name }}
-                                                            </option>
-                                                            @foreach ($data as $provinsi)
-                                                            <option value="{{$provinsi->id}}">
-                                                                {{ $provinsi->name }}
+                                                        <select disabled class="form-control form-select bg-white" name="province" id="select-province">
+                                                            <option value="">Pilih Provinsi</option>
+                                                            @foreach ($provinces as $province)
+                                                            <option value="{{ $province->id }}" {{substr($req->address, 0, 2) == $province->id ? 'selected' : ''}}>
+                                                                {{ $province->name }}
                                                             </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select disabled class="form-control form-select bg-white" name="kabupaten" id="select-district">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->district->name }}
+                                                        <select disabled class="form-control form-select bg-white" name="district" id="select-district">
+                                                            @foreach ($districts as $district)
+                                                            <option value="{{ $district->id }}" {{substr($req->address, 0, 5) == $district->id ? 'selected' : ''}}>
+                                                                {{ $district->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select disabled class="form-control form-select bg-white" name="alamat" id="select-regency" onchange="pilihKec(this.value)">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->regency->name }}
+                                                        <select disabled class="form-control form-select bg-white" name="regency" id="select-regency" onchange="pilihKec(this.value)">
+                                                            @foreach ($regencies as $regency)
+                                                            <option value="{{ $regency->id }}" {{substr($req->address, 0, 8) == $regency->id ? 'selected' : ''}}>
+                                                                {{ $regency->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
-                                                        <select disabled class="form-control form-select bg-white" name="alamat" id="select-village">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->village->name }}
+                                                        <select disabled class="form-control form-select bg-white" name="village" id="select-village">
+                                                            @foreach ($villages as $village)
+                                                            <option value="{{ $village->id }}" {{substr($req->address, 0, 13) == $village->id ? 'selected' : ''}}>
+                                                                {{ $village->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -122,7 +146,7 @@
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                             <div class="col-sm-12 col-md-7">
-                                                <textarea readonly style="height: 150px;" name="content" class="form-control summernote-simple">Buat Beasiswa</textarea>
+                                                <textarea readonly style="height: 150px;" name="description" class="form-control summernote-simple">{{$req->description}}</textarea>
                                             </div>
                                         </div>
                                         <hr>
@@ -153,19 +177,53 @@
                                             <div class="selectgroup col-md-4 col-sm-12">
                                                 <label class="selectgroup-item">
                                                     <input type="radio" name="transportation" value="1" class="selectgroup-input" checked="">
-                                                    <span class="selectgroup-button selectgroup-button-icon">Diterima</i></span>
-                                                </label>
-                                                <style>
-                                                    .selectgroup-input.denied:checked+.selectgroup-button {
-                                                        background-color: red;
-                                                        color: #ffffff;
-                                                    }
-                                                </style>
-                                                <label class="selectgroup-item">
-                                                    <input selected type="radio" name="transportation" value="2" class="selectgroup-input denied">
-                                                    <span class="selectgroup-button selectgroup-button-icon">Ditolak</span>
+                                                    @if($req->status == 'UNCHECKED')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-warning">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'INVALID')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-danger">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'VALID')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-info">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'INVESTIGATE')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-warning">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'ACCEPTED')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-success">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'UNACCEPTED')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-danger">{{$req->status}}</i></span>
+                                                    @elseif($req->status == 'DONE')
+                                                    <span class="selectgroup-button selectgroup-button-icon bg-success">{{$req->status}}</i></span>
+                                                    @endif
                                                 </label>
                                             </div>
+                                        </div>
+                                        <div class="form-group row mb-4" style="display:true">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Aksi</label>
+                                            @if($req->status == 'UNCHECKED' || $req->status == 'INVALID')
+                                            <div class="col-sm-12 col-md-7">
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/VALID" class="btn btn-info">Valid</a>
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/INVALID" class="btn btn-danger">Tidak Valid</a>
+                                            </div>
+                                            @endif
+                                            @if($req->status == 'VALID')
+                                            <div class="col-sm-12 col-md-7">
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/INVESTIGATE" class="btn btn-warning">Tinjau Permohonan</a>
+                                            </div>
+                                            @endif
+                                            @if($req->status == 'INVESTIGATE')
+                                            <div class="col-sm-12 col-md-7">
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/ACCEPTED" class="btn btn-success">Terima Permohonan</a>
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/UNACCEPTED" class="btn btn-danger">Tolak Permohonan</a>
+                                            </div>
+                                            @endif
+                                            @if($req->status == 'ACCEPTED')
+                                            <div class="col-sm-12 col-md-7">
+                                                <a href="/admin/permohonan/validate/{{$req->id}}/DONE" class="btn btn-info">Selesaikan</a>
+                                            </div>
+                                            @endif
+                                            @if($req->status == 'DONE' || $req->status == 'UNACCEPTED' )
+                                            <div class="col-sm-12 col-md-7">
+                                                <a class="btn btn-secondary" href="">Aksi tidak tersedia</a>
+                                            </div>
+                                            @endif
                                         </div>
                                     </form>
                                 </div>
@@ -208,7 +266,7 @@
                 url: "/get-district",
                 method: 'POST',
                 data: {
-                    province_id: province_id
+                    id: province_id
                 },
                 success: function(response) {
                     let districs = response;
@@ -239,8 +297,7 @@
                 url: "/get-regency",
                 method: 'POST',
                 data: {
-                    district_id: district_id,
-                    province_id: province_id
+                    id: district_id,
                 },
                 success: function(response) {
                     let districs = response;
@@ -273,9 +330,7 @@
                 url: "/get-village",
                 method: 'POST',
                 data: {
-                    regency_id: regency_id,
-                    district_id: district_id,
-                    province_id: province_id
+                    id: regency_id,
                 },
                 success: function(response) {
                     let districs = response;

@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Payment;
-use IntlDateFormatter;
-use Illuminate\Support\Facades\Mail;
 
 class AdmPaymentController extends Controller
 {
@@ -21,34 +19,8 @@ class AdmPaymentController extends Controller
      */
     public function pembayaran()
     {
-        /**
-         * ? Table Payment
-         * *Properti
-         * id, name, nik, gender, phone, email, address
-         * type, amount, proof_of_payment, visible, valid 
-         * created_at, updated_at
-         * ============================
-         */
-
-        //  Date Formatter
-        $fmt_date = datefmt_create(
-            'id_ID',
-            IntlDateFormatter::LONG,
-            IntlDateFormatter::LONG,
-            'Asia/Jakarta',
-            IntlDateFormatter::GREGORIAN,
-            'dd MMMM yyyy'
-        );
-        $fmt_time = datefmt_create(
-            'id_ID',
-            IntlDateFormatter::LONG,
-            IntlDateFormatter::LONG,
-            'Asia/Jakarta',
-            IntlDateFormatter::GREGORIAN,
-            'HH:mm'
-        );
-
-        $data = Payment::all();
+        $db = DB::table('payment');
+        $data = $db->get();
         foreach ($data as $payment => $value) {
             $value->amount = $this->formatRupiah($value->amount, 'Rp. ');
         }
@@ -60,7 +32,7 @@ class AdmPaymentController extends Controller
 
         $title = 'Daftar Pembayaran';
 
-        return view('admin.pembayaran.index', compact('data', 'fmt_date', 'fmt_time', 'title'));
+        return view('admin.pembayaran.index', compact('data', 'title'));
     }
 
     /**
@@ -73,19 +45,23 @@ class AdmPaymentController extends Controller
     public function detailPembayaran($id)
     {
         // Check if pembayar is lembaga or not
-        $check = DB::table('payment')->where('id', $id)->get()->first();
+        $check = DB::table('payment')->where('id', $id)->get()[0];
         $boolean = DB::table('lembaga')->where('code', $check->nik)->get();
         if (count($boolean) > 0) {
             $isLembaga = true;
         } else {
             $isLembaga = false;
         }
+        $payment = DB::table('payment')->where('id', $id)->get()->first();
 
-        $provinces = DB::table('provinces')->get();
+        $provinces  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 2)->get();
+        $districts  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 5)->where('id', 'LIKE', substr($payment->address, 0, 2) . '%')->get();
+        $regencies  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 8)->where('id', 'LIKE', substr($payment->address, 0, 5) . '%')->get();
+        $villages  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 13)->where('id', 'LIKE', substr($payment->address, 0, 8) . '%')->get();
+
+
         $lembaga = DB::table('lembaga')->get();
 
-        $address = DB::table('payment')->where('id', $id)->get()->first();
-        $json_address =  json_decode($address->address);
 
         $payment_type = [
             'MAAL' => '',
@@ -95,10 +71,8 @@ class AdmPaymentController extends Controller
             'QURBAN' => 'disabled'
         ];
 
-        $payment = Payment::where('id', $id)->get()->first();
         $title = 'Detail Pembayaran';
-
-        return view('admin.pembayaran.detail', compact('payment', 'json_address', 'isLembaga', 'provinces', 'lembaga', 'payment_type', 'title'));
+        return view('admin.pembayaran.detail', compact('payment', 'isLembaga', 'provinces', 'districts', 'regencies', 'villages', 'lembaga', 'payment_type', 'title'));
     }
 
     /**
@@ -110,7 +84,7 @@ class AdmPaymentController extends Controller
      */
     public function createPembayaran()
     {
-        $provinces = DB::table('provinces')->get();
+        $provinces  = DB::table('address')->where(DB::raw('CHAR_LENGTH(id)'), '=', 2)->get();
         $lembaga = DB::table('lembaga')->where('type', 'PEMBAYAR')->orWhere('type', 'PEMBAYAR_PENERIMA')->get();
         $title = 'Tambah Pembayaran';
 
@@ -126,30 +100,6 @@ class AdmPaymentController extends Controller
      */
     public function paymentStore()
     {
-        /**
-         * ? VALIDASI DATA
-         * Ket: 
-         * Nama, Nik, Jenis Kelamin, No HP, Email, Alamat (Kecamatan, Kelurahan)
-         * Jenis Bayar, Nominal, Bukti Pembayaran
-         * ? ======Comparasion with DB=======
-         * Table Name : payment
-         * AttrDB | Data Input
-         * *id              = ai ✅🔐
-         * *name            = name ✅
-         * *nik             = nik ✅
-         * *?gender - enum  = gender ✅
-         * *phone           = phone ✅
-         * *email           = email ✅
-         * *! address       = address ✅
-         * *! type          = type ✅
-         * *! ammount       = ammount ✅
-         * *! proof_of_payment - img    = proof_of_payment ✅
-         * *! visible - boolean         = (-) DEFAULT
-         * *! valid - enum              = (-) DEFAULT
-         * *created_at - datetime        = (-) ✅
-         * *updated_at - timestamp       = (-) DEFAULT
-         */
-
         // Custom Error Message for Validation
         $messages = [
             'required' => 'Data :attribute harus diisi',
@@ -188,7 +138,7 @@ class AdmPaymentController extends Controller
             $lembaga = DB::table('lembaga')->where('code', request('lembaga'))->first();
             $nik = $lembaga->code;
             $name = $lembaga->name;
-            $gender = "LEMBAGA";
+            $gender = "";
         } else {
             $nik = request('nik');
             $name = request('name');
@@ -212,44 +162,6 @@ class AdmPaymentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Get Region Name ✅
-        $province = DB::table('provinces')->where('id', request('province'))->first();
-        $district = DB::table('districts')->where([
-            'id'            => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $regency = DB::table('regencies')->where([
-            'id'            => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $village = DB::table('villages')->where([
-            'id'            => request('village'),
-            'regencies_id'  => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-
-        //  address ✅
-        $address = [
-            'province' => [
-                'id' => request('province'),
-                'name' => $province->name,
-            ],
-            'district' => [
-                'id' => request('district'),
-                'name' => $district->name,
-            ],
-            'regency' => [
-                'id' => request('regency'),
-                'name' => $regency->name,
-            ],
-            'village' => [
-                'id' => request('village'),
-                'name' => $village->name,
-            ],
-        ];
-
         //  amount ✅
         $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
         $amount = preg_replace($pattern, '', request('amount'));
@@ -264,14 +176,18 @@ class AdmPaymentController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $created_at = date('Y-m-d H:i:s');
 
+        $date = date("dmy");
+        $uniqueId = "PAY" . uniqid() . $date;
+
         //  INSERT ✅
         $data = [
+            'id' => $uniqueId,
             'name' => $name,
             'nik' => $nik,
             'gender' => $gender,
             'phone' => request('phone'),
             'email' => request('email'),
-            'address' => json_encode($address),
+            'address' => request('village'),
 
             'type' => request('type'),
             'amount' => $amount,
@@ -280,13 +196,8 @@ class AdmPaymentController extends Controller
             'proof_of_payment' => $pop,
         ];
 
-        // ! Deactivated
         $file->move(public_path('uploads/bayar'), $filename);
-        Payment::create($data);
-
-        // SMTP MAIL ❗ Disabled
-        // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
-        // $users = User::role('admin')->get();
+        Payment::insert($data);
 
         // Success ✅   
         session()->flash('title', 'Sukses');
@@ -294,6 +205,7 @@ class AdmPaymentController extends Controller
         session()->flash('status', 'success');
         return redirect('/admin/pembayaran');
     }
+
     /**
      * -------------------------------------------------------------------
      * paymentUpdateStore() - Create [POST]
@@ -303,30 +215,6 @@ class AdmPaymentController extends Controller
      */
     public function paymentUpdateStore()
     {
-        /**
-         * ? VALIDASI DATA
-         * Ket: 
-         * Nama, Nik, Jenis Kelamin, No HP, Email, Alamat (Kecamatan, Kelurahan)
-         * Jenis Bayar, Nominal, Bukti Pembayaran
-         * ? ======Comparasion with DB=======
-         * Table Name : payment
-         * AttrDB | Data Input
-         * *id              = ai ✅🔐
-         * *name            = name ✅
-         * *nik             = nik ✅
-         * *?gender - enum  = gender ✅
-         * *phone           = phone ✅
-         * *email           = email ✅
-         * *! address       = address ✅
-         * *! type          = type ✅
-         * *! ammount       = ammount ✅
-         * *! proof_of_payment - img    = proof_of_payment ✅
-         * *! visible - boolean         = (-) DEFAULT
-         * *! valid - enum              = (-) DEFAULT
-         * *created_at - datetime        = (-) ✅
-         * *updated_at - timestamp       = (-) DEFAULT
-         */
-
         // Custom Error Message for Validation
         $messages = [
             'required' => 'Data :attribute harus diisi',
@@ -383,43 +271,6 @@ class AdmPaymentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Get Region Name ✅
-        $province = DB::table('provinces')->where('id', request('province'))->first();
-        $district = DB::table('districts')->where([
-            'id'            => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $regency = DB::table('regencies')->where([
-            'id'            => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $village = DB::table('villages')->where([
-            'id'            => request('village'),
-            'regencies_id'  => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-
-        //  address ✅
-        $address = [
-            'province' => [
-                'id' => request('province'),
-                'name' => $province->name,
-            ],
-            'district' => [
-                'id' => request('district'),
-                'name' => $district->name,
-            ],
-            'regency' => [
-                'id' => request('regency'),
-                'name' => $regency->name,
-            ],
-            'village' => [
-                'id' => request('village'),
-                'name' => $village->name,
-            ],
-        ];
 
         //  amount ✅
         $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
@@ -442,14 +293,15 @@ class AdmPaymentController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $created_at = date('Y-m-d H:i:s');
 
-        //  INSERT ✅
+        //  UPDATE ✅
         $data = [
+            'id' => request('id'),
             'name' => $name,
             'nik' => $nik,
             'gender' => request('gender'),
             'phone' => request('phone'),
             'email' => request('email'),
-            'address' => json_encode($address),
+            'address' => request('village'),
 
             'type' => request('type'),
             'amount' => $amount,
@@ -460,14 +312,10 @@ class AdmPaymentController extends Controller
         ];
 
         // Check Code in Property 'nik' | Payment Table
-        $payment = Payment::where('nik', $data['nik']);
+        $payment = Payment::where('id', $data['id']);
         if (count($payment->get()) > 0) {
             $payment->update($data);
         }
-
-        // SMTP MAIL ❗ Disabled
-        // Mail::to(request()->email)->send(new Notifikasi($tf->email, 'Anda berhasil membayar zakat ' . request('jenis') . ' dengan nominal Rp.' . request('nominal')));
-        // $users = User::role('admin')->get();
 
         // Success ✅   
         session()->flash('title', 'Sukses');

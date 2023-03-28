@@ -40,7 +40,7 @@
                                                         <th scope="col">Nama</th>
                                                         <th scope="col" width="">Ashnaf</th>
                                                         <th scope="col" width="">Tanggal</th>
-                                                        <th scope="col" style="width: 5%">Status</th>
+                                                        <th scope="col" width="">Besaran</th>
                                                         <th scope="col" style="width: 15%">Action</th>
                                                     </tr>
                                                 </thead>
@@ -56,19 +56,10 @@
                                                         <td>{{$distribution->ashnaf}}</td>
                                                         <td>{{date("d F Y",strtotime("$distribution->created_at"))}}
                                                         </td>
+                                                        <td>{{$distribution->amount}}</td>
                                                         <td>
-                                                            <span class="badge badge-warning">Diajukan</span>
-                                                            <!-- <span class="badge badge-success">Aktif</span> -->
-                                                            <!-- <span class="badge badge-danger">Nonaktif</span> -->
-                                                        </td>
-                                                        <td>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-edit fa-2x"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
-                                                                <i class="fas fa-power-off"></i>
-                                                            </a>
-                                                            <a href="" class="btn btn-transparent text-center text-dark">
+
+                                                            <a href="" class="btn btn-transparent text-center text-dark delete-dist" data-id="delete_{{$distribution->id}}">
                                                                 <i class="fas fa-trash-alt fa-2x"></i>
                                                             </a>
                                                         </td>
@@ -95,6 +86,28 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#myTable').DataTable();
+    });
+</script>
+
+<script>
+    $(document).on('click', '.delete-dist', function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        let data = id.split('_');
+        Swal.fire({
+                title: "",
+                text: "Apakah anda yakin ingin menghapus data ini?",
+                icon: "warning",
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Ya",
+                showCancelButton: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    location.assign('penyaluran/delete/' + data[1])
+                }
+
+            })
     });
 </script>
 

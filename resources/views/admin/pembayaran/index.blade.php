@@ -58,8 +58,7 @@
                                                         <td><a href="/admin/pembayaran/{{$pay->id}}">{{$pay->name}}</a></td>
                                                         <td>{{$pay->type}}</td>
                                                         <td>
-                                                            <a type="button" class="text-primary" tabindex="0" data-toggle="popover" data-trigger="focus" data-content='{{datefmt_format($fmt_date, $pay->created_at)}} - {{datefmt_format($fmt_time, $pay->created_at)}}' data-original-title="Tanggal & Waktu"><i class="fas fa-calendar"></i> {{datefmt_format($fmt_date, $pay->created_at)}}</a>
-
+                                                            {{$pay->created_at}}
                                                         </td>
                                                         <td>{{$pay->amount}}</td>
                                                         <td>
@@ -73,11 +72,9 @@
                                                         <td>
                                                             @if($pay->valid == 'VALID')
                                                             <span class="badge badge-success">{{$pay->valid}}</span>
-                                                            @endif
-                                                            @if($pay->valid == 'INVALID')
+                                                            @elseif($pay->valid == 'INVALID')
                                                             <span class="badge badge-danger">{{$pay->valid}}</span>
-                                                            @endif
-                                                            @if($pay->valid == 'UNCHECKED')
+                                                            @elseif($pay->valid == 'UNCHECKED')
                                                             <span class="badge badge-warning">{{$pay->valid}}</span>
                                                             @endif
                                                         </td>

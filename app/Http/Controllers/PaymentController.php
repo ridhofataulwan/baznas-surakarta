@@ -84,44 +84,6 @@ class PaymentController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Get Region Name ✅
-        $province = DB::table('provinces')->where('id', request('province'))->first();
-        $district = DB::table('districts')->where([
-            'id'            => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $regency = DB::table('regencies')->where([
-            'id'            => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-        $village = DB::table('villages')->where([
-            'id'            => request('village'),
-            'regencies_id'  => request('regency'),
-            'districts_id'  => request('district'),
-            'provinces_id'  => request('province'),
-        ])->first();
-
-        //  address ✅
-        $address = [
-            'province' => [
-                'id' => request('province'),
-                'name' => $province->name,
-            ],
-            'district' => [
-                'id' => request('district'),
-                'name' => $district->name,
-            ],
-            'regency' => [
-                'id' => request('regency'),
-                'name' => $regency->name,
-            ],
-            'village' => [
-                'id' => request('village'),
-                'name' => $village->name,
-            ],
-        ];
-
         //  amount ✅
         $pattern = ['/Rp/', '/[^\p{L}\p{N}\s]/u', '/ /'];
         $amount = preg_replace($pattern, '', request('amount'));
@@ -135,17 +97,22 @@ class PaymentController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $created_at = date('Y-m-d H:i:s');
 
+        $date = date("dmy");
+        $uniqueId = "PAY" . uniqid() . $date;
+
         //  INSERT ✅
         $data = [
+            'id' => $uniqueId,
             'name' => request('name'),
             'nik' => request('nik'),
             'gender' => request('gender'),
             'phone' => request('phone'),
             'email' => request('email'),
-            'address' => json_encode($address),
+            'address' => request('village'),
 
             'type' => request('type'),
             'amount' => $amount,
+            'created_at' => 'USER',
             'created_at' => $created_at,
             'proof_of_payment' => $pop,
         ];
@@ -153,7 +120,7 @@ class PaymentController extends Controller
         // Store Uploaded File
         $file->move(public_path('uploads/bayar'), $filename);
         // Insert to Database
-        Payment::create($data);
+        Payment::insert($data);
 
         // SMTP MAIL ❗Disabled
 

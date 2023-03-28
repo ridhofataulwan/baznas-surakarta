@@ -26,6 +26,30 @@
                                 <div class="card-body">
                                     <form action="" method="POST" enctype="multipart/form-data">
                                         @csrf
+                                        <div class="form-group row mb-3">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis Penerima</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="selectgroup">
+                                                    <label class="selectgroup-item">
+                                                        <input disabled type="radio" name="dist_type" value="1" class="selectgroup-input" {{ $dist->dist_type == "PERORANGAN" ? 'checked' : '' }} checked>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Perorangan</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input disabled type="radio" name="dist_type" value="2" class="selectgroup-input" {{ $dist->dist_type == "LEMBAGA" ? 'checked' : '' }}>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Lembaga</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tanggal Distribusi</label>
+                                            <div class="col-sm-6 col-md-3">
+                                                <input readonly type="date" class="form-control @error('dist_date') is-invalid @enderror" name="dist_date" value="{{$dist->distribution_date}}">
+                                                @error('dist_date')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">NIK</label>
                                             <div class="col-sm-12 col-md-7">
@@ -38,6 +62,26 @@
                                                 <input type="text" class="form-control" name="title" readonly value="{{$dist->name}}">
                                             </div>
                                         </div>
+                                        @if($dist->dist_type == 'PERORANGAN')
+                                        <div class="form-group row mb-4">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
+                                                Kelamin</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="selectgroup">
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" name="gender" value="LAKI_LAKI" class="selectgroup-input" disabled {{$dist->gender == 'LAKI_LAKI' ? 'checked' : ''}}>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Laki - laki</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" name="gender" value="PEREMPUAN" class="selectgroup-input" disabled {{$dist->gender == 'PEREMPUAN' ? 'checked' : ''}}>
+                                                        <span class="selectgroup-button selectgroup-button-icon">Perempuan</span>
+                                                    </label>
+                                                </div>
+                                                @error('gender')
+                                                <a class="text-danger" style="font-size: 80%;">{{ $message }}</a>
+                                                @enderror
+                                            </div>
+                                        </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tempat,
                                                 Tanggal Lahir</label>
@@ -48,6 +92,7 @@
                                                 <input type="date" class="form-control" name="date" readonly value="{{$dist->birthdate}}">
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
                                                 Bantuan</label>
@@ -84,31 +129,40 @@
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="province" id="select-province">
-                                                            <option value="">{{$json_address->province->name }}
+                                                            @foreach ($provinces as $province)
+                                                            <option value="{{ $province->id }}" {{substr($dist->address, 0, 2) == $province->id ? 'selected' : ''}}>
+                                                                {{ $province->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="district" id="select-district">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->district->name }}
+                                                            @foreach ($districts as $district)
+                                                            <option value="{{ $district->id }}" {{substr($dist->address, 0, 5) == $district->id ? 'selected' : ''}}>
+                                                                {{ $district->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="regency" id="select-regency">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->regency->name }}
+                                                            @foreach ($regencies as $regency)
+                                                            <option value="{{ $regency->id }}" {{substr($dist->address, 0, 8) == $regency->id ? 'selected' : ''}}>
+                                                                {{ $regency->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6 col-md-4">
                                                         <select class="form-control form-select bg-white" name="village" id="select-village">
-                                                            <option class="form-option" value="" disabled selected>
-                                                                {{$json_address->village->name }}
+                                                            @foreach ($villages as $village)
+                                                            <option value="{{ $village->id }}" {{substr($dist->address, 0, 13) == $village->id ? 'selected' : ''}}>
+                                                                {{ $village->name }}
                                                             </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -121,67 +175,26 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="form-group row mb-4">
-                                            <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3"></label>
-                                            <div class="col-sm-12 col-md-6">
-                                                <h3>Kelengkapan Dokumen</h3>
+                                        <div class="form-group row col-12 ml-5 pr-5">
+                                            <div class="col-12 col-sm-12 text-center">
+                                                <h3>Kelengkapan Persyaratan</h3>
                                             </div>
                                         </div>
                                         <div class="form-group row mb-4">
-                                            <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Persyaratan
-                                                {{$program->name}}</label>
-                                            <div class="row-md-6">
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                                        <label class="custom-control-label" for="customCheck1">Surat
-                                                            Permohonan Bantuan</label>
+                                            <?php $dist->requirements = json_decode($dist->requirements) ?>
+                                            @foreach($dist->requirements as $key => $value)
+                                            @if($value != null)
+                                            <div class="col-sm-12 col-md-4 mb-4">
+                                                <a href="/{{$value}}" target="_blank">
+                                                    <div style="height:10rem;background-image: url('http://127.0.0.1:8000/assets/img/portfolio/thumbnails/surat.jpg');background-size:cover;" class="card-body container ml-1 p-0 rounded row align-items-end ">
+                                                        <div style="background-color:red;background: linear-gradient(0deg, rgba(2,0,36,1), rgba(2,0,36,0.6197829473586309), rgba(2,0,36,0));height:3.4rem;" width="100%" class="col text-light p-3 ">
+                                                            <h5>{{strtoupper($key)}}</h5>
+                                                        </div>
                                                     </div>
-
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                        <label class="custom-control-label" for="customCheck2">Scan
-                                                            KTP</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                                        <label class="custom-control-label" for="customCheck3">Scan
-                                                            KK</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                                        <label class="custom-control-label" for="customCheck4">SKTM
-                                                            atau
-                                                            Gakin</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck5">
-                                                        <label class="custom-control-label" for="customCheck5">Suket
-                                                            Permohonan Bantuan
-                                                            ke Baznas dari kelurahan</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-auto">
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck6">
-                                                        <label class="custom-control-label" for="customCheck6">Tagihan
-                                                            dari Sekolah</label>
-                                                    </div>
-                                                </div>
+                                                </a>
                                             </div>
+                                            @endif
+                                            @endforeach
                                         </div>
                                     </form>
                                 </div>

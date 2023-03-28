@@ -365,7 +365,7 @@
                     url: "/get-district",
                     method: 'POST',
                     data: {
-                        province_id: province_id
+                        id: province_id
                     },
                     success: function(response) {
                         let districs = response;
@@ -396,8 +396,7 @@
                     url: "/get-regency",
                     method: 'POST',
                     data: {
-                        district_id: district_id,
-                        province_id: province_id
+                        id: district_id,
                     },
                     success: function(response) {
                         let districs = response;
@@ -430,9 +429,7 @@
                     url: "/get-village",
                     method: 'POST',
                     data: {
-                        regency_id: regency_id,
-                        district_id: district_id,
-                        province_id: province_id
+                        id: regency_id,
                     },
                     success: function(response) {
                         let districs = response;
@@ -472,18 +469,20 @@
             })
         });
 
-        function showElements(name, element1, element2, element3, element4) {
+        function showElements(name, element1, element2, element3, element4, element5) {
             var value = $('[name="' + name + '"]:checked').val();
             if (value == "1") {
                 $(element1).css('display', 'flex')
                 $(element2).css('display', 'flex')
                 $(element3).css('display', 'none')
                 $(element4).css('display', 'flex')
+                $(element5).css('display', 'flex')
             } else if (value == "2") {
-                $(element4).css('display', 'none')
-                $(element3).css('display', 'flex')
                 $(element1).css('display', 'none')
                 $(element2).css('display', 'none')
+                $(element3).css('display', 'flex')
+                $(element4).css('display', 'none')
+                $(element5).css('display', 'none')
             }
         }
     </script>

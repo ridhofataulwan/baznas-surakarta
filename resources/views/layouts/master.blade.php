@@ -93,6 +93,7 @@ header('Clear-Site-Data: "cache", "cookies", "storage", "executionContexts"');
                         <ul class="dropdown-menu" aria-labelledby="navbarLayanan">
                             <li><a class="dropdown-item" href="/rekening">Rekening Zakat</a></li>
                             <li><a class="dropdown-item" href="/layanan-pembayaran">Layanan Pembayaran</a></li>
+                            <li><a class="dropdown-item" href="/unduh-dokumen">Unduh Dokumen</a></li>
                             <li><a class="dropdown-item" href="/permohonan-bantuan">Permohonan Bantuan</a></li>
                         </ul>
                     </li>
