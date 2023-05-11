@@ -54,11 +54,18 @@
                                             </div>
 
                                             <div class="form-group row mb-4">
-                                                <label class="col-form-label mr-3 text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
-                                                <div class="col-sm-12 col-md-6">
-                                                    <input type="file" class="custom-file-input" name="image" id="customFile">
-                                                    <label class="custom-file-label" for="customFile">Choose
-                                                        file</label>
+                                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gambar</label>
+                                                <div class="col">
+                                                    <span class="badge badge-primary" for="image-upload">Filename</span>
+                                                    <div>Jenis file: jpg, png, jpeg</div>
+                                                    <div class="image-preview" height="100%">
+                                                        <label class="bagde badge-pill" for="image-upload" id="image-label" style="opacity: 85%; background-color: #6777ef;">Pilih File</label>
+                                                        <input type="file" name="image" id="image-upload">
+                                                        <img src="" id="image-preview" width="100%" height="auto" hidden="true">
+                                                    </div>
+                                                    @error('image')
+                                                    <span class="text-danger"> {{ $message }} </span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -110,6 +117,39 @@
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
+    </script>
+
+    <!-- Script for image upload preview -->
+    <script>
+        $(document).ready(() => {
+            $("#image-upload").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    $("#file-name").html(file.name).removeAttr("hidden");
+                    $("#image-file").attr("hidden", true);
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#image-preview").attr("src", event.target.result).removeAttr("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        $("[type='file']").change(function() {
+            var file = this.files[0].name;
+            $("[for='" + this.id + "']").html(file);
+        });
+
+        function fileName(obj) {
+            var file = obj.value.split(/(\\|\/)/g).pop();
+            $("[for='" + obj.id + "']").html(file);
+        }
+
+        // Use Function
+        $("[type='file']").change(function() {
+            fileName(this)
+        })
     </script>
     <script>
         CKEDITOR.replace('content');

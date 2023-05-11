@@ -42,7 +42,7 @@
                                                     <div>Jenis file: jpg, png, jpeg</div>
                                                     <div class="image-preview" height="100%">
                                                         <label class="bagde badge-pill" for="image-upload" id="image-label" style="opacity: 85%; background-color: #6777ef;">Pilih File</label>
-                                                        <input type="file" name="gambar[]" id="image-upload">
+                                                        <input type="file" name="gambar" id="image-upload">
                                                         <img src="" id="image-preview" width="100%" height="auto" hidden="true">
                                                     </div>
                                                     @error('gambar')

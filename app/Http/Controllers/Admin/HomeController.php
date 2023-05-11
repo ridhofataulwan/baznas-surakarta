@@ -29,7 +29,7 @@ class HomeController extends Controller
         }
         $Month = date('Y-m-d');
         $thisMonth = (int)date("m");
-        $title = 'Dashboard CMS';
+        $title = 'Dashboard Content Management System';
         return view('admin.admin-cms', compact('messages', 'posts', 'count_messages', 'count_category', 'count_file', 'now', 'last', 'allpost', 'Month', 'thisMonth', 'title'));
     }
 

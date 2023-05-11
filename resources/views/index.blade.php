@@ -304,7 +304,7 @@
                                             <div class="card card-zoom">
                                                 <img src="{{ asset($p->image) }}" class="card-img-top" alt="" style="height: 300px; object-fit: cover">
                                                 <div class="card-body">
-                                                    <a href="{{url('kabar-zakat-detail/'.$p->id)}}" style="color: #2E3192;">
+                                                    <a href="{{url('post/'.$p->id)}}" style="color: #2E3192;">
                                                         <h5 class="font-highlight post-title">{{ $p->title }}</h5>
                                                     </a>
                                                     <div class="carrousel-preview bg-white">

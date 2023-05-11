@@ -50,7 +50,7 @@
                                                     @endphp
                                                     @foreach($data as $distribution)
                                                     <tr>
-                                                        <th scope="row">1</th>
+                                                        <th scope="row">{{$no++}}</th>
                                                         <td><a href="/admin/penyaluran/{{$distribution->id}}">{{$distribution->name}}</a>
                                                         </td>
                                                         <td>{{$distribution->ashnaf}}</td>

@@ -31,28 +31,24 @@ class AdmGalleryController extends Controller
 
         );
 
-        $gambar = $request->file('gambar');
+        if ($validated) {
+            $gambar = $request->file('gambar');
+            $name_gen = hexdec(uniqid()) . '.' . $gambar->getClientOriginalExtension();
+            $gambar->move(public_path('uploads/galeri'), $name_gen);
+            $last_img = 'uploads/galeri/' . $name_gen;
 
-        foreach ($gambar as $multi_gambar) {
-            $name_gen = hexdec(uniqid()) . '.' . $multi_gambar->getClientOriginalExtension();
-            // Image::make($gambar)->resize(500, 300)->save('images/wilayah/' . $name_gen);
-
-            $multi_gambar->move(public_path('uploads/galeri'), $name_gen);
-            $last_img[] = 'uploads/galeri/' . $name_gen;
+            Galeri::insert([
+                'judul' => $request->judul,
+                'gambar' => $last_img,
+                'created_at' => Carbon::now()
+            ]);
         }
-        Galeri::insert([
-            'judul' => $request->judul,
-            'gambar' => implode("|", $last_img),
-            'created_at' => Carbon::now()
-        ]);
-
         return redirect()->route('index.galeri')->with('success', 'Galeri Sukses Ditambahkan');
     }
 
     public function editGaleri($galeriID)
     {
         $galeri = Galeri::find($galeriID);
-        // return $berita;
         $title = 'Edit Galeri';
         return view('admin.galeri.edit', compact('galeri', 'title'));
     }
@@ -60,15 +56,10 @@ class AdmGalleryController extends Controller
     {
         $galeri = Galeri::find($galeriID);
 
-        $old_image = $request->old_image;
-        // dd($old_image);
-        $galeri_image = $request->file('gambar');
+        $image = $request->file('gambar');
 
-
-
-
-        if ($galeri_image) {
-            foreach ($galeri_image as $multi_img) {
+        if ($image) {
+            foreach ($image as $multi_img) {
                 $name_gen = hexdec(uniqid()) . '.' . $multi_img->getClientOriginalExtension();
                 $multi_img->move(public_path('uploads/galeri'), $name_gen);
                 $last_img[] = 'uploads/galeri/' . $name_gen;

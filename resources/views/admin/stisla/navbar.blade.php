@@ -10,10 +10,10 @@
                 <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="{{ url('profile') }}" class="dropdown-item has-icon">
+                <!-- <a href="{{ url('profile') }}" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
-                </a>
-                <div class="dropdown-divider"></div>
+                </a> -->
+                <!-- <div class="dropdown-divider"></div> -->
                 <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
                     <i class="fas fa-sign-out-alt"></i> {{ __('Log out') }}
                 </a>

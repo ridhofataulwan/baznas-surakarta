@@ -168,6 +168,49 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Sumber Dana
+                                            </label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="selectgroup selectgroup-pills">
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" disabled name="type" value="MAAL" class="selectgroup-input" {{($dist->type == 'MAAL') ? 'checked="true"' : ''}}>
+                                                        <span class="selectgroup-button btn-outline">Maal</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" disabled name="type" value="INFAQ" class="selectgroup-input" {{($dist->type == 'INFAQ') ? 'checked="true"' : ''}}>
+                                                        <span class="selectgroup-button">Infaq</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" disabled name="type" value="FIDYAH" class="selectgroup-input" disabled>
+                                                        <span class="selectgroup-button bg-secondary">Fidyah</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" disabled name="type" value="FITRAH" class="selectgroup-input" disabled>
+                                                        <span class="selectgroup-button bg-secondary">Fitrah</span>
+                                                    </label>
+                                                    <label class="selectgroup-item">
+                                                        <input type="radio" disabled name="type" value="QURBAN" class="selectgroup-input" disabled>
+                                                        <span class="selectgroup-button bg-secondary">Qurban</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nominal (Rp)</label>
+                                            <div class="col-sm-12 col-md-7">
+                                                <div class="form-group mb-2">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <div class="input-group-text">
+                                                                Rp
+                                                            </div>
+                                                        </div>
+                                                        <input type="text" min="1" id="rupiah" class="form-control @error('email') is-invalid @enderror" name="amount" autocomplete="no" value="{{$dist->amount}}" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group row mb-4">
                                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Keterangan</label>
                                             <div class="col-sm-12 col-md-7">
